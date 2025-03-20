@@ -3,7 +3,8 @@ import 'package:africanova/view/components/bilan/bilan_header.dart';
 import 'package:flutter/material.dart';
 
 class BilanMain extends StatefulWidget {
-  const BilanMain({super.key});
+  final Function(Widget) switchView;
+  const BilanMain({super.key, required this.switchView});
 
   @override
   State<BilanMain> createState() => _BilanMainState();
@@ -25,7 +26,7 @@ class _BilanMainState extends State<BilanMain> {
   @override
   void initState() {
     super.initState();
-    _content = BilanStock();
+    _content = BilanStock(switchView: widget.switchView);
   }
 
   @override

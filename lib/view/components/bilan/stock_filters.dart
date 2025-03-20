@@ -1,13 +1,20 @@
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/view/components/bilan/ajust_stock.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';
 
 class StockFilters extends StatefulWidget {
+  final Function(Widget) switchView;
   final PlutoGridStateManager? stateManager;
   final Function(String?, String?, int?, DateTime, DateTime) setValues;
-  const StockFilters({super.key, required this.setValues, this.stateManager});
+  const StockFilters({
+    super.key,
+    required this.setValues,
+    this.stateManager,
+    required this.switchView,
+  });
 
   @override
   State<StockFilters> createState() => _StockFiltersState();
@@ -120,32 +127,64 @@ class _StockFiltersState extends State<StockFilters> {
         initiallyExpanded: false,
         tilePadding: EdgeInsets.symmetric(horizontal: 8.0),
         childrenPadding: EdgeInsets.symmetric(horizontal: .0),
-        trailing: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(16.0),
-            elevation: 0.0,
-            backgroundColor: Provider.of<ThemeProvider>(context)
-                .themeData
-                .colorScheme
-                .secondary,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
+        trailing: Wrap(
+          spacing: 8.0,
+          children: [
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16.0),
+                elevation: 0.0,
+                backgroundColor: Provider.of<ThemeProvider>(context)
+                    .themeData
+                    .colorScheme
+                    .secondary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+              ),
+              icon: Icon(Icons.store),
+              onPressed: () {
+                widget.switchView(AjustStock(switchView: widget.switchView));
+              },
+              label: const Text(
+                'Ajuster les stocks',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-          ),
-          icon: Icon(Icons.filter_alt),
-          onPressed: () {
-            _applyFilters();
-          },
-          label: const Text(
-            'Filtrer',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(16.0),
+                elevation: 0.0,
+                backgroundColor: Provider.of<ThemeProvider>(context)
+                    .themeData
+                    .colorScheme
+                    .secondary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+              ),
+              icon: Icon(Icons.filter_alt),
+              onPressed: () {
+                _applyFilters();
+              },
+              label: const Text(
+                'Filtrer',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
         title: Text(
           'Filtre',
@@ -219,6 +258,20 @@ class _StockFiltersState extends State<StockFilters> {
                                   .primary,
                               decoration: InputDecoration(
                                 labelText: "Critère",
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Provider.of<ThemeProvider>(context)
+                                        .themeData
+                                        .colorScheme
+                                        .tertiary,
+                                  ),
+                                ),
+                                floatingLabelStyle: TextStyle(
+                                  color: Provider.of<ThemeProvider>(context)
+                                      .themeData
+                                      .colorScheme
+                                      .tertiary,
+                                ),
                                 prefixIcon: Icon(Icons.label),
                                 border: OutlineInputBorder(),
                               ),
@@ -226,7 +279,7 @@ class _StockFiltersState extends State<StockFilters> {
                                 return DropdownMenuItem<String>(
                                   value: criterion,
                                   child: SizedBox(
-                                    width: (totalWidth - 16) / 3 - 76,
+                                    width: (totalWidth - 16) / 3 - 80,
                                     child: Text(
                                       criterion,
                                       overflow: TextOverflow.ellipsis,
@@ -260,6 +313,20 @@ class _StockFiltersState extends State<StockFilters> {
                                   .colorScheme
                                   .primary,
                               decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Provider.of<ThemeProvider>(context)
+                                        .themeData
+                                        .colorScheme
+                                        .tertiary,
+                                  ),
+                                ),
+                                floatingLabelStyle: TextStyle(
+                                  color: Provider.of<ThemeProvider>(context)
+                                      .themeData
+                                      .colorScheme
+                                      .tertiary,
+                                ),
                                 labelText: "Condition",
                                 prefixIcon: Icon(
                                   Icons.code,
@@ -269,7 +336,15 @@ class _StockFiltersState extends State<StockFilters> {
                               items: _conditions.map((String condition) {
                                 return DropdownMenuItem<String>(
                                   value: condition,
-                                  child: Text(condition),
+                                  child: SizedBox(
+                                    width: (totalWidth - 16) / 3 - 80,
+                                    child: Text(
+                                      condition,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                    ),
+                                  ),
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {

@@ -1,4 +1,5 @@
 import 'package:africanova/database/user.dart';
+import 'package:africanova/provider/auth_provider.dart';
 
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -188,7 +189,7 @@ class _ProfilCardState extends State<ProfilCard> {
                                     horizontal: 20, vertical: 10),
                               ),
                               onPressed: () async {
-                                // logout(context);
+                                globalLogout();
                               },
                               child: const Text('OK'),
                             ),

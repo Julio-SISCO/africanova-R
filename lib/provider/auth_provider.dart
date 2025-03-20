@@ -109,7 +109,7 @@ Future<bool> isSessionExpired() async {
   return false;
 }
 
-Future<void> _logout() async {
+Future<void> globalLogout() async {
   final result = await logout();
   if (result['status'] == true) {
     await clearAllHiveBoxes();
@@ -137,7 +137,7 @@ void startSessionCheck() {
   Timer.periodic(Duration(minutes: 1), (timer) async {
     bool expired = await isSessionExpired();
     if (expired) {
-      await _logout();
+      await globalLogout();
     }
   });
 }

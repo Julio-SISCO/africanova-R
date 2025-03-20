@@ -13,7 +13,8 @@ import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';
 
 class BilanStock extends StatefulWidget {
-  const BilanStock({super.key});
+  final Function(Widget) switchView;
+  const BilanStock({super.key, required this.switchView});
 
   @override
   State<BilanStock> createState() => _BilanStockState();
@@ -125,6 +126,7 @@ class _BilanStockState extends State<BilanStock> {
               spacing: 0.0,
               children: [
                 StockFilters(
+                  switchView: widget.switchView,
                   setValues:
                       (String? a, String? b, int? c, DateTime d, DateTime e) =>
                           _applyFilter(a, b, c, d, e),

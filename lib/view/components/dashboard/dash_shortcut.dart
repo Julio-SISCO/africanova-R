@@ -197,7 +197,7 @@ class DashShortcut extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  switchView(BilanMain());
+                                  switchView(BilanMain(switchView: switchView));
                                 },
                                 icon: Icon(
                                   Icons.summarize_outlined,
