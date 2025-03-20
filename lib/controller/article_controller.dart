@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/static/endpoints.dart';
 import 'package:flutter/material.dart';
@@ -356,7 +356,7 @@ Future<Map<String, dynamic>> updateStock(int id, int qte) async {
         'Authorization': 'Bearer ${await getToken()}',
       },
       body: jsonEncode({
-        'qte': qte,
+        'stock': qte,
       }),
     );
 
@@ -379,6 +379,7 @@ Future<Map<String, dynamic>> updateStock(int id, int qte) async {
     }
     return {
       'status': responseData['status'],
+      'article' : Article.fromJson(responseData['article']),
       'message': responseData['message'],
     };
   } on SocketException catch (_) {

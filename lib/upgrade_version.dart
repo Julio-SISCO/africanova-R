@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpgradeVersion extends StatelessWidget {
@@ -12,6 +13,8 @@ class UpgradeVersion extends StatelessWidget {
 
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
+
+      await Hive.deleteFromDisk();
     } else {
       Get.snackbar(
         '',

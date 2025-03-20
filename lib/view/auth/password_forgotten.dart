@@ -1,5 +1,6 @@
 import 'package:africanova/base.dart';
 import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/controller/global_controller.dart';
 import 'package:africanova/util/check_profil.dart';
 import 'package:africanova/view/auth/form_design.dart';

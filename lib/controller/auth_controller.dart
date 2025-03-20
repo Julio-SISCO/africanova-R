@@ -1,18 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:africanova/database/article.dart';
-import 'package:africanova/database/categorie.dart';
-import 'package:africanova/database/client.dart';
 import 'package:africanova/database/employer.dart';
-import 'package:africanova/database/fournisseur.dart';
-import 'package:africanova/database/outil.dart';
-import 'package:africanova/database/permission.dart';
-import 'package:africanova/database/role.dart';
-import 'package:africanova/database/service.dart';
-import 'package:africanova/database/type_service.dart';
 import 'package:africanova/database/user.dart';
-import 'package:africanova/database/vente.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/static/endpoints.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -267,6 +258,7 @@ Future<Map<String, dynamic>> login({
     );
 
     if (response.statusCode == 200) {
+      setLastLoginTime();
       final responseData = json.decode(response.body);
       final token = responseData['token'] ?? '';
       final userData = responseData['user'] ?? {};
@@ -281,6 +273,81 @@ Future<Map<String, dynamic>> login({
       var userBox = Hive.box<User>('userBox');
       final user = User.fromJson(userData);
       await userBox.put('currentUser', user);
+      return {
+        'status': responseData['status'],
+        'message': responseData['message'],
+      };
+    } else if (response.statusCode == 422) {
+      final responseData = json.decode(response.body);
+      return {
+        'status': false,
+        'message': responseData['error'],
+      };
+    } else if (response.statusCode == 400) {
+      final responseData = json.decode(response.body);
+      return {
+        'status': false,
+        'message': responseData['error'],
+      };
+    } else if (response.statusCode == 403) {
+      final responseData = json.decode(response.body);
+      return {
+        'status': false,
+        'message': responseData['error'],
+      };
+    } else if (response.statusCode == 500) {
+      return {
+        'status': false,
+        'message': "Erreur serveur",
+      };
+    } else {
+      return {
+        'status': false,
+        'message': "Erreur ${response.statusCode}",
+      };
+    }
+  } on SocketException catch (_) {
+    return {
+      'status': false,
+      'message': 'Aucune connexion Internet',
+    };
+  } on HttpException catch (_) {
+    return {
+      'status': false,
+      'message': 'Erreur HTTP.',
+    };
+  } on FormatException catch (_) {
+    return {
+      'status': false,
+      'message': 'Format de réponse non valide.',
+    };
+  } on TimeoutException catch (_) {
+    return {
+      'status': false,
+      'message': 'Délai d\'attente de la requête dépassé.',
+    };
+  } catch (e) {
+    return {
+      'status': false,
+      'message': 'Erreur inconnue: $e',
+    };
+  }
+}
+
+Future<Map<String, dynamic>> logout() async {
+  const url = Endpoints.logout;
+
+  try {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer ${await getToken()}',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
       return {
         'status': responseData['status'],
         'message': responseData['message'],
@@ -445,6 +512,7 @@ Future<Map<String, dynamic>> register({
     );
 
     if (response.statusCode == 201) {
+      setLastLoginTime();
       final responseData = json.decode(response.body);
       final token = responseData['token'] ?? '';
       final userData = responseData['user'] ?? {};
@@ -599,54 +667,4 @@ Future<Map<String, dynamic>> setProfile({
       'message': 'Erreur inconnue: $e',
     };
   }
-}
-
-Future<void> clearAllHiveBoxes() async {
-  try {
-    await Hive.box<Employer>('employerBox').clear();
-    await Hive.box<User>('userBox').clear();
-    await Hive.box<User>('otherUser').clear();
-    await Hive.box<Categorie>('categorieBox').clear();
-    await Hive.box<Article>('articleBox').clear();
-    await Hive.box<Client>('clientBox').clear();
-    await Hive.box<Fournisseur>('fournisseurBox').clear();
-    await Hive.box<Vente>('VenteHistory').clear();
-    await Hive.box<Permission>('permissionBox').clear();
-    await Hive.box<Permission>('userPermissionBox').clear();
-    await Hive.box<Role>('roleBox').clear();
-    await Hive.box<Outil>('outilBox').clear();
-    await Hive.box<TypeService>('typeServiceBox').clear();
-    await Hive.box<Service>('serviceBox').clear();
-
-    final prefs = await SharedPreferences.getInstance();
-
-    bool? savedTheme = prefs.getBool('isLightTheme');
-    await prefs.clear();
-    if (savedTheme != null) {
-      await prefs.setBool('isLightTheme', savedTheme);
-    }
-  } catch (e) {
-    return;
-  }
-}
-
-Future<String> getToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('token') ?? '';
-}
-
-Future<bool> getSafe() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getBool('safe') ?? false;
-}
-
-Future<bool> isUserLoggedIn() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.containsKey('token');
-}
-
-Future<User?> getAuthUser() async {
-  var userBox = Hive.box<User>('userBox');
-  final user = userBox.get('currentUser');
-  return user;
 }

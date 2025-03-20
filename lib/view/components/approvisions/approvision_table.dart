@@ -2,11 +2,15 @@
 
 import "package:africanova/controller/approvision_controller.dart";
 import "package:africanova/database/approvision.dart";
+import "package:africanova/provider/permissions_providers.dart";
 import "package:africanova/theme/theme_provider.dart";
 import "package:africanova/util/date_formatter.dart";
+import "package:africanova/view/components/approvisions/approvision_detail.dart";
 import "package:africanova/view/components/approvisions/approvision_saver.dart";
+import "package:africanova/widget/dialogs.dart";
 import "package:africanova/widget/table_config.dart";
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 import "package:hive/hive.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:pluto_grid/pluto_grid.dart";
@@ -32,6 +36,23 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
 
   Future<void> _fetchAndStoreTopArticles() async {
     await getApprovision();
+  }
+
+  void _delete(context, int id) async {
+    final result = await supprimerApprovision(id);
+    if (result['status']) {
+      Navigator.pop(context);
+    }
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   final List<PlutoColumn> columns = [];
@@ -90,6 +111,87 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
         enableContextMenu: false,
         enableFilterMenuItem: false,
         enableSorting: false,
+        renderer: (rendererContext) {
+          return FutureBuilder<Map<String, bool>>(
+            future: checkPermissions([
+              'modifier approvisionnements',
+              'voir approvisionnements',
+              'supprimer approvisionnements',
+            ]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SizedBox();
+              }
+              if (snapshot.hasError) {
+                return Center(child: Text('Erreur: ${snapshot.error}'));
+              }
+
+              var permissions = snapshot.data ?? {};
+
+              return Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  if (permissions['supprimer approvisionnements'] ?? false)
+                    Tooltip(
+                      message: 'Supprimer l\'approvisionnement',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red[600],
+                        ),
+                        onPressed: () {
+                          showCancelConfirmationDialog(
+                            context,
+                            () {
+                              _delete(
+                                context,
+                                rendererContext.cell.value.id ?? 0,
+                              );
+                            },
+                            'Êtes-vous sûr de vouloir supprimer cet approvisionnement ?',
+                          );
+                        },
+                      ),
+                    ),
+                  if ((permissions['modifier approvisionnements'] ?? false))
+                    Tooltip(
+                      message: 'Modifier l\'approvisionnement',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.blue[800],
+                        ),
+                        onPressed: () {
+                          widget.switchView(
+                            ApprovisionSaver(
+                              editableApprovision: rendererContext.cell.value,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  if (permissions['voir approvisionnements'] ?? false)
+                    Tooltip(
+                      message: 'Datails de l\'approvisionnement',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.info,
+                        ),
+                        onPressed: () {
+                          widget.switchView(
+                              ApprovisionDetail(
+                                approvision: rendererContext.cell.value,
+                                switchView: (Widget w) => widget.switchView(w),
+                              ),
+                              );
+                        },
+                      ),
+                    ),
+                ],
+              );
+            },
+          );
+        },
       ),
     ];
   }
@@ -140,7 +242,7 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
         ),
         "total": PlutoCell(
             value: "${approvision.montantTotal.toStringAsFixed(0)} f"),
-        "action": PlutoCell(value: "voir"),
+        "action": PlutoCell(value: approvision),
       },
     );
   }

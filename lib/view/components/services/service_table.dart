@@ -80,13 +80,25 @@ class _ServiceTableState extends State<ServiceTable> {
         enableContextMenu: false,
       ),
       PlutoColumn(
-        title: "Status",
-        field: "status",
-        type: PlutoColumnType.text(),
-        width: width,
-        minWidth: width,
-        enableContextMenu: false,
-      ),
+          title: "Status",
+          field: "status",
+          type: PlutoColumnType.text(),
+          width: width,
+          minWidth: width,
+          enableContextMenu: false,
+          renderer: (rendererContext) {
+            return Text(
+              rendererContext.cell.value?.toUpperCase() ?? "EN ATTENTE",
+              style: TextStyle(
+                color: rendererContext.cell.value == null
+                    ? Colors.orange
+                    : rendererContext.cell.value == "complete"
+                        ? Colors.green[700]
+                        : Colors.red[700],
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          }),
       PlutoColumn(
         title: "Actions",
         field: "actions",
@@ -155,7 +167,7 @@ class _ServiceTableState extends State<ServiceTable> {
       'services': PlutoCell(value: typeServices),
       'client': PlutoCell(value: service.client.fullname ?? 'Non spécifié'),
       'montant': PlutoCell(value: "$total f"),
-      'status': PlutoCell(value: service.status),
+      'status': PlutoCell(value: service.status == 'en_attente' ? "en attente" : service.status),
       'traiteur': PlutoCell(value: traiteur),
       'actions': PlutoCell(value: service),
     });

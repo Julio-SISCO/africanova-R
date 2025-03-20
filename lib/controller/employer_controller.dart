@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/employer.dart';
 import 'package:africanova/static/endpoints.dart';
 import 'package:flutter/material.dart';

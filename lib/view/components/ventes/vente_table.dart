@@ -28,13 +28,14 @@ class _VenteTableState extends State<VenteTable> {
   late List<Vente> ventes = [];
   late String query = "";
   DateTime? _selectedDate;
+
   @override
   void initState() {
     super.initState();
-    _fetchAndStoreTopArticles();
+    _fetchAndStore();
   }
 
-  Future<void> _fetchAndStoreTopArticles() async {
+  Future<void> _fetchAndStore() async {
     await getVente();
   }
 
@@ -253,7 +254,8 @@ class _VenteTableState extends State<VenteTable> {
         "date": PlutoCell(value: formatDate(vente.createdAt)),
         "client": PlutoCell(value: vente.client?.fullname ?? "Inconnu"),
         "nb_article": PlutoCell(value: vente.lignes.length),
-        "status": PlutoCell(value: vente.status),
+        "status": PlutoCell(
+            value: vente.status == 'en_attente' ? "en attente" : vente.status),
         "vendeur": PlutoCell(
           value: vente.employer != null
               ? "${vente.employer!.prenom} ${vente.employer!.nom}"

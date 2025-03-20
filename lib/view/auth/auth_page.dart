@@ -1,6 +1,7 @@
 import 'package:africanova/base.dart';
 import 'package:africanova/controller/auth_controller.dart';
 import 'package:africanova/controller/global_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/util/check_profil.dart';
 import 'package:africanova/view/auth/form_design.dart';
 import 'package:africanova/view/auth/profile_form.dart';
@@ -63,17 +64,18 @@ class _AuthPageState extends State<AuthPage> {
         snackPosition: SnackPosition.BOTTOM,
       );
       if (result['status'] == true) {
+        startSessionCheck();
         bool hasProfile = await hasEmployerProfile();
         if (hasProfile) {
           bool safe = await getSafe();
           if (safe) {
             await getGlobalData();
-            Get.to(const BaseApp());
+            Get.offAll(const BaseApp());
           } else {
-            Get.to(const SecurityQuestionForm());
+            Get.offAll(const SecurityQuestionForm());
           }
         } else {
-          Get.to(const ProfileForm());
+          Get.offAll(const ProfileForm());
         }
       }
       setState(() {

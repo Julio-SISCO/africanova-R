@@ -1,4 +1,4 @@
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/controller/user_controller.dart';
 import 'package:africanova/database/user.dart';
 import 'package:flutter/material.dart';

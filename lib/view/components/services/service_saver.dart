@@ -34,6 +34,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
   bool _showRemise = false;
   bool _taxeInPercent = false;
   bool _remiseInPercent = false;
+  bool expanded = false;
 
   double _totalLignesArticles = 0.0;
   double _total = 0.0;
@@ -72,6 +73,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
     if (widget.editableService != null) {
       final service = widget.editableService;
       setState(() {
+        expanded = true;
         client = service?.client;
         lignesArticles = service?.articles ?? [];
         lignesOutils = service?.outils ?? [];
@@ -451,17 +453,17 @@ class _ServiceSaverState extends State<ServiceSaver> {
           _showTaxe = false;
           _showOtherAmount = false;
         });
-        Get.snackbar(
-          '',
-          result["message"],
-          titleText: SizedBox.shrink(),
-          messageText: Center(
-            child: Text(result["message"]),
-          ),
-          maxWidth: 300,
-          snackPosition: SnackPosition.BOTTOM,
-        );
       }
+      Get.snackbar(
+        '',
+        result["message"],
+        titleText: SizedBox.shrink(),
+        messageText: Center(
+          child: Text(result["message"]),
+        ),
+        maxWidth: 300,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } else {
       if (client == null) {
         setState(() {
@@ -752,6 +754,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpansionTile(
+              initiallyExpanded: expanded,
               iconColor: Provider.of<ThemeProvider>(context)
                   .themeData
                   .colorScheme
@@ -844,6 +847,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpansionTile(
+              initiallyExpanded: expanded,
               iconColor: Provider.of<ThemeProvider>(context)
                   .themeData
                   .colorScheme
@@ -943,6 +947,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpansionTile(
+              initiallyExpanded: expanded,
               iconColor: Provider.of<ThemeProvider>(context)
                   .themeData
                   .colorScheme

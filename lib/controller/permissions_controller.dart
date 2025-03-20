@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
 import 'package:africanova/static/endpoints.dart';

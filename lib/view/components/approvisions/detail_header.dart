@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:africanova/controller/service_controller.dart';
-import 'package:africanova/database/service.dart';
+import 'package:africanova/controller/approvision_controller.dart';
+import 'package:africanova/database/approvision.dart';
 import 'package:africanova/provider/permissions_providers.dart';
 import 'package:africanova/theme/theme_provider.dart';
-import 'package:africanova/view/components/services/service_main.dart';
-import 'package:africanova/view/components/services/service_saver.dart';
+import 'package:africanova/view/components/approvisions/approvision_saver.dart';
+import 'package:africanova/view/components/approvisions/approvision_table.dart';
 import 'package:africanova/widget/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,40 +13,18 @@ import 'package:provider/provider.dart';
 
 class DetailHeader extends StatelessWidget {
   final Function(Widget) switchView;
-  final Service service;
+  final Approvision approvision;
   const DetailHeader({
     super.key,
-    required this.service,
+    required this.approvision,
     required this.switchView,
   });
 
   void _delete(context, int id) async {
-    final result = await deleteService(id);
+    final result = await supprimerApprovision(id);
     if (result['status']) {
       Navigator.pop(context);
-      switchView(ServiceMain(
-        switchView: (Widget w) => switchView(w),
-      ));
-    }
-    Get.snackbar(
-      '',
-      result["message"],
-      titleText: SizedBox.shrink(),
-      messageText: Center(
-        child: Text(result["message"]),
-      ),
-      maxWidth: 300,
-      snackPosition: SnackPosition.BOTTOM,
-    );
-  }
-
-  void _cancel(context, int id) async {
-    final result = await cancelService(id);
-    if (result['status']) {
-      Navigator.pop(context);
-      switchView(ServiceMain(
-        switchView: (Widget w) => switchView(w),
-      ));
+      switchView(ApprovisionTable(switchView: switchView));
     }
     Get.snackbar(
       '',
@@ -64,10 +42,9 @@ class DetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, bool>>(
       future: checkPermissions([
-        'voir services',
-        'annuler services',
-        'modifier services',
-        'supprimer services',
+        'modifier approvisionnements',
+        'supprimer approvisionnements',
+        'annuler approvisionnements',
       ]),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -123,7 +100,7 @@ class DetailHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (permissions['supprimer services'] ?? false) ...[
+                if (permissions['supprimer approvisionnements'] ?? false) ...[
                   const SizedBox(width: 16.0),
                   Tooltip(
                     message: "Supprimer",
@@ -132,9 +109,9 @@ class DetailHeader extends StatelessWidget {
                         showCancelConfirmationDialog(
                           context,
                           () {
-                            _delete(context, service.id);
+                            _delete(context, approvision.id ?? 0);
                           },
-                          'Êtes-vous sûr de vouloir supprimer ce service ?',
+                          'Êtes-vous sûr de vouloir supprimer cet approvisionnement ?',
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -169,61 +146,15 @@ class DetailHeader extends StatelessWidget {
                     ),
                   ),
                 ],
-                if (permissions['annuler services'] ?? false) ...[
+                if ((permissions['modifier approvisionnements'] ?? false)) ...[
                   const SizedBox(width: 16.0),
                   Tooltip(
-                    message: "Annuler",
-                    child: TextButton.icon(
-                      onPressed: () {
-                        showCancelConfirmationDialog(
-                          context,
-                          () {
-                            _cancel(context, service.id);
-                          },
-                          'Êtes-vous sûr de vouloir annuler ce service ?',
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0.0,
-                        backgroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .primary,
-                        foregroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                      ),
-                      icon: Icon(
-                        Icons.cancel,
-                        color: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                      ),
-                      label: const Text(
-                        "Annuler",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                if (permissions['modifier services'] ?? false) ...[
-                  const SizedBox(width: 16.0),
-                  Tooltip(
-                    message: "Mofifier",
+                    message: "Modifier",
                     child: TextButton.icon(
                       onPressed: () {
                         switchView(
-                          ServiceSaver(
-                            editableService: service,
+                          ApprovisionSaver(
+                            editableApprovision: approvision,
                           ),
                         );
                       },

@@ -4,7 +4,9 @@ import 'package:africanova/controller/article_controller.dart';
 import 'package:africanova/provider/permissions_providers.dart';
 
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/view/components/articles/article_detail.dart';
 import 'package:africanova/view/components/articles/article_form.dart';
+import 'package:africanova/widget/dialogs.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,6 +42,23 @@ class _ArticleTableState extends State<ArticleTable> {
     await getArticles();
   }
 
+  void _delete(context, int id) async {
+    final result = await supprimerArticle(id);
+    if (result['status']) {
+      Navigator.pop(context);
+    }
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
   List<PlutoColumn> buildColumns(double width) {
     return [
       PlutoColumn(
@@ -67,96 +86,178 @@ class _ArticleTableState extends State<ArticleTable> {
         enableContextMenu: false,
       ),
       PlutoColumn(
-          title: 'Action',
-          field: 'action',
-          type: PlutoColumnType.text(),
-          width: width,
-          minWidth: width,
-          enableContextMenu: false,
-          enableFilterMenuItem: false,
-          enableSorting: false,
-          renderer: (rendererContext) {
-            return FutureBuilder<Map<String, bool>>(
-              future: checkPermissions([
-                'voir articles',
-                'modifier articles',
-                'supprimer articles',
-                'modifier stock',
-              ]),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text('${snapshot.error}'));
-                }
+        title: 'Action',
+        field: 'action',
+        type: PlutoColumnType.text(),
+        width: width,
+        minWidth: width,
+        enableContextMenu: false,
+        enableFilterMenuItem: false,
+        enableSorting: false,
+        renderer: (rendererContext) {
+          return FutureBuilder<Map<String, bool>>(
+            future: checkPermissions([
+              'voir articles',
+              'modifier articles',
+              'supprimer articles',
+              'modifier stock',
+            ]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SizedBox();
+              }
+              if (snapshot.hasError) {
+                return Center(child: Text('Erreur: ${snapshot.error}'));
+              }
 
-                var permissions = snapshot.data ?? {};
-                return PopupMenuButton<int>(
-                  onSelected: (value) async {
-                    if (value == 0) {
-                    } else if (value == 1) {
-                      widget.switchView(
-                        ArticleForm(
-                          editableArticle: rendererContext.cell.value,
-                        ),
-                      );
-                    } else if (value == 2) {
-                      bool? confirmation =
-                          await showConfirmationDialog(context);
+              var permissions = snapshot.data ?? {};
 
-                      if (confirmation == true) {
-                        var result = await supprimerArticle(
-                            rendererContext.cell.value.id ?? 0);
-                        Get.snackbar(
-                          '',
-                          result["message"],
-                          titleText: SizedBox.shrink(),
-                          messageText: Center(
-                            child: Text(result["message"]),
-                          ),
-                          maxWidth: 300,
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
-                      }
-                    } else if (value == 3) {
-                      await showEditStockDialog(
-                          context, rendererContext.cell.value);
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      if (permissions['voir articles'] ?? false)
-                        PopupMenuItem(
-                          height: 16.0 * 2,
-                          value: 0,
-                          child: Text("Détails"),
+              return Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  if (permissions['supprimer articles'] ?? false)
+                    Tooltip(
+                      message: 'Supprimer l\'article',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red[600],
                         ),
-                      if (permissions['modifier articles'] ?? false)
-                        PopupMenuItem(
-                          height: 16.0 * 2,
-                          value: 1,
-                          child: Text("Modifier"),
+                        onPressed: () {
+                          showCancelConfirmationDialog(
+                            context,
+                            () {
+                              _delete(
+                                context,
+                                rendererContext.cell.value.id ?? 0,
+                              );
+                            },
+                            'Êtes-vous sûr de vouloir supprimer cet article ?',
+                          );
+                        },
+                      ),
+                    ),
+                  if ((permissions['modifier articles'] ?? false))
+                    Tooltip(
+                      message: 'Modifier l\'article',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.blue[800],
                         ),
-                      if (permissions['supprimer articles'] ?? false)
-                        PopupMenuItem(
-                          height: 16.0 * 2,
-                          value: 2,
-                          child: Text("Supprimer"),
+                        onPressed: () {
+                          widget.switchView(
+                            ArticleForm(
+                              editableArticle: rendererContext.cell.value,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  if (permissions['voir articles'] ?? false)
+                    Tooltip(
+                      message: 'Datails de l\'article',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.info,
                         ),
-                      if (permissions['modifier stock'] ?? false)
-                        PopupMenuItem(
-                          height: 16.0 * 2,
-                          value: 3,
-                          child: Text("Modifier la quantité"),
-                        ),
-                    ];
-                  },
-                  icon: Icon(Icons.more_horiz),
-                );
-              },
-            );
-          }),
+                        onPressed: () {
+                          widget.switchView(
+                            ArticleDetail(
+                              article: rendererContext.cell.value,
+                              switchView: (Widget w) => widget.switchView(w),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                ],
+              );
+            },
+          );
+        },
+        // renderer: (rendererContext) {
+        //   return FutureBuilder<Map<String, bool>>(
+        //     future: checkPermissions([
+        //       'voir articles',
+        //       'modifier articles',
+        //       'supprimer articles',
+        //       'modifier stock',
+        //     ]),
+        //     builder: (context, snapshot) {
+        //       if (snapshot.connectionState == ConnectionState.waiting) {
+        //         return const Center(child: CircularProgressIndicator());
+        //       }
+        //       if (snapshot.hasError) {
+        //         return Center(child: Text('${snapshot.error}'));
+        //       }
+
+        //       var permissions = snapshot.data ?? {};
+        //       return PopupMenuButton<int>(
+        //         onSelected: (value) async {
+        //           if (value == 0) {
+        //           } else if (value == 1) {
+        //             widget.switchView(
+        //               ArticleForm(
+        //                 editableArticle: rendererContext.cell.value,
+        //               ),
+        //             );
+        //           } else if (value == 2) {
+        //             bool? confirmation = await showConfirmationDialog(context);
+
+        //             if (confirmation == true) {
+        //               var result = await supprimerArticle(
+        //                   rendererContext.cell.value.id ?? 0);
+        //               Get.snackbar(
+        //                 '',
+        //                 result["message"],
+        //                 titleText: SizedBox.shrink(),
+        //                 messageText: Center(
+        //                   child: Text(result["message"]),
+        //                 ),
+        //                 maxWidth: 300,
+        //                 snackPosition: SnackPosition.BOTTOM,
+        //               );
+        //             }
+        //           } else if (value == 3) {
+        //             await showEditStockDialog(
+        //                 context, rendererContext.cell.value);
+        //           }
+        //         },
+        //         itemBuilder: (BuildContext context) {
+        //           return [
+        //             if (permissions['voir articles'] ?? false)
+        //               PopupMenuItem(
+        //                 height: 16.0 * 2,
+        //                 value: 0,
+        //                 child: Text("Détails"),
+        //               ),
+        //             if (permissions['modifier articles'] ?? false)
+        //               PopupMenuItem(
+        //                 height: 16.0 * 2,
+        //                 value: 1,
+        //                 child: Text("Modifier"),
+        //               ),
+        //             if (permissions['supprimer articles'] ?? false)
+        //               PopupMenuItem(
+        //                 height: 16.0 * 2,
+        //                 value: 2,
+        //                 child: Text("Supprimer"),
+        //               ),
+        //             if (permissions['modifier stock'] ?? false)
+        //               PopupMenuItem(
+        //                 height: 16.0 * 2,
+        //                 value: 3,
+        //                 child: Text("Modifier la quantité"),
+        //               ),
+        //           ];
+        //         },
+        //         icon: Icon(Icons.more_horiz),
+        //       );
+        //     },
+        //   );
+        // },
+      ),
     ];
   }
 

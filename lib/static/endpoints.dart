@@ -1,6 +1,7 @@
 class Endpoints {
   // Base URL
-  static const String base = "https://3d48-196-170-113-37.ngrok-free.app";
+  static const String base = "https://46ac-196-170-113-37.ngrok-free.app";
+  // static const String base = "http://127.0.0.1:8000";
   static const String baseUrl = "$base/api";
 
   // Authentication

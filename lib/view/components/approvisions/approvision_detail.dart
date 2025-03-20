@@ -1,16 +1,18 @@
-import 'package:africanova/database/service.dart';
-import 'package:africanova/database/type_service.dart';
+import 'package:africanova/controller/image_url_controller.dart';
+import 'package:africanova/database/ligne_approvision.dart';
+import 'package:africanova/database/approvision.dart';
 import 'package:africanova/theme/theme_provider.dart';
-import 'package:africanova/view/components/services/detail_header.dart';
+import 'package:africanova/view/components/approvisions/detail_header.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class ServiceDetail extends StatelessWidget {
+class ApprovisionDetail extends StatelessWidget {
   final Function(Widget) switchView;
-  final Service service;
-  const ServiceDetail(
-      {super.key, required this.service, required this.switchView});
+  final Approvision approvision;
+  const ApprovisionDetail(
+      {super.key, required this.approvision, required this.switchView});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class ServiceDetail extends StatelessWidget {
         SizedBox(
           height: 60.0,
           child: DetailHeader(
-            service: service,
+            approvision: approvision,
             switchView: (Widget w) => switchView(w),
           ),
         ),
@@ -67,7 +69,7 @@ class ServiceDetail extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Informations du client",
+                                  "Informations du fournisseur",
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -76,28 +78,31 @@ class ServiceDetail extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.0),
                                 Text(
-                                  "Nom : ${service.client.fullname ?? "Commun"}",
+                                  "Nom : ${approvision.fournisseur?.fullname ?? "Commun"}",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                if (service.client.contact != null)
+                                if (approvision.fournisseur != null &&
+                                    approvision.fournisseur!.contact != null)
                                   Text(
-                                    "Contact : ${service.client.contact ?? "Inconnu"}",
+                                    "Contact : ${approvision.fournisseur?.contact ?? "Inconnu"}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                if (service.client.email != null)
+                                if (approvision.fournisseur != null &&
+                                    approvision.fournisseur!.email != null)
                                   Text(
-                                    "Email : ${service.client.email ?? "Inconnu"}",
+                                    "Email : ${approvision.fournisseur?.email ?? "Inconnu"}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                if (service.client.adresse != null)
+                                if (approvision.fournisseur != null &&
+                                    approvision.fournisseur!.adresse != null)
                                   Text(
-                                    "Adresse : ${service.client.adresse ?? "Inconnu"}",
+                                    "Adresse : ${approvision.fournisseur?.adresse ?? "Inconnu"}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -119,24 +124,20 @@ class ServiceDetail extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 8.0),
-                                Text(
-                                  "Facture N° : ${service.numFacture ?? DateFormat('ymsd').format(DateTime.now())}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                if (approvision.createdAt != null)
+                                  Text(
+                                    "Date : ${DateFormat('d MMMM yyyy', 'fr_FR').format(approvision.createdAt!)}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "Fait par : ${service.traiteur.prenom}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
+                                if (approvision.employer != null)
+                                  Text(
+                                    "Fait par : ${approvision.employer?.prenom ?? "Inconnu"}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "Date : ${DateFormat('d MMMM yyyy', 'fr_FR').format(service.createdAt)}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -147,7 +148,7 @@ class ServiceDetail extends StatelessWidget {
                 ),
                 SizedBox(height: 16.0),
                 Text(
-                  "Types de services",
+                  "Liste des articles",
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
@@ -165,12 +166,12 @@ class ServiceDetail extends StatelessWidget {
                       return Wrap(
                         children: [
                           ...List.generate(
-                            service.typeServices.length,
+                            approvision.lignes.length,
                             (index) {
                               return SizedBox(
                                 width: (totalWidth - 16) / 4,
-                                child: _buildTypeDetail(
-                                  service.typeServices[index],
+                                child: _buildArticleDetail(
+                                  approvision.lignes[index],
                                   context,
                                 ),
                               );
@@ -203,78 +204,11 @@ class ServiceDetail extends StatelessWidget {
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          
                           Expanded(
                             child: Column(
-                              children: [
-                                Text(
-                                  "Status",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  service.status == 'en_attente'
-                                      ? "EN ATTENTE"
-                                      : service.status?.toUpperCase() ??
-                                          "EN ATTENTE",
-                                  style: TextStyle(
-                                    color: service.status == null
-                                        ? Colors.orange
-                                        : service.status == "complete"
-                                            ? Colors.green[700]
-                                            : Colors.red[700],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Taxes",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                if (service.designationTaxe != null)
-                                  Text(service.designationTaxe ?? ''),
-                                Text(
-                                  (service.taxeInPercent == false)
-                                      ? '${service.taxe?.toStringAsFixed(0) ?? 0} f'
-                                      : '${service.taxe?.toStringAsFixed(0) ?? 0}%',
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Remises",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                if (service.designationRemise != null)
-                                  Text(service.designationRemise ?? ''),
-                                Text(
-                                  (service.remiseInPercent == false)
-                                      ? '${service.remise?.toStringAsFixed(0) ?? 0} f'
-                                      : '${service.remise?.toStringAsFixed(0) ?? 0}%',
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Total",
@@ -283,10 +217,8 @@ class ServiceDetail extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                if (service.designationRemise != null)
-                                  Text(service.designationRemise ?? ''),
                                 Text(
-                                  '${service.total?.toStringAsFixed(0) ?? 0} F CFA',
+                                  '${approvision.montantTotal.toStringAsFixed(0)} F CFA',
                                 ),
                               ],
                             ),
@@ -304,7 +236,7 @@ class ServiceDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildTypeDetail(TypeService ligne, context) {
+  Widget _buildArticleDetail(LigneApprovision ligne, context) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(2.0),
@@ -316,6 +248,33 @@ class ServiceDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(2),
+                bottomLeft: Radius.circular(2),
+              ),
+              child: ligne.article.images?.isNotEmpty ?? false
+                  ? CachedNetworkImage(
+                      imageUrl: buildUrl(ligne.article.images![0].path),
+                      fit: BoxFit.fill,
+                      height: 100,
+                      placeholder: (context, url) => LinearProgressIndicator(
+                        color: Colors.grey.withOpacity(.2),
+                      ),
+                      errorWidget: (context, url, error) => Image.asset(
+                        'assets/images/no_image.png',
+                        height: 100,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : Image.asset(
+                      height: 100,
+                      'assets/images/no_image.png',
+                      fit: BoxFit.fill,
+                    ),
+            ),
+          ),
+          Expanded(
             flex: 2,
             child: Padding(
               padding:
@@ -325,7 +284,7 @@ class ServiceDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    ligne.libelle,
+                    ligne.article.libelle ?? "Inconnu",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -335,12 +294,31 @@ class ServiceDetail extends StatelessWidget {
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                    ligne.description ?? "",
+                    'Prix : ${ligne.prix?.toInt() ?? 0} F',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: Colors.blueGrey,
                       fontWeight: FontWeight.w400,
-                      fontSize: 12.0,
+                    ),
+                  ),
+                  Text(
+                    'Quantité : ${ligne.quantite}',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    'Total : ${ligne.quantite * (ligne.prix ?? 0).toInt()} F',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],

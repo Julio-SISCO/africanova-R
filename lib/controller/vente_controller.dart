@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/vente.dart';
 import 'package:africanova/static/endpoints.dart';
 import 'package:hive/hive.dart';
@@ -177,8 +177,9 @@ Future<Map<String, dynamic>> cancelVente(int id) async {
           break;
         }
       }
+      Vente vente = Vente.fromJson(responseData['vente']);
       if (venteIndex != null) {
-        await box.deleteAt(venteIndex);
+        await box.putAt(venteIndex, vente);
       }
 
       return {

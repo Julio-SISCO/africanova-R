@@ -49,10 +49,7 @@ class DatabaseProvider {
 
     if (!directory.existsSync()) {
       directory.createSync(recursive: true);
-    } else {
-      await directory.delete(recursive: true);
-      directory.createSync(recursive: true);
-    }
+    } 
 
     Hive.init(directory.path);
     // await Hive.initFlutter();
@@ -154,13 +151,3 @@ Future<String> getAppVersionData() async {
   return version ?? '';
 }
 
-// Exemple d'utilisation dans ton code :
-Future<void> checkAndSaveAppVersion(Map<String, dynamic> responseData) async {
-  if (responseData['app_version'] != null &&
-      responseData['app_version'].isNotEmpty) {
-    // final appVersion = responseData['app_version']['version'];
-    // final newVersionAvailable = responseData['app_version']['availlable'];
-
-    // await saveAppVersionData(appVersion, newVersionAvailable);
-  }
-}

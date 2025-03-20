@@ -1,5 +1,5 @@
 import 'package:africanova/base.dart';
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/controller/global_controller.dart';
 import 'package:africanova/provider/database_provider.dart';
 import 'package:africanova/theme/theme_provider.dart';
@@ -11,7 +11,6 @@ import 'package:africanova/view/auth/auth_page.dart';
 import 'package:africanova/view/auth/security_question_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,15 +19,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('fr_FR', null);
   await windowConfig();
-  await Hive.deleteFromDisk();
   await DatabaseProvider.getDatabase();
   await DatabaseProvider.openBoxes();
-  await clearAllHiveBoxes();
-  await saveAppVersionData('1.1.3');
+  await clearHiveBoxes();
+  await saveAppVersionData('1.1.5');
 
   bool isLoggedIn = await isUserLoggedIn();
 
   if (isLoggedIn) {
+    startSessionCheck();
     await getGlobalData();
   }
 

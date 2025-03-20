@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
 import 'package:africanova/database/approvision.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/static/endpoints.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -602,44 +602,72 @@ Future<Map<String, dynamic>> getApprovision() async {
 }
 
 Future<Map<String, dynamic>> supprimerApprovision(int id) async {
-  final String url = '${Endpoints.approvision}$id';
+  try {
+    final String url = '${Endpoints.approvision}/$id';
 
-  final response = await http.delete(
-    Uri.parse(url),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${await getToken()}',
-    },
-  );
+    final response = await http.delete(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${await getToken()}',
+      },
+    );
 
-  if (response.statusCode == 200) {
-    var box = await Hive.openBox<Approvision>('approvisionBox');
-    int? approvisionIndex;
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final box = Hive.box<Approvision>('approvisionBox');
+      int? approvisionIndex;
 
-    for (int i = 0; i < box.length; i++) {
-      if (box.getAt(i)?.id == id) {
-        approvisionIndex = i;
-        break;
+      for (int i = 0; i < box.length; i++) {
+        if (box.getAt(i)?.id == id) {
+          approvisionIndex = i;
+          break;
+        }
       }
-    }
+      if (approvisionIndex != null) {
+        await box.deleteAt(approvisionIndex);
+      }
 
-    if (approvisionIndex != null) {
-      await box.deleteAt(approvisionIndex);
       return {
-        'statusCode': response.statusCode.toString(),
-        'message':
-            json.decode(response.body)['message'] ?? 'Approvision supprimé',
+        'status': responseData['status'],
+        'message': responseData['message'],
+      };
+    } else if (response.statusCode == 400) {
+      final responseData = json.decode(response.body);
+      return {
+        'status': false,
+        'message': responseData['error'],
       };
     } else {
       return {
-        'statusCode': 404,
-        'message': 'Approvision introuvable dans la base locale.',
+        'status': false,
+        'message': response.statusCode.toString(),
       };
     }
-  } else {
+  } on SocketException catch (_) {
     return {
-      'statusCode': response.statusCode.toString(),
-      'message': json.decode(response.body)['message'] ?? 'Erreur inconnue',
+      'status': false,
+      'message': 'Aucune connexion Internet',
+    };
+  } on HttpException catch (_) {
+    return {
+      'status': false,
+      'message': 'Erreur HTTP.',
+    };
+  } on FormatException catch (_) {
+    return {
+      'status': false,
+      'message': 'Format de réponse non valide.',
+    };
+  } on TimeoutException catch (_) {
+    return {
+      'status': false,
+      'message': 'Délai d\'attente de la requête dépassé.',
+    };
+  } catch (e) {
+    return {
+      'status': false,
+      'message': 'Erreur inconnue: $e',
     };
   }
 }

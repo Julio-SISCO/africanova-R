@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/outil.dart';
 import 'package:africanova/database/service.dart';
 import 'package:africanova/database/type_service.dart';
@@ -320,8 +320,9 @@ Future<Map<String, dynamic>> cancelService(int id) async {
           break;
         }
       }
+      Service service = Service.fromJson(responseData['service']);
       if (serviceIndex != null) {
-        await box.deleteAt(serviceIndex);
+        await box.putAt(serviceIndex, service);
       }
 
       return {
