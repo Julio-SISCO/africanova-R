@@ -2,6 +2,7 @@
 
 import 'package:africanova/controller/approvision_controller.dart';
 import 'package:africanova/database/approvision.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/approvisions/article_selection.dart';
 import 'package:africanova/view/components/approvisions/fournisseur_selection.dart';
 import 'package:africanova/database/fournisseur.dart';
@@ -588,8 +589,8 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       IconData icon, String label, bool disabled, VoidCallback onPress) {
     return SizedBox(
       height: 38,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
+      child: TextButton.icon(
+        style: TextButton.styleFrom(
           elevation: 4.0,
           backgroundColor:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
@@ -674,7 +675,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                           },
                         ),
                         Text(
-                          "${ligne.quantite} x ${ligne.prix?.toStringAsFixed(0) ?? 0} f",
+                          "${ligne.quantite} x ${formatMontant(ligne.prix ?? 0)} f",
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 14.0,

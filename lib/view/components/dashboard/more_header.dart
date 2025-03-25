@@ -83,7 +83,7 @@ class _MoreHeaderState extends State<MoreHeader> {
   }
 
   ButtonStyle _buttonStyle() {
-    return ElevatedButton.styleFrom(
+    return TextButton.styleFrom(
       elevation: 0.0,
       backgroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -148,8 +148,8 @@ class _MoreHeaderState extends State<MoreHeader> {
                 SizedBox(width: 16.0),
                 Tooltip(
                   message: "Appliquer le filtre",
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData

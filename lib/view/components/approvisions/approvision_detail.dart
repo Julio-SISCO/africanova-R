@@ -2,6 +2,7 @@ import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/ligne_approvision.dart';
 import 'package:africanova/database/approvision.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/approvisions/detail_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -218,7 +219,7 @@ class ApprovisionDetail extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '${approvision.montantTotal.toStringAsFixed(0)} F CFA',
+                                  '${formatMontant(approvision.montantTotal)} f',
                                 ),
                               ],
                             ),

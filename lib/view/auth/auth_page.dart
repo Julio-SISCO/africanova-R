@@ -118,8 +118,8 @@ class _AuthPageState extends State<AuthPage> {
                           SizedBox(
                             height: 40,
                             width: totalWidth / 2,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
+                            child: TextButton(
+                              style: TextButton.styleFrom(
                                 elevation: 0.0,
                                 backgroundColor:
                                     _register ? Colors.grey : Color(0xFF262D4D),
@@ -149,8 +149,8 @@ class _AuthPageState extends State<AuthPage> {
                           SizedBox(
                             height: 40,
                             width: totalWidth / 2,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
+                            child: TextButton(
+                              style: TextButton.styleFrom(
                                 elevation: 0.0,
                                 backgroundColor: !_register
                                     ? Colors.grey
@@ -373,8 +373,8 @@ class _AuthPageState extends State<AuthPage> {
                   SizedBox(
                     height: 40,
                     width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,

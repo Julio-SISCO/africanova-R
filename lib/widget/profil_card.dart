@@ -163,8 +163,8 @@ class _ProfilCardState extends State<ProfilCard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
+                            TextButton(
+                              style: TextButton.styleFrom(
                                 backgroundColor: Colors.grey.shade300,
                                 foregroundColor: Colors.black,
                                 shape: RoundedRectangleBorder(
@@ -178,8 +178,8 @@ class _ProfilCardState extends State<ProfilCard> {
                               },
                               child: const Text('Annuler'),
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
+                            TextButton(
+                              style: TextButton.styleFrom(
                                 backgroundColor: Colors.red,
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(

@@ -26,7 +26,7 @@ class ServiceHead extends StatefulWidget {
 class _ServiceHeadState extends State<ServiceHead> {
   int _activeIndex = 0;
   ButtonStyle _buttonStyle({bool isActive = false}) {
-    return ElevatedButton.styleFrom(
+    return TextButton.styleFrom(
       elevation: 0.0,
       backgroundColor: isActive
           ? Provider.of<ThemeProvider>(context)
@@ -125,7 +125,7 @@ class _ServiceHeadState extends State<ServiceHead> {
                     3,
                     ServiceSaver(),
                   ),
-                  style: ElevatedButton.styleFrom(
+                  style: TextButton.styleFrom(
                     elevation: 0.0,
                     backgroundColor: Provider.of<ThemeProvider>(context)
                         .themeData

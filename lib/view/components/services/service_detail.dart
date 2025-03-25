@@ -1,6 +1,7 @@
 import 'package:africanova/database/service.dart';
 import 'package:africanova/database/type_service.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/services/detail_header.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -286,7 +287,7 @@ class ServiceDetail extends StatelessWidget {
                                 if (service.designationRemise != null)
                                   Text(service.designationRemise ?? ''),
                                 Text(
-                                  '${service.total?.toStringAsFixed(0) ?? 0} F CFA',
+                                  '${formatMontant(service.total ?? 0)} f',
                                 ),
                               ],
                             ),

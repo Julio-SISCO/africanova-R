@@ -116,7 +116,7 @@ class _ServiceTypeState extends State<ServiceType> {
                             Tooltip(
                               message: "Modifier cet élément",
                               child: IconButton(
-                                style: ElevatedButton.styleFrom(
+                                style: TextButton.styleFrom(
                                   backgroundColor: Colors.grey.withOpacity(0.1),
                                 ),
                                 onPressed: () {
@@ -142,7 +142,7 @@ class _ServiceTypeState extends State<ServiceType> {
                             Tooltip(
                               message: "Supprimer cet élément",
                               child: IconButton(
-                                style: ElevatedButton.styleFrom(
+                                style: TextButton.styleFrom(
                                   backgroundColor: Colors.red.withOpacity(0.1),
                                 ),
                                 onPressed: () {

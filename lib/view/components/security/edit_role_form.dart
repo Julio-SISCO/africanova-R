@@ -142,8 +142,8 @@ class _EditRoleFormState extends State<EditRoleForm> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
                             elevation: 0.0,
                             backgroundColor: Colors.blueGrey[600],
                             shape: RoundedRectangleBorder(
@@ -164,8 +164,8 @@ class _EditRoleFormState extends State<EditRoleForm> {
                         ),
                       ),
                       SizedBox(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
                             elevation: 0.0,
                             backgroundColor: Colors.green[600],
                             shape: RoundedRectangleBorder(

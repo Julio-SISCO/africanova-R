@@ -259,8 +259,8 @@ class _AjustStockState extends State<AjustStock> {
                                       SizedBox(
                                         width: (totalWidth - 32) / 2,
                                         height: 45,
-                                        child: ElevatedButton.icon(
-                                          style: ElevatedButton.styleFrom(
+                                        child: TextButton.icon(
+                                          style: TextButton.styleFrom(
                                             elevation: 0.0,
                                             backgroundColor:
                                                 Provider.of<ThemeProvider>(
@@ -297,8 +297,8 @@ class _AjustStockState extends State<AjustStock> {
                                       SizedBox(
                                         width: totalWidth / 2 - 4,
                                         height: 45,
-                                        child: ElevatedButton.icon(
-                                          style: ElevatedButton.styleFrom(
+                                        child: TextButton.icon(
+                                          style: TextButton.styleFrom(
                                             elevation: 0.0,
                                             backgroundColor:
                                                 Provider.of<ThemeProvider>(

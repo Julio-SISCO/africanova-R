@@ -2,6 +2,7 @@ import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/ligne_vente.dart';
 import 'package:africanova/database/vente.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/ventes/detail_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -300,7 +301,7 @@ class VenteDetail extends StatelessWidget {
                                 if (vente.designationRemise != null)
                                   Text(vente.designationRemise ?? ''),
                                 Text(
-                                  '${vente.montantTotal.toStringAsFixed(0)} F CFA',
+                                  '${formatMontant(vente.montantTotal)} f',
                                 ),
                               ],
                             ),

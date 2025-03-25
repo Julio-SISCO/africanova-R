@@ -182,7 +182,7 @@ class _UserEditState extends State<UserEdit> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextButton.icon(
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -206,7 +206,7 @@ class _UserEditState extends State<UserEdit> {
                       ),
                     ),
                     TextButton.icon(
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
@@ -230,7 +230,7 @@ class _UserEditState extends State<UserEdit> {
                       ),
                     ),
                     TextButton.icon(
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),

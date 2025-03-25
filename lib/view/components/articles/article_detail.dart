@@ -1,6 +1,7 @@
 import 'package:africanova/controller/article_controller.dart';
 import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/provider/permissions_providers.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/articles/article_form.dart';
 import 'package:africanova/widget/dialogs.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -329,7 +330,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "${widget.article.prixVente!.toStringAsFixed(0)} FCFA",
+                            "${formatMontant(widget.article.prixVente ?? 0)} f",
                             style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
@@ -362,7 +363,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                             ),
                           ),
                           Text(
-                            "${widget.article.prixAchat!.toStringAsFixed(0)} FCFA",
+                            "${formatMontant(widget.article.prixAchat ?? 0)} f",
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -511,8 +512,8 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   SizedBox(
                     width: totalWidth / 2 - 4,
                     height: 45,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -544,8 +545,8 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   SizedBox(
                     width: totalWidth / 2 - 4,
                     height: 45,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -577,8 +578,8 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   SizedBox(
                     width: totalWidth / 2 - 4,
                     height: 45,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -614,7 +615,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   SizedBox(
                     width: totalWidth / 2 - 4,
                     height: 45,
-                    child: ElevatedButton.icon(
+                    child: TextButton.icon(
                       onPressed: () {
                         showCancelConfirmationDialog(
                           context,
@@ -628,7 +629,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         );
                       },
                       icon: const Icon(Icons.delete),
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -705,8 +706,8 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     SizedBox(
                       width: totalWidth,
                       height: 45,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
+                      child: TextButton.icon(
+                        style: TextButton.styleFrom(
                           elevation: 0.0,
                           backgroundColor: Provider.of<ThemeProvider>(context)
                               .themeData

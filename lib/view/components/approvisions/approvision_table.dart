@@ -241,7 +241,7 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
               : "Inconnu",
         ),
         "total": PlutoCell(
-            value: "${approvision.montantTotal.toStringAsFixed(0)} f"),
+            value: "${formatMontant(approvision.montantTotal)} f"),
         "action": PlutoCell(value: approvision),
       },
     );

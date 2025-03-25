@@ -159,14 +159,14 @@ class _ServiceTableState extends State<ServiceTable> {
             .take(2)
             .join(', ') +
         (service.typeServices.length > 2 ? '...' : '');
-    final total = service.total?.toStringAsFixed(0) ?? '0';
+    final total = service.total ?? 0;
     final traiteur = service.traiteur.prenom;
 
     return PlutoRow(cells: {
       'date': PlutoCell(value: formattedDate),
       'services': PlutoCell(value: typeServices),
       'client': PlutoCell(value: service.client.fullname ?? 'Non spécifié'),
-      'montant': PlutoCell(value: "$total f"),
+      'montant': PlutoCell(value: "${formatMontant(total)} f"),
       'status': PlutoCell(value: service.status == 'en_attente' ? "en attente" : service.status),
       'traiteur': PlutoCell(value: traiteur),
       'actions': PlutoCell(value: service),

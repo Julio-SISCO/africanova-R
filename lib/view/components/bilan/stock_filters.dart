@@ -130,8 +130,8 @@ class _StockFiltersState extends State<StockFilters> {
         trailing: Wrap(
           spacing: 8.0,
           children: [
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
+            TextButton.icon(
+              style: TextButton.styleFrom(
                 padding: EdgeInsets.all(16.0),
                 elevation: 0.0,
                 backgroundColor: Provider.of<ThemeProvider>(context)
@@ -157,8 +157,8 @@ class _StockFiltersState extends State<StockFilters> {
                 ),
               ),
             ),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
+            TextButton.icon(
+              style: TextButton.styleFrom(
                 padding: EdgeInsets.all(16.0),
                 elevation: 0.0,
                 backgroundColor: Provider.of<ThemeProvider>(context)

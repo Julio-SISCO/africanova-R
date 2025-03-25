@@ -2,6 +2,7 @@
 
 import 'package:africanova/controller/vente_controller.dart';
 import 'package:africanova/database/vente.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/ventes/article_selection.dart';
 import 'package:africanova/database/client.dart';
 import 'package:africanova/database/ligne_vente.dart';
@@ -971,8 +972,8 @@ class _VenteSaverState extends State<VenteSaver> {
       IconData icon, String label, bool disabled, VoidCallback onPress) {
     return SizedBox(
       height: 38,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
+      child: TextButton.icon(
+        style: TextButton.styleFrom(
           elevation: 4.0,
           backgroundColor:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
@@ -1056,7 +1057,7 @@ class _VenteSaverState extends State<VenteSaver> {
                           },
                         ),
                         Text(
-                          "${ligne.quantite} x ${ligne.article?.prixVente?.toStringAsFixed(0) ?? 0} f",
+                          "${ligne.quantite} x ${formatMontant(ligne.article?.prixVente ?? 0)} f",
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 14.0,
@@ -1069,8 +1070,7 @@ class _VenteSaverState extends State<VenteSaver> {
                   SizedBox(
                     width: totalWidth * .2,
                     child: Text(
-                      ((ligne.article?.prixVente ?? 0) * ligne.quantite)
-                          .toStringAsFixed(0),
+                      formatMontant((ligne.article?.prixVente ?? 0) * ligne.quantite),
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: Colors.blueGrey,

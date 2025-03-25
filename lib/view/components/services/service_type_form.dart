@@ -352,13 +352,13 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                               SizedBox(
                                 height: 40.0,
                                 width: 140.0,
-                                child: OutlinedButton(
+                                child: TextButton(
                                   onPressed: () =>
                                       widget.changeContent(ServiceTable(
                                     switchView: (Widget w) =>
                                         widget.switchView(w),
                                   )),
-                                  style: ElevatedButton.styleFrom(
+                                  style: TextButton.styleFrom(
                                     elevation: 0.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4.0),
@@ -382,9 +382,9 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                               SizedBox(
                                 height: 40.0,
                                 width: 140.0,
-                                child: ElevatedButton(
+                                child: TextButton(
                                   onPressed: _saveServiceType,
-                                  style: ElevatedButton.styleFrom(
+                                  style: TextButton.styleFrom(
                                     elevation: 0.0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4.0),

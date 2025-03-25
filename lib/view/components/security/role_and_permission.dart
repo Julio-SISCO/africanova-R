@@ -161,8 +161,8 @@ class _RoleAndPermissionState extends State<RoleAndPermission> {
                             ),
                           ),
                           SizedBox(
-                            child: ElevatedButton.icon(
-                              style: ElevatedButton.styleFrom(
+                            child: TextButton.icon(
+                              style: TextButton.styleFrom(
                                 elevation: 4.0,
                                 backgroundColor:
                                     Provider.of<ThemeProvider>(context)

@@ -87,7 +87,7 @@ class DetailHeader extends StatelessWidget {
                   message: "Imprimer la facture",
                   child: TextButton.icon(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
+                    style: TextButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
@@ -132,7 +132,7 @@ class DetailHeader extends StatelessWidget {
                           'Êtes-vous sûr de vouloir supprimer cette vente ?',
                         );
                       },
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -178,7 +178,7 @@ class DetailHeader extends StatelessWidget {
                           'Êtes-vous sûr de vouloir annuler cette vente ?',
                         );
                       },
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
@@ -222,7 +222,7 @@ class DetailHeader extends StatelessWidget {
                           ),
                         );
                       },
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData

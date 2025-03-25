@@ -20,7 +20,7 @@ class BilanHeader extends StatefulWidget {
 class _BilanHeaderState extends State<BilanHeader> {
   int _activeIndex = 0;
   ButtonStyle _buttonStyle({bool isActive = false}) {
-    return ElevatedButton.styleFrom(
+    return TextButton.styleFrom(
       elevation: 0.0,
       backgroundColor: isActive
           ? Provider.of<ThemeProvider>(context)

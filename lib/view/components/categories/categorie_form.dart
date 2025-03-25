@@ -251,8 +251,8 @@ class _CategorieFormState extends State<CategorieForm> {
         SizedBox(
           height: 40,
           width: MediaQuery.of(context).size.width * .3,
-          child: OutlinedButton(
-            style: ElevatedButton.styleFrom(
+          child: TextButton(
+            style: TextButton.styleFrom(
               elevation: 2.0,
               backgroundColor: Provider.of<ThemeProvider>(context)
                   .themeData

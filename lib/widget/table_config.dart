@@ -77,8 +77,8 @@ class _TableHeaderState extends State<TableHeader> {
               if (widget.enableAdd)
                 SizedBox(
                   height: 30,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
+                  child: TextButton.icon(
+                    style: TextButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
@@ -154,8 +154,8 @@ class _TableHeaderState extends State<TableHeader> {
                   ),
                 SizedBox(
                   height: 30,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
+                  child: TextButton(
+                    style: TextButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData

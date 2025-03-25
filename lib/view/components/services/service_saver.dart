@@ -10,6 +10,7 @@ import 'package:africanova/database/service.dart';
 import 'package:africanova/database/client.dart';
 import 'package:africanova/database/type_service.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/services/service_tool_selection.dart';
 import 'package:africanova/view/components/ventes/client_selection.dart';
 import 'package:flutter/material.dart';
@@ -1499,8 +1500,8 @@ class _ServiceSaverState extends State<ServiceSaver> {
       IconData icon, String label, bool disabled, VoidCallback onPress) {
     return SizedBox(
       height: 38,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
+      child: TextButton.icon(
+        style: TextButton.styleFrom(
           elevation: 4.0,
           backgroundColor:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
@@ -1584,7 +1585,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                           },
                         ),
                         Text(
-                          "${ligne.quantite} x ${ligne.article.prixVente?.toStringAsFixed(0) ?? 0} f",
+                          "${ligne.quantite} x ${formatMontant(ligne.article.prixVente ?? 0)} f",
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 14.0,

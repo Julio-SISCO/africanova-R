@@ -24,7 +24,7 @@ void showCancelConfirmationDialog(
           SizedBox(
             width: 120.0,
             child: TextButton(
-              style: ElevatedButton.styleFrom(
+              style: TextButton.styleFrom(
                 backgroundColor: Provider.of<ThemeProvider>(context)
                     .themeData
                     .colorScheme
@@ -51,8 +51,8 @@ void showCancelConfirmationDialog(
               ),
             ),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
+          TextButton(
+            style: TextButton.styleFrom(
               backgroundColor: Provider.of<ThemeProvider>(context)
                   .themeData
                   .colorScheme

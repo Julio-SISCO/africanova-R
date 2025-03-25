@@ -87,17 +87,21 @@ class _ServiceVenteChartState extends State<ServiceVenteChart> {
                       xValueMapper: (ChartData data, _) => data.x,
                       yValueMapper: (ChartData data, _) => data.y,
                       name: 'Total des ventes',
-                      color: Provider.of<ThemeProvider>(context)
-                          .themeData
-                          .colorScheme
-                          .tertiary,
+                      color: const Color.fromARGB(255, 47, 2, 210),
                     ),
                     ColumnSeries<ChartData, String>(
                       dataSource: dataService,
                       xValueMapper: (ChartData data, _) => data.x,
                       yValueMapper: (ChartData data, _) => data.y,
                       name: 'Total des services',
-                      color: Colors.amber[700],
+                      color: const Color.fromARGB(255, 5, 202, 133),
+                    ),
+                    ColumnSeries<ChartData, String>(
+                      dataSource: dataSale,
+                      xValueMapper: (ChartData data, _) => data.x,
+                      yValueMapper: (ChartData data, _) => (data.y + getInterval(maxValue)),
+                      name: 'Total des dépenses',
+                      color: const Color.fromARGB(255, 210, 2, 106),
                     ),
                   ],
                 ),

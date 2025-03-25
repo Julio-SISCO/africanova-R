@@ -2,6 +2,7 @@
 
 import "package:africanova/database/top_articles.dart";
 import "package:africanova/theme/theme_provider.dart";
+import "package:africanova/util/date_formatter.dart";
 import "package:africanova/view/components/dashboard/top_seller_more.dart";
 import "package:africanova/widget/table_config.dart";
 import "package:flutter/material.dart";
@@ -19,7 +20,6 @@ class TopSellerTable extends StatefulWidget {
 }
 
 class _TopSellerTableState extends State<TopSellerTable> {
-  late List<TopVendeurs> topVendeurss = [];
   late String query = "";
   @override
   void initState() {
@@ -73,36 +73,6 @@ class _TopSellerTableState extends State<TopSellerTable> {
         enableFilterMenuItem: false,
         enableSorting: false,
       ),
-      PlutoColumn(
-        title: "% Ventes",
-        field: "p_vente",
-        type: PlutoColumnType.text(),
-        width: width,
-        minWidth: width,
-        enableContextMenu: false,
-        enableFilterMenuItem: false,
-        enableSorting: false,
-      ),
-      PlutoColumn(
-        title: "% Services",
-        field: "p_service",
-        type: PlutoColumnType.text(),
-        width: width,
-        minWidth: width,
-        enableContextMenu: false,
-        enableFilterMenuItem: false,
-        enableSorting: false,
-      ),
-      PlutoColumn(
-        title: "% Totaux",
-        field: "p_total",
-        type: PlutoColumnType.text(),
-        width: width,
-        minWidth: width,
-        enableContextMenu: false,
-        enableFilterMenuItem: false,
-        enableSorting: false,
-      ),
     ];
   }
 
@@ -113,23 +83,14 @@ class _TopSellerTableState extends State<TopSellerTable> {
           value: "${topVendeurs.employer.prenom} ${topVendeurs.employer.nom}",
         ),
         "vente": PlutoCell(
-          value: "${topVendeurs.totalMontantVente.toStringAsFixed(0)} f",
+          value: "${formatMontant(topVendeurs.totalMontantVente)} f",
         ),
         "service": PlutoCell(
-          value: "${topVendeurs.totalMontantService.toStringAsFixed(0)} f",
+          value: "${formatMontant(topVendeurs.totalMontantService)} f",
         ),
         "total": PlutoCell(
           value:
-              "${(topVendeurs.totalMontantVente + topVendeurs.totalMontantService).toStringAsFixed(0)} f",
-        ),
-        "p_vente": PlutoCell(
-          value: "${topVendeurs.pourcentageVente.toStringAsFixed(2)} %",
-        ),
-        "p_service": PlutoCell(
-          value: "${topVendeurs.pourcentageServices.toStringAsFixed(2)} %",
-        ),
-        "p_total": PlutoCell(
-          value: "${topVendeurs.score.toStringAsFixed(2)} %",
+              "${formatMontant(topVendeurs.totalMontantVente + topVendeurs.totalMontantService)} f",
         ),
       },
     );
@@ -140,13 +101,37 @@ class _TopSellerTableState extends State<TopSellerTable> {
     return ValueListenableBuilder<Box<TopVendeurs>>(
       valueListenable: Hive.box<TopVendeurs>("topVendeursBox").listenable(),
       builder: (context, box, _) {
-        final topVendeurss = box.values.toList();
+        final topVendeurs = box.values.toList();
         rows.clear();
 
+        double totalVentes = 0;
+        double totalServices = 0;
+        double totalGeneral = 0;
+
+        final topTrois = topVendeurs.take(3).toList();
+
+        for (var vendeur in topTrois) {
+          totalVentes += vendeur.totalMontantVente;
+          totalServices += vendeur.totalMontantService;
+          totalGeneral +=
+              vendeur.totalMontantVente + vendeur.totalMontantService;
+        }
+
         rows.addAll(
-          topVendeurss.map(
+          topTrois.map(
             (topVendeurs) {
               return _buildRow(topVendeurs);
+            },
+          ),
+        );
+
+        rows.add(
+          PlutoRow(
+            cells: {
+              "vendeur": PlutoCell(value: "Total"),
+              "vente": PlutoCell(value: "${formatMontant(totalVentes)} f"),
+              "service": PlutoCell(value: "${formatMontant(totalServices)} f"),
+              "total": PlutoCell(value: "${formatMontant(totalGeneral)} f"),
             },
           ),
         );
@@ -156,7 +141,7 @@ class _TopSellerTableState extends State<TopSellerTable> {
             double totalWidth = constraints.maxWidth;
             return Container(
               margin: EdgeInsets.all(6.0),
-              height: 300,
+              height: 270,
               child: PlutoGrid(
                 configuration:
                     Provider.of<ThemeProvider>(context).isLightTheme()
@@ -168,7 +153,7 @@ class _TopSellerTableState extends State<TopSellerTable> {
                             columnFilter: columnFilterConfig,
                             style: darkTableStyle,
                           ),
-                columns: buildColumns((totalWidth - 16) / 7),
+                columns: buildColumns((totalWidth - 16) / 4),
                 rows: rows,
                 createHeader: (stateManager) => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,11 +172,11 @@ class _TopSellerTableState extends State<TopSellerTable> {
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: SizedBox(
                         height: 30.0,
-                        child: OutlinedButton(
+                        child: TextButton(
                           onPressed: () {
                             widget.switchView(TopSellerMore());
                           },
-                          style: ElevatedButton.styleFrom(
+                          style: TextButton.styleFrom(
                             elevation: 0.0,
                             foregroundColor: Provider.of<ThemeProvider>(context)
                                 .themeData

@@ -137,8 +137,8 @@ class _ImageCropPageState extends State<ImageCropPage> {
               SizedBox(
                 height: 16.0 * 2.5,
                 width: 250,
-                child: OutlinedButton(
-                  style: ElevatedButton.styleFrom(
+                child: TextButton(
+                  style: TextButton.styleFrom(
                     elevation: 2.0,
                     backgroundColor: Colors.blueGrey,
                     foregroundColor: bgColor,

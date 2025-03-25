@@ -233,8 +233,8 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                   SizedBox(
                     height: 40,
                     width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
                         elevation: 0.0,
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,

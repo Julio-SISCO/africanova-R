@@ -70,8 +70,8 @@ class _ServiceOutilState extends State<ServiceOutil> {
                       'enregistrer outils',
                       Align(
                         alignment: Alignment.centerRight,
-                        child: OutlinedButton.icon(
-                          style: ElevatedButton.styleFrom(
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
                             elevation: 0.0,
                             foregroundColor: Provider.of<ThemeProvider>(context)
                                 .themeData
@@ -305,7 +305,7 @@ class _OutilFormState extends State<OutilForm> {
                   width: MediaQuery.of(context).size.width / 3,
                   child: TextButton.icon(
                     onPressed: _isLoading ? null : _saveOutil,
-                    style: ElevatedButton.styleFrom(
+                    style: TextButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Colors.blueGrey,
                       shape: RoundedRectangleBorder(

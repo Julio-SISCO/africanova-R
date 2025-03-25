@@ -47,3 +47,8 @@ String formatDateRange(DateTime start, DateTime end) {
 
   return 'Période du ${dateFormat.format(start)} au ${dateFormat.format(end)}';
 }
+
+String formatMontant(double montant) {
+  final formatter = NumberFormat("#,##0", "en_US");
+  return formatter.format(montant);
+}

@@ -94,8 +94,8 @@ class DashShortcut extends StatelessWidget {
                           if (permissions['enregistrer ventes'] ?? false)
                             SizedBox(
                               height: 35,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
+                              child: TextButton.icon(
+                                style: TextButton.styleFrom(
                                   elevation: 0.0,
                                   backgroundColor:
                                       Provider.of<ThemeProvider>(context)
@@ -136,8 +136,8 @@ class DashShortcut extends StatelessWidget {
                             SizedBox(width: 8.0),
                             SizedBox(
                               height: 35,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
+                              child: TextButton.icon(
+                                style: TextButton.styleFrom(
                                   elevation: 0.0,
                                   backgroundColor:
                                       Provider.of<ThemeProvider>(context)
@@ -179,8 +179,8 @@ class DashShortcut extends StatelessWidget {
                             SizedBox(width: 8.0),
                             SizedBox(
                               height: 35,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
+                              child: TextButton.icon(
+                                style: TextButton.styleFrom(
                                   elevation: 0.0,
                                   backgroundColor:
                                       Provider.of<ThemeProvider>(context)
@@ -223,8 +223,8 @@ class DashShortcut extends StatelessWidget {
                             SizedBox(width: 8.0),
                             SizedBox(
                               height: 35,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
+                              child: TextButton.icon(
+                                style: TextButton.styleFrom(
                                   elevation: 0.0,
                                   backgroundColor:
                                       Provider.of<ThemeProvider>(context)
@@ -271,8 +271,8 @@ class DashShortcut extends StatelessWidget {
                             SizedBox(width: 8.0),
                             SizedBox(
                               height: 35,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
+                              child: TextButton.icon(
+                                style: TextButton.styleFrom(
                                   elevation: 0.0,
                                   backgroundColor:
                                       Provider.of<ThemeProvider>(context)
@@ -359,8 +359,8 @@ class DashShortcut extends StatelessWidget {
         //                   if (permissions['enregistrer ventes'] ?? false)
         //                     SizedBox(
         //                       height: 35,
-        //                       child: ElevatedButton.icon(
-        //                         style: ElevatedButton.styleFrom(
+        //                       child: TextButton.icon(
+        //                         style: TextButton.styleFrom(
         //                           elevation: 0.0,
         //                           backgroundColor:
         //                               Provider.of<ThemeProvider>(context)
@@ -401,8 +401,8 @@ class DashShortcut extends StatelessWidget {
         //                   if (permissions['gestion autorisations'] ?? false)
         //                     SizedBox(
         //                       height: 35,
-        //                       child: ElevatedButton.icon(
-        //                         style: ElevatedButton.styleFrom(
+        //                       child: TextButton.icon(
+        //                         style: TextButton.styleFrom(
         //                           elevation: 0.0,
         //                           backgroundColor:
         //                               Provider.of<ThemeProvider>(context)

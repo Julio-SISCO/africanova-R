@@ -5,6 +5,7 @@ import 'package:africanova/controller/dashboard_controller.dart';
 import 'package:africanova/database/bilan.dart';
 import 'package:africanova/provider/permissions_providers.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/dashboard/article_plus_vendu.dart';
 import 'package:africanova/view/components/dashboard/dash_shortcut.dart';
 import 'package:africanova/view/components/dashboard/service_vente_chart.dart';
@@ -236,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
               ),
               SizedBox(height: 8.0),
               Text(
-                "${total.toStringAsFixed(0)} f",
+                "${formatMontant(total)} f",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,

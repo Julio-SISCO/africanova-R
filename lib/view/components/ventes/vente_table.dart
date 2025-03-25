@@ -263,7 +263,7 @@ class _VenteTableState extends State<VenteTable> {
                   ? "${vente.initiateur!.prenom} ${vente.initiateur!.nom}"
                   : "Inconnu",
         ),
-        "total": PlutoCell(value: "${vente.montantTotal.toStringAsFixed(0)} f"),
+        "total": PlutoCell(value: "${formatMontant(vente.montantTotal)} f"),
         "action": PlutoCell(value: vente),
       },
     );
@@ -301,7 +301,7 @@ class _VenteTableState extends State<VenteTable> {
                               : "Inconnu",
                     ),
                     "total": PlutoCell(
-                        value: "${vente.montantTotal.toStringAsFixed(0)} f"),
+                        value: "${formatMontant(vente.montantTotal)} f"),
                     "action": PlutoCell(value: vente),
                   },
                 );
