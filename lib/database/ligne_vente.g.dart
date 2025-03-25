@@ -22,7 +22,7 @@ class LigneVenteAdapter extends TypeAdapter<LigneVente> {
       montant: fields[2] as double?,
       createdAt: fields[4] as DateTime?,
       updatedAt: fields[5] as DateTime?,
-      article: fields[3] as Article,
+      article: fields[3] as Article?,
     );
   }
 

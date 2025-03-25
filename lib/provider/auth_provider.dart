@@ -111,10 +111,8 @@ Future<bool> isSessionExpired() async {
 
 Future<void> globalLogout() async {
   final result = await logout();
-  if (result['status'] == true) {
-    await clearAllHiveBoxes();
-    Get.offAll(AuthPage());
-  }
+  Get.offAll(AuthPage());
+  await clearAllHiveBoxes();
 
   Get.snackbar(
     '',

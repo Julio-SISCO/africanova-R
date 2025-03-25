@@ -335,9 +335,9 @@ class VenteDetail extends StatelessWidget {
                 topLeft: Radius.circular(2),
                 bottomLeft: Radius.circular(2),
               ),
-              child: ligne.article.images?.isNotEmpty ?? false
+              child: ligne.article?.images?.isNotEmpty ?? false
                   ? CachedNetworkImage(
-                      imageUrl: buildUrl(ligne.article.images![0].path),
+                      imageUrl: buildUrl(ligne.article!.images![0].path),
                       fit: BoxFit.fill,
                       height: 100,
                       placeholder: (context, url) => LinearProgressIndicator(
@@ -366,7 +366,7 @@ class VenteDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    ligne.article.libelle ?? "Inconnu",
+                    ligne.article?.libelle ?? "Inconnu",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

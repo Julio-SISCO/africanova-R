@@ -191,7 +191,7 @@ class _FootMenuState extends State<FootMenu> {
           ),
           Center(
             child: Text(
-              'Africa Nova Group\nVersion 1.1.3',
+              'Africa Nova Group\nVersion 1.1.7',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontStyle: FontStyle.italic,

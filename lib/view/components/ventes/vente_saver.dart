@@ -84,7 +84,7 @@ class _VenteSaverState extends State<VenteSaver> {
   void updateSelection(LigneVente l) {
     setState(() {
       final index =
-          lignes.indexWhere((ligne) => ligne.article.id == l.article.id);
+          lignes.indexWhere((ligne) => (ligne.article?.id ?? 0 ) == (l.article?.id ?? 0));
       if (index != -1) {
         lignes[index].quantite += 1;
       } else {
@@ -96,7 +96,7 @@ class _VenteSaverState extends State<VenteSaver> {
   }
 
   void _editQuantity(LigneVente ligne, double value) {
-    int index = lignes.indexWhere((l) => l.article.id == ligne.article.id);
+    int index = lignes.indexWhere((l) => (l.article?.id ?? 0) == (ligne.article?.id ?? 0));
     if (index != -1) {
       setState(() {
         lignes[index].quantite = value.toInt();
@@ -108,7 +108,7 @@ class _VenteSaverState extends State<VenteSaver> {
   void removeSelection(LigneVente l) {
     setState(() {
       final index =
-          lignes.indexWhere((ligne) => ligne.article.id == l.article.id);
+          lignes.indexWhere((ligne) => (ligne.article?.id ?? 0) == (l.article?.id ?? 0));
       if (index != -1) {
         lignes.removeAt(index);
       }
@@ -127,7 +127,7 @@ class _VenteSaverState extends State<VenteSaver> {
     _totalLignes = 0.0;
     setState(() {
       for (var ligne in lignes) {
-        _totalLignes += (ligne.article.prixVente ?? 0) * ligne.quantite;
+        _totalLignes += (ligne.article?.prixVente ?? 0) * ligne.quantite;
       }
     });
     double taxe = 0.0;
@@ -1027,7 +1027,7 @@ class _VenteSaverState extends State<VenteSaver> {
                   SizedBox(
                     width: totalWidth * 0.4,
                     child: Text(
-                      "${ligne.article.libelle}",
+                      ligne.article?.libelle ?? 'unknown',
                       style: TextStyle(
                         color: Colors.blueGrey,
                         fontSize: 16.0,
@@ -1056,7 +1056,7 @@ class _VenteSaverState extends State<VenteSaver> {
                           },
                         ),
                         Text(
-                          "${ligne.quantite} x ${ligne.article.prixVente?.toStringAsFixed(0) ?? 0} f",
+                          "${ligne.quantite} x ${ligne.article?.prixVente?.toStringAsFixed(0) ?? 0} f",
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 14.0,
@@ -1069,7 +1069,7 @@ class _VenteSaverState extends State<VenteSaver> {
                   SizedBox(
                     width: totalWidth * .2,
                     child: Text(
-                      ((ligne.article.prixVente ?? 0) * ligne.quantite)
+                      ((ligne.article?.prixVente ?? 0) * ligne.quantite)
                           .toStringAsFixed(0),
                       textAlign: TextAlign.end,
                       style: TextStyle(

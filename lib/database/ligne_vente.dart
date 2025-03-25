@@ -15,7 +15,7 @@ class LigneVente extends HiveObject {
   double? montant;
 
   @HiveField(3)
-  Article article;
+  Article? article;
 
   @HiveField(4)
   DateTime? createdAt;
@@ -35,7 +35,7 @@ class LigneVente extends HiveObject {
   Map<String, dynamic> toJson() {
     return {
       'quantite': quantite,
-      'article': article.id,
+      'article': article?.id ?? 0,
     };
   }
 
@@ -49,9 +49,11 @@ class LigneVente extends HiveObject {
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
-      updatedAt:
-          json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
-      article: Article.fromJson(json['article']),
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
+      article:
+          json['article'] == null ? null : Article.fromJson(json['article']),
     );
   }
 }

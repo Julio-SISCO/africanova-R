@@ -1,6 +1,7 @@
 class Endpoints {
   // Base URL
   static const String base = "https://africanova.in";
+  
   static const String baseUrl = "$base/api";
 
   // Authentication

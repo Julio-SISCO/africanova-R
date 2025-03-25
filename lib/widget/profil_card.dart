@@ -161,7 +161,7 @@ class _ProfilCardState extends State<ProfilCard> {
                         ),
                         const SizedBox(height: 20),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -186,7 +186,9 @@ class _ProfilCardState extends State<ProfilCard> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
                               ),
                               onPressed: () async {
                                 globalLogout();
