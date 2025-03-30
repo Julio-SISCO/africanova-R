@@ -2,19 +2,25 @@ import 'package:hive/hive.dart';
 
 part 'type_depense.g.dart';
 
-@HiveType(typeId: 23)
+@HiveType(typeId: 26)
 class TypeDepense {
   @HiveField(0)
-  final int? id;
+  int? id;
+
   @HiveField(1)
-  final String nom;
+  String nom;
+
   @HiveField(2)
-  final String? description;
+  String? description;
+
+  @HiveField(3)
+  int categories;
 
   TypeDepense({
     this.id,
     required this.nom,
     this.description,
+    required this.categories,
   });
 
   factory TypeDepense.fromJson(Map<String, dynamic> json) {
@@ -22,13 +28,13 @@ class TypeDepense {
       id: json['id'],
       nom: json['nom'],
       description: json['description'],
+      categories: json['categories_count'] ?? 0,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'nom': nom,
+      'libelle': nom,
       'description': description,
     };
   }

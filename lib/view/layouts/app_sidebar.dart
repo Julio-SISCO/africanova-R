@@ -1,12 +1,13 @@
 import 'package:africanova/provider/permissions_providers.dart';
 import 'package:africanova/theme/theme_provider.dart';
-import 'package:africanova/view/components/approvisions/approvision_table.dart';
 import 'package:africanova/view/components/articles/article_table.dart';
 import 'package:africanova/view/components/categories/categorie_table.dart';
 import 'package:africanova/view/components/clients/client_table.dart';
 import 'package:africanova/view/components/dashboard/dashboard.dart';
+import 'package:africanova/view/components/depenses/depense_page.dart';
 import 'package:africanova/view/components/employers/employer_table.dart';
 import 'package:africanova/view/components/fournisseurs/fournisseur_table.dart';
+import 'package:africanova/view/components/security/role_and_permission.dart';
 import 'package:africanova/view/components/services/service_main.dart';
 import 'package:africanova/view/components/ventes/vente_table.dart';
 import 'package:africanova/widget/menu.dart';
@@ -113,29 +114,6 @@ class _AppSidebarState extends State<AppSidebar> {
                           isSelected: false,
                           icon: Icon(
                             Icons.domain_verification_rounded,
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                      buildMenuWithPermission(
-                        'voir approvisionnements',
-                        Menu(
-                          title: 'Approvisionnement',
-                          press: () {
-                            setState(() {
-                              index = 4;
-                            });
-                            widget.switchView(
-                              ApprovisionTable(
-                                switchView: (Widget w) {
-                                  widget.switchView(w);
-                                },
-                              ),
-                            );
-                          },
-                          isSelected: index == 4,
-                          icon: Icon(
-                            Icons.shopping_cart,
                             size: 16,
                           ),
                         ),
@@ -267,22 +245,33 @@ class _AppSidebarState extends State<AppSidebar> {
                   MenuDrop(
                     title: 'Finances',
                     icon: const Icon(Icons.attach_money),
-                    isSelected: false,
+                    isSelected: index == 10 || index == 11,
                     menus: [
+                      Menu(
+                        title: 'Dépenses',
+                        press: () {
+                          setState(() {
+                            index = 10;
+                          });
+                          widget.switchView(
+                            DepensePage(
+                              switchView: (Widget w) {
+                                widget.switchView(w);
+                              },
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.trending_down,
+                          size: 16,
+                        ),
+                        isSelected: index == 10,
+                      ),
                       Menu(
                         title: 'Revenus',
                         press: () {},
                         icon: const Icon(
                           Icons.trending_up,
-                          size: 16,
-                        ),
-                        isSelected: false,
-                      ),
-                      Menu(
-                        title: 'Dépenses',
-                        press: () {},
-                        icon: const Icon(
-                          Icons.trending_down,
                           size: 16,
                         ),
                         isSelected: false,
@@ -294,7 +283,19 @@ class _AppSidebarState extends State<AppSidebar> {
                     title: 'Autres',
                     icon: Icon(Icons.more_horiz),
                     isSelected: false,
-                    menus: [],
+                    menus: [
+                      Menu(
+                        title: 'Autorisations',
+                        press: () {
+                          widget.switchView(RoleAndPermission());
+                        },
+                        icon: const Icon(
+                          Icons.security,
+                          size: 16,
+                        ),
+                        isSelected: false,
+                      ),
+                    ],
                   ),
                 ],
               ),

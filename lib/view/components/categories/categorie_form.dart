@@ -127,7 +127,14 @@ class _CategorieFormState extends State<CategorieForm> {
           future: hasPermission('creer categories'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(
+                  color: Provider.of<ThemeProvider>(context)
+                      .themeData
+                      .colorScheme
+                      .secondary,
+                ),
+              );
             }
             if (snapshot.hasError) {
               return Center(child: Text('Erreur: ${snapshot.error}'));

@@ -2,6 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:africanova/database/categorie_depense.dart';
+import 'package:africanova/database/depense.dart';
+import 'package:africanova/database/my_icon.dart';
+import 'package:africanova/database/type_depense.dart';
 import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/approvision.dart';
 import 'package:africanova/database/article.dart';
@@ -37,13 +41,63 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Vente.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Vente>('venteHistory');
+        var box = Hive.box<Vente>('venteHistory');
         await box.clear();
 
         for (var vente in ventes.reversed) {
           await box.add(vente);
         }
       }
+
+      if (responseData['icons'] != null && responseData['icons'].isNotEmpty) {
+        final List<dynamic> iconsJson = responseData['icons'];
+
+        List<MyIcon> icons = iconsJson
+            .map((json) => MyIcon.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        var box = Hive.box<MyIcon>('iconBox');
+        await box.clear();
+
+        for (var icon in icons.reversed) {
+          await box.add(icon);
+        }
+      }
+
+      if (responseData['typeDepenses'] != null &&
+          responseData['typeDepenses'].isNotEmpty) {
+        final List<dynamic> typeDepensesJson = responseData['typeDepenses'];
+
+        List<TypeDepense> typeDepenses = typeDepensesJson
+            .map((json) => TypeDepense.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        var box = Hive.box<TypeDepense>('typeDepenseBox');
+        await box.clear();
+
+        for (var type in typeDepenses.reversed) {
+          await box.add(type);
+        }
+      }
+
+      if (responseData['categorieDepenses'] != null &&
+          responseData['categorieDepenses'].isNotEmpty) {
+        final List<dynamic> categorieDepensesJson =
+            responseData['categorieDepenses'];
+
+        List<CategorieDepense> categorieDepenses = categorieDepensesJson
+            .map((json) =>
+                CategorieDepense.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        var box = Hive.box<CategorieDepense>('categorieDepenseBox');
+        await box.clear();
+
+        for (var categorie in categorieDepenses.reversed) {
+          await box.add(categorie);
+        }
+      }
+
       if (responseData['articles'] != null &&
           responseData['articles'].isNotEmpty) {
         final List<dynamic> articlesJson = responseData['articles'];
@@ -52,7 +106,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Article.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Article>('articleBox');
+        var box = Hive.box<Article>('articleBox');
         await box.clear();
 
         for (var article in articles.reversed) {
@@ -67,7 +121,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
           return Categorie.fromJson(json as Map<String, dynamic>);
         }).toList();
 
-        var box = await Hive.openBox<Categorie>('categorieBox');
+        var box = Hive.box<Categorie>('categorieBox');
         await box.clear();
         for (var categorie in categories.reversed) {
           await box.add(categorie);
@@ -81,7 +135,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Client.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Client>('clientBox');
+        var box = Hive.box<Client>('clientBox');
         await box.clear();
 
         for (var client in clients.reversed) {
@@ -96,7 +150,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Employer.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Employer>('employerBox');
+        var box = Hive.box<Employer>('employerBox');
         await box.clear();
 
         for (var employer in employers.reversed) {
@@ -111,7 +165,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Fournisseur.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Fournisseur>('fournisseurBox');
+        var box = Hive.box<Fournisseur>('fournisseurBox');
         await box.clear();
 
         for (var fournisseur in fournisseurs.reversed) {
@@ -140,7 +194,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Service.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Service>('serviceBox');
+        var box = Hive.box<Service>('serviceBox');
         await box.clear();
 
         for (var service in services.reversed) {
@@ -154,7 +208,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Outil.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<Outil>('outilBox');
+        var box = Hive.box<Outil>('outilBox');
         await box.clear();
 
         for (var outil in outils.reversed) {
@@ -169,7 +223,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => TypeService.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = await Hive.openBox<TypeService>('typeServiceBox');
+        var box = Hive.box<TypeService>('typeServiceBox');
         await box.clear();
 
         for (var typeService in typeServices.reversed) {
@@ -187,12 +241,31 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .toList();
 
         // Ouvrir la boîte Hive pour les articles
-        var box = await Hive.openBox<Approvision>('approvisionBox');
+        var box = Hive.box<Approvision>('approvisionBox');
         await box.clear();
 
         // Ajouter les nouveaux articles dans la boîte Hive
         for (var approvision in approvisions.reversed) {
           await box.add(approvision);
+        }
+      }
+
+      if (responseData['depenses'] != null &&
+          responseData['depenses'].isNotEmpty) {
+        final List<dynamic> depensesJson = responseData['depenses'];
+
+        // Mapper les données JSON vers des objets Depense
+        List<Depense> depenses = depensesJson
+            .map((json) => Depense.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        // Ouvrir la boîte Hive pour les depenses
+        var box = await Hive.openBox<Depense>('depenseBox');
+        await box.clear();
+
+        // Ajouter les nouveaux depenses dans la boîte Hive
+        for (var depense in depenses.reversed) {
+          await box.add(depense);
         }
       }
       return {

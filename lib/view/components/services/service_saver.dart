@@ -1128,7 +1128,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                           ),
                         ),
                         Checkbox(
-                          activeColor: Colors.blueGrey,
+                          activeColor: Provider.of<ThemeProvider>(context)
+                              .themeData
+                              .colorScheme
+                              .secondary,
                           value: _showOtherAmount,
                           onChanged: (bool? value) {
                             setState(() {
@@ -1157,7 +1160,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                           ),
                         ),
                         Checkbox(
-                          activeColor: Colors.blueGrey,
+                          activeColor: Provider.of<ThemeProvider>(context)
+                              .themeData
+                              .colorScheme
+                              .secondary,
                           value: _showTaxe,
                           onChanged: _showOtherAmount
                               ? null
@@ -1185,7 +1191,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                           ),
                         ),
                         Checkbox(
-                          activeColor: Colors.blueGrey,
+                          activeColor: Provider.of<ThemeProvider>(context)
+                              .themeData
+                              .colorScheme
+                              .secondary,
                           value: _showRemise,
                           onChanged: _showOtherAmount
                               ? null
@@ -1293,7 +1302,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            activeColor: Colors.blueGrey,
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                             value: _taxeInPercent,
                             onChanged: (bool? value) {
                               setState(() {
@@ -1383,7 +1395,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            activeColor: Colors.blueGrey,
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                             value: _remiseInPercent,
                             onChanged: (bool? value) {
                               setState(() {
@@ -1709,7 +1724,10 @@ class _ServiceSaverState extends State<ServiceSaver> {
                         ),
                       ),
                       Checkbox(
-                        activeColor: Colors.blueGrey,
+                        activeColor: Provider.of<ThemeProvider>(context)
+                            .themeData
+                            .colorScheme
+                            .secondary,
                         value: outil.applyTarif ?? false,
                         onChanged: (bool? value) {
                           _toggleTarif(outil);

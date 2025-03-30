@@ -55,6 +55,9 @@ dependencies:
   pdf: ^3.11.2
   path_provider: ^2.1.5
   printing: ^5.14.0
+  month_picker_dialog: ^6.0.3
+  flutter_svg: ^2.0.17
+  file_picker: ^9.2.3
   
 
 dev_dependencies:
@@ -86,6 +89,7 @@ flutter:
   assets:
     - assets/images/
     - assets/fonts/ 
+    - assets/icons/ 
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,6 +108,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter-Italic.ttf
         - asset: assets/fonts/Inter-VariableFont_opsz.ttf
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/Oswald-VariableFont_wght.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

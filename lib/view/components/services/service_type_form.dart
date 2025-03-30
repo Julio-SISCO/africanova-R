@@ -475,8 +475,13 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
         if (_isLoading)
           Container(
             color: Colors.black54,
-            child: const Center(
-              child: CircularProgressIndicator(),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Provider.of<ThemeProvider>(context)
+                    .themeData
+                    .colorScheme
+                    .secondary,
+              ),
             ),
           ),
       ],

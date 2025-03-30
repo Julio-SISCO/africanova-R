@@ -8,7 +8,7 @@ part of 'categorie_depense.dart';
 
 class CategorieDepenseAdapter extends TypeAdapter<CategorieDepense> {
   @override
-  final int typeId = 24;
+  final int typeId = 28;
 
   @override
   CategorieDepense read(BinaryReader reader) {
@@ -20,14 +20,15 @@ class CategorieDepenseAdapter extends TypeAdapter<CategorieDepense> {
       id: fields[0] as int?,
       nom: fields[1] as String,
       description: fields[2] as String?,
-      typeDepense: fields[3] as TypeDepense,
+      typeDepense: fields[3] as TypeDepense?,
+      icon: fields[4] as MyIcon?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CategorieDepense obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class CategorieDepenseAdapter extends TypeAdapter<CategorieDepense> {
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.typeDepense);
+      ..write(obj.typeDepense)
+      ..writeByte(4)
+      ..write(obj.icon);
   }
 
   @override

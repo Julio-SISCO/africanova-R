@@ -338,7 +338,12 @@ class _AjustStockState extends State<AjustStock> {
                                           label: _loading
                                               ? CircularProgressIndicator(
                                                   backgroundColor: Colors.white,
-                                                  color: Colors.grey,
+                                                  color: Provider.of<
+                                                              ThemeProvider>(
+                                                          context)
+                                                      .themeData
+                                                      .colorScheme
+                                                      .secondary,
                                                 )
                                               : Text(
                                                   _isSame

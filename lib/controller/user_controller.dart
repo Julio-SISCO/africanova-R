@@ -9,6 +9,7 @@ import 'package:africanova/static/theme.dart';
 import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/security/user_edit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -335,10 +336,15 @@ class UserRolePermissionDataSource extends DataTableSource {
     if (result['status']) {
       disableAction();
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Center(child: Text(result['message'])),
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
       ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
     );
   }
 
@@ -348,10 +354,15 @@ class UserRolePermissionDataSource extends DataTableSource {
     if (result['status']) {
       disableAction();
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Center(child: Text(result['message'])),
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
       ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
     );
   }
 
@@ -383,12 +394,15 @@ class UserRolePermissionDataSource extends DataTableSource {
         disableAction();
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Center(
-            child: Text(result['message']),
-          ),
+      Get.snackbar(
+        '',
+        result["message"],
+        titleText: SizedBox.shrink(),
+        messageText: Center(
+          child: Text(result["message"]),
         ),
+        maxWidth: 300,
+        snackPosition: SnackPosition.BOTTOM,
       );
     }
   }
@@ -549,15 +563,7 @@ class UserRolePermissionDataSource extends DataTableSource {
                     color: Colors.blue[600],
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (builder) => UserEdit(
-                          user: user,
-                          disableAction: disableAction,
-                        ),
-                      ),
-                    );
+                    // s
                   },
                 ),
               ],

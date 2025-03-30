@@ -1,12 +1,23 @@
 import 'package:africanova/controller/user_controller.dart';
 import 'package:africanova/database/user.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/view/components/security/right_card.dart';
+import 'package:africanova/view/components/security/user_role_permission.dart';
+import 'package:africanova/widget/dialogs.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class UserEdit extends StatefulWidget {
   final User user;
   final VoidCallback disableAction;
-  const UserEdit({super.key, required this.user, required this.disableAction});
+  final Function(Widget?) switchView;
+  const UserEdit({
+    super.key,
+    required this.user,
+    required this.disableAction,
+    required this.switchView,
+  });
 
   @override
   State<UserEdit> createState() => _UserEditState();
@@ -75,247 +86,216 @@ class _UserEditState extends State<UserEdit> {
   }
 
   void delete(int id) async {
-    bool confirmDelete = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirmation'),
-          content: const Text('Voulez-vous vraiment supprimer ce compte ?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Annuler'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Confirmer'),
-            ),
-          ],
-        );
-      },
-    );
-    if (confirmDelete) {
-      final result = await deleteUser(id);
+    final result = await deleteUser(id);
 
-      if (result['status']) {
-        Navigator.pop(context);
-        widget.disableAction();
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Center(
-            child: Text(result['message']),
-          ),
-        ),
-      );
+    if (result['status']) {
+      // Get.back();
+      // widget.disableAction();
     }
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   void updateAccount() async {
-    if (_formKey.currentState!.validate() &&
-        updatedUsername != null &&
-        updatedUsername != '') {
-      bool confirmUpdate = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Confirmation'),
-            content: const Text('Enregistrer les modifications ?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Annuler'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Confirmer'),
-              ),
-            ],
-          );
-        },
-      );
-      if (confirmUpdate) {
-        setState(() {
-          isLoading = true;
-        });
-        final result = await updateUser(
-          widget.user.id ?? 0,
-          updatedUsername ?? '',
-          updatedRoles,
-          updatedPermissions,
-          updatedEmployer,
-          updatedIsActive,
-        );
-        if (result['status']) {
-          Navigator.pop(context);
-          widget.disableAction();
-        }
-        setState(() {
-          isLoading = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Center(
-              child: Text(result['message']),
-            ),
-          ),
-        );
-      }
+    setState(() {
+      isLoading = true;
+    });
+    final result = await updateUser(
+      widget.user.id ?? 0,
+      updatedUsername ?? '',
+      updatedRoles,
+      updatedPermissions,
+      updatedEmployer,
+      updatedIsActive,
+    );
+    if (result['status']) {
+      // Get.back();
+      // widget.disableAction();
     }
+    setState(() {
+      isLoading = false;
+    });
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.only(top: 16.0, bottom: 8.0, left: 8.0),
-                width: MediaQuery.of(context).size.width,
-                color: Colors.grey[100],
+    return Stack(
+      children: [
+        Column(
+          spacing: 4.0,
+          children: [
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(2.0),
+              ),
+              margin: EdgeInsets.all(0.0),
+              elevation: 0.0,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
                 child: Row(
+                  spacing: 8.0,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    TextButton.icon(
-                      style: TextButton.styleFrom(
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.close_rounded,
-                        color: Colors.black,
-                        size: 28.0,
-                      ),
-                      label: const Text(
-                        'Fermer',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    TextButton.icon(
-                      style: TextButton.styleFrom(
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      onPressed: updateAccount,
-                      icon: Icon(
-                        Icons.save,
-                        color: Colors.blue[600],
-                        size: 28.0,
-                      ),
-                      label: const Text(
-                        'Enregistrer',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    TextButton.icon(
-                      style: TextButton.styleFrom(
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        delete(widget.user.id ?? 0);
+                    _buildButton(
+                      context,
+                      "Fermer",
+                      Icons.close,
+                      () {
+                        widget.switchView(
+                          UserRolePermission(switchView: widget.switchView),
+                        );
                       },
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                        size: 28.0,
-                      ),
-                      label: const Text(
-                        'Supprimer',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
+                      null,
+                    ),
+                    _buildButton(
+                      context,
+                      "Enregistrer",
+                      Icons.save,
+                      () {
+                        if (_formKey.currentState!.validate() &&
+                            updatedUsername != null &&
+                            updatedUsername != '') {
+                          showCancelConfirmationDialog(
+                            context,
+                            () {
+                              updateAccount();
+                            },
+                            'Êtes-vous sûr de vouloir modifier ce compte ?',
+                          );
+                        }
+                      },
+                      null,
+                    ),
+                    _buildButton(
+                      context,
+                      "Supprimer",
+                      Icons.delete,
+                      () {
+                        showCancelConfirmationDialog(
+                          context,
+                          () {
+                            delete(widget.user.id ?? 0);
+                          },
+                          'Êtes-vous sûr de vouloir supprimer ce compte ?',
+                        );
+                      },
+                      null,
                     ),
                     const SizedBox(width: 16.0),
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            UserInfoCard(
-                              user: widget.user,
-                              updateUsername: (String update) =>
-                                  updateUsername(update),
-                              updateEmployer: (int update) =>
-                                  updateEmployer(update),
-                              updateIsActive: (bool update) =>
-                                  updateIsActive(update),
-                              formKey: _formKey,
-                            ),
-                            RoleRightCard(
-                              user: widget.user,
-                              updateRoles: (List<String> selected) =>
-                                  updateRoles(selected),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxHeight: MediaQuery.of(context).size.height * 1.1,
-                          ),
-                          child: RightCard(
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          UserInfoCard(
                             user: widget.user,
-                            updatePermissions: (List<String> selected) =>
-                                updatePermissions(selected),
+                            updateUsername: (String update) =>
+                                updateUsername(update),
+                            updateEmployer: (int update) =>
+                                updateEmployer(update),
+                            updateIsActive: (bool update) =>
+                                updateIsActive(update),
+                            formKey: _formKey,
                           ),
+                          RoleRightCard(
+                            user: widget.user,
+                            updateRoles: (List<String> selected) =>
+                                updateRoles(selected),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxHeight: MediaQuery.of(context).size.height * 1.1,
+                        ),
+                        child: RightCard(
+                          user: widget.user,
+                          updatePermissions: (List<String> selected) =>
+                              updatePermissions(selected),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          if (isLoading)
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.black.withOpacity(0.2),
-              child: Center(
-                child: CircularProgressIndicator(),
+            ),
+          ],
+        ),
+        if (isLoading)
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: Colors.black.withOpacity(0.2),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Provider.of<ThemeProvider>(context)
+                    .themeData
+                    .colorScheme
+                    .secondary,
               ),
             ),
-        ],
-      ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String libelle, IconData icon,
+      VoidCallback onPressed, Color? color) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return SizedBox(
+          height: 40,
+          width: 120,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor:
+                  color ?? themeProvider.themeData.colorScheme.primary,
+              foregroundColor: themeProvider.themeData.colorScheme.tertiary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0)),
+            ),
+            onPressed: onPressed,
+            icon: Icon(icon,
+                size: 18, color: themeProvider.themeData.colorScheme.tertiary),
+            label: Text(
+              libelle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
+        );
+      },
     );
   }
 }

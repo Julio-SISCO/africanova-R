@@ -84,8 +84,8 @@ class _VenteSaverState extends State<VenteSaver> {
 
   void updateSelection(LigneVente l) {
     setState(() {
-      final index =
-          lignes.indexWhere((ligne) => (ligne.article?.id ?? 0 ) == (l.article?.id ?? 0));
+      final index = lignes.indexWhere(
+          (ligne) => (ligne.article?.id ?? 0) == (l.article?.id ?? 0));
       if (index != -1) {
         lignes[index].quantite += 1;
       } else {
@@ -97,7 +97,8 @@ class _VenteSaverState extends State<VenteSaver> {
   }
 
   void _editQuantity(LigneVente ligne, double value) {
-    int index = lignes.indexWhere((l) => (l.article?.id ?? 0) == (ligne.article?.id ?? 0));
+    int index = lignes
+        .indexWhere((l) => (l.article?.id ?? 0) == (ligne.article?.id ?? 0));
     if (index != -1) {
       setState(() {
         lignes[index].quantite = value.toInt();
@@ -108,8 +109,8 @@ class _VenteSaverState extends State<VenteSaver> {
 
   void removeSelection(LigneVente l) {
     setState(() {
-      final index =
-          lignes.indexWhere((ligne) => (ligne.article?.id ?? 0) == (l.article?.id ?? 0));
+      final index = lignes.indexWhere(
+          (ligne) => (ligne.article?.id ?? 0) == (l.article?.id ?? 0));
       if (index != -1) {
         lignes.removeAt(index);
       }
@@ -683,7 +684,11 @@ class _VenteSaverState extends State<VenteSaver> {
                           ),
                         ),
                         Checkbox(
-                          activeColor: Colors.blueGrey,
+                          
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                           value: _showTaxe,
                           onChanged: (bool? value) {
                             setState(() {
@@ -709,7 +714,11 @@ class _VenteSaverState extends State<VenteSaver> {
                           ),
                         ),
                         Checkbox(
-                          activeColor: Colors.blueGrey,
+                          
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                           value: _showRemise,
                           onChanged: (bool? value) {
                             setState(() {
@@ -768,7 +777,11 @@ class _VenteSaverState extends State<VenteSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            activeColor: Colors.blueGrey,
+                            
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                             value: _taxeInPercent,
                             onChanged: (bool? value) {
                               setState(() {
@@ -857,7 +870,11 @@ class _VenteSaverState extends State<VenteSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            activeColor: Colors.blueGrey,
+                            
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                             value: _remiseInPercent,
                             onChanged: (bool? value) {
                               setState(() {
@@ -1070,7 +1087,8 @@ class _VenteSaverState extends State<VenteSaver> {
                   SizedBox(
                     width: totalWidth * .2,
                     child: Text(
-                      formatMontant((ligne.article?.prixVente ?? 0) * ligne.quantite),
+                      formatMontant(
+                          (ligne.article?.prixVente ?? 0) * ligne.quantite),
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: Colors.blueGrey,

@@ -1,8 +1,10 @@
 import 'package:africanova/controller/permissions_controller.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class EditRoleForm extends StatefulWidget {
   final Role role;
@@ -118,6 +120,11 @@ class _EditRoleFormState extends State<EditRoleForm> {
                             return SizedBox(
                               width: MediaQuery.of(context).size.width * 0.20,
                               child: CheckboxListTile(
+                                
+                            activeColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                                 title: Text(
                                   permission.name,
                                   style: TextStyle(
@@ -194,7 +201,12 @@ class _EditRoleFormState extends State<EditRoleForm> {
               Container(
                 color: Colors.grey.withOpacity(0.2),
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Provider.of<ThemeProvider>(context)
+                        .themeData
+                        .colorScheme
+                        .secondary,
+                  ),
                 ),
               ),
           ],

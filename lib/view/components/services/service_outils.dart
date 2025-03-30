@@ -63,59 +63,62 @@ class _ServiceOutilState extends State<ServiceOutil> {
                   .primary,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildMenuWithPermission(
-                      'enregistrer outils',
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                            elevation: 0.0,
-                            foregroundColor: Provider.of<ThemeProvider>(context)
-                                .themeData
-                                .colorScheme
-                                .tertiary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      buildMenuWithPermission(
+                        'enregistrer outils',
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton.icon(
+                            style: TextButton.styleFrom(
+                              elevation: 0.0,
+                              foregroundColor:
+                                  Provider.of<ThemeProvider>(context)
+                                      .themeData
+                                      .colorScheme
+                                      .tertiary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2.0),
+                              ),
                             ),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _outil = null;
-                              _showForm = true;
-                            });
-                          },
-                          label: Text('Ajouter'),
-                          icon: Icon(
-                            Icons.add,
-                            color: Provider.of<ThemeProvider>(context)
-                                .themeData
-                                .colorScheme
-                                .tertiary,
+                            onPressed: () {
+                              setState(() {
+                                _outil = null;
+                                _showForm = true;
+                              });
+                            },
+                            label: Text('Ajouter'),
+                            icon: Icon(
+                              Icons.add,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .themeData
+                                  .colorScheme
+                                  .tertiary,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      alignment: WrapAlignment.start,
-                      children: [
-                        ...List.generate(
-                          _outils.length,
-                          (index) => ServiceOutilCard(
-                            outil: _outils[index],
-                            setEditableOutil: (Outil outil) =>
-                                _setEditableOutil(outil),
-                            refresh: _refresh,
+                      SizedBox(height: 16.0),
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        alignment: WrapAlignment.start,
+                        children: [
+                          ...List.generate(
+                            _outils.length,
+                            (index) => ServiceOutilCard(
+                              outil: _outils[index],
+                              setEditableOutil: (Outil outil) =>
+                                  _setEditableOutil(outil),
+                              refresh: _refresh,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -335,8 +338,13 @@ class _OutilFormState extends State<OutilForm> {
         if (_isLoading)
           Container(
             color: Colors.black54,
-            child: const Center(
-              child: CircularProgressIndicator(),
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Provider.of<ThemeProvider>(context)
+                    .themeData
+                    .colorScheme
+                    .secondary,
+              ),
             ),
           ),
       ],

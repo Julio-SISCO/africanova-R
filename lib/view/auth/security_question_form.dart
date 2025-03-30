@@ -1,10 +1,12 @@
 import 'package:africanova/base.dart';
 import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/view/auth/form_design.dart';
 import 'package:africanova/view/auth/password_forgotten.dart';
 import 'package:africanova/widget/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class SecurityQuestionForm extends StatefulWidget {
   final bool toCheck;
@@ -282,7 +284,10 @@ class _SecurityQuestionFormState extends State<SecurityQuestionForm> {
                       child: isLoading
                           ? CircularProgressIndicator(
                               backgroundColor: Colors.white,
-                              color: Colors.grey,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .themeData
+                                  .colorScheme
+                                  .secondary,
                             )
                           : Text(
                               'Continuer',

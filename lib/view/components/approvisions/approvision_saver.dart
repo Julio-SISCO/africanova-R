@@ -39,9 +39,11 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
   @override
   void initState() {
     super.initState();
-    _option = ArticleSelection(updateSelection: (LigneApprovision l) {
-      updateSelection(l);
-    });
+    _option = ArticleSelection(
+        count: 3,
+        updateSelection: (LigneApprovision l) {
+          updateSelection(l);
+        });
     _valueController.text = "0";
     _initData();
   }
@@ -247,12 +249,12 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
           child: Padding(
-            padding: EdgeInsets.all(4.0),
+            padding: EdgeInsets.symmetric(vertical:  4.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 6,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(2.0),
@@ -263,7 +265,8 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                         .colorScheme
                         .primary,
                     child: Padding(
-                      padding: EdgeInsets.all(4.0),
+                      padding: EdgeInsets.symmetric(vertical: 
+                       4.0),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -376,7 +379,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                   ),
                 ),
                 Text(
-                  '${_totalLignes.toStringAsFixed(0)} f',
+                  '${formatMontant(_totalLignes)} f',
                   style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 16.0,
@@ -402,6 +405,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                   onTap: () {
                     setState(() {
                       _option = ArticleSelection(
+                        count: 3,
                         updateSelection: (LigneApprovision l) =>
                             updateSelection(l),
                       );
@@ -557,7 +561,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                'Total de ${_total.toStringAsFixed(0)} f',
+                'Total de ${formatMontant(_total)} f',
                 style: TextStyle(
                   color: Colors.blueGrey,
                   fontSize: 16.0,
@@ -643,7 +647,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: totalWidth * 0.4,
+                    width: totalWidth * 0.38,
                     child: Text(
                       "${ligne.article.libelle}",
                       style: TextStyle(
@@ -702,7 +706,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                   SizedBox(
                     width: totalWidth * .2,
                     child: Text(
-                      ((ligne.prix ?? 0) * ligne.quantite).toStringAsFixed(0),
+                      formatMontant((ligne.prix ?? 0) * ligne.quantite),
                       textAlign: TextAlign.end,
                       style: TextStyle(
                         color: Colors.blueGrey,

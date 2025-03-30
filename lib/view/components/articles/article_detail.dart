@@ -736,7 +736,10 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         label: _loading
                             ? CircularProgressIndicator(
                                 backgroundColor: Colors.white,
-                                color: Colors.grey,
+                                color: Provider.of<ThemeProvider>(context)
+                                    .themeData
+                                    .colorScheme
+                                    .secondary,
                               )
                             : const Text(
                                 "Modifier la quantité en stock",

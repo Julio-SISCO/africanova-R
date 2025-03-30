@@ -18,7 +18,8 @@ import "package:provider/provider.dart";
 
 class ApprovisionTable extends StatefulWidget {
   final Function(Widget) switchView;
-  const ApprovisionTable({super.key, required this.switchView});
+  const ApprovisionTable(
+      {super.key, required this.switchView});
 
   @override
   State<ApprovisionTable> createState() => _ApprovisionTableState();
@@ -179,11 +180,11 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
                         ),
                         onPressed: () {
                           widget.switchView(
-                              ApprovisionDetail(
-                                approvision: rendererContext.cell.value,
-                                switchView: (Widget w) => widget.switchView(w),
-                              ),
-                              );
+                            ApprovisionDetail(
+                              approvision: rendererContext.cell.value,
+                              switchView: (Widget w) => widget.switchView(w),
+                            ),
+                          );
                         },
                       ),
                     ),
@@ -240,8 +241,8 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
               ? "${approvision.employer!.prenom} ${approvision.employer!.nom}"
               : "Inconnu",
         ),
-        "total": PlutoCell(
-            value: "${formatMontant(approvision.montantTotal)} f"),
+        "total":
+            PlutoCell(value: "${formatMontant(approvision.montantTotal)} f"),
         "action": PlutoCell(value: approvision),
       },
     );
@@ -298,7 +299,7 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
                                     columnFilter: columnFilterConfig,
                                     style: darkTableStyle,
                                   ),
-                        columns: buildColumns(totalWidth / 6),
+                        columns: buildColumns((totalWidth - 14.0) / 6),
                         rows: rows,
                         onChanged: (PlutoGridOnChangedEvent event) {},
                         onLoaded: (PlutoGridOnLoadedEvent event) {
@@ -309,9 +310,7 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
                           stateManager = event.stateManager;
                         },
                         createHeader: (stateManager) => TableHeader(
-                          addAction: (Widget w) {
-                            widget.switchView(w);
-                          },
+                          enableAdd: false,
                           addwidget: ApprovisionSaver(),
                           setDate: (DateTime? d) {
                             setDate(d);

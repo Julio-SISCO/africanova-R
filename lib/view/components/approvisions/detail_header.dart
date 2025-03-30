@@ -14,13 +14,14 @@ import 'package:provider/provider.dart';
 class DetailHeader extends StatelessWidget {
   final Function(Widget) switchView;
   final Approvision approvision;
+
   const DetailHeader({
     super.key,
     required this.approvision,
     required this.switchView,
   });
 
-  void _delete(context, int id) async {
+  Future<void> _delete(BuildContext context, int id) async {
     final result = await supprimerApprovision(id);
     if (result['status']) {
       Navigator.pop(context);
@@ -29,12 +30,43 @@ class DetailHeader extends StatelessWidget {
     Get.snackbar(
       '',
       result["message"],
-      titleText: SizedBox.shrink(),
-      messageText: Center(
-        child: Text(result["message"]),
-      ),
+      titleText: const SizedBox.shrink(),
+      messageText: Center(child: Text(result["message"])),
       maxWidth: 300,
       snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
+  Widget _buildButton({
+    required BuildContext context,
+    required String tooltip,
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        final colorScheme = themeProvider.themeData.colorScheme;
+        return Tooltip(
+          message: tooltip,
+          child: TextButton.icon(
+            onPressed: onPressed,
+            style: TextButton.styleFrom(
+              elevation: 0.0,
+              backgroundColor: const Color.fromARGB(255, 5, 202, 133).withOpacity(0.4),
+              foregroundColor: colorScheme.tertiary,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+            ),
+            icon: Icon(icon, color: colorScheme.tertiary),
+            label: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -47,152 +79,59 @@ class DetailHeader extends StatelessWidget {
         'annuler approvisionnements',
       ]),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox();
-        }
-        if (snapshot.hasError) {
-          return Center(child: Text('Erreur: ${snapshot.error}'));
-        }
+        if (snapshot.connectionState == ConnectionState.waiting) return const SizedBox();
+        if (snapshot.hasError) return Center(child: Text('Erreur: ${snapshot.error}'));
 
-        var permissions = snapshot.data ?? {};
+        final permissions = snapshot.data ?? {};
 
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
-          ),
-          elevation: 0.0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                Tooltip(
-                  message: "Imprimer la facture",
-                  child: TextButton.icon(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      elevation: 0.0,
-                      backgroundColor: Provider.of<ThemeProvider>(context)
-                          .themeData
-                          .colorScheme
-                          .primary,
-                      foregroundColor: Provider.of<ThemeProvider>(context)
-                          .themeData
-                          .colorScheme
-                          .tertiary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+        return Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+              elevation: 0.0,
+              color: themeProvider.themeData.colorScheme.primary,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: [
+                    _buildButton(
+                      context: context,
+                      tooltip: "Imprimer la facture",
+                      icon: Icons.print,
+                      label: "Facture",
+                      onPressed: () {},
+                    ),
+                    if (permissions['supprimer approvisionnements'] == true) ...[
+                      const SizedBox(width: 16.0),
+                      _buildButton(
+                        context: context,
+                        tooltip: "Supprimer",
+                        icon: Icons.delete,
+                        label: "Supprimer",
+                        onPressed: () {
+                          showCancelConfirmationDialog(
+                            context,
+                            () => _delete(context, approvision.id ?? 0),
+                            'Êtes-vous sûr de vouloir supprimer cet approvisionnement ?',
+                          );
+                        },
                       ),
-                    ),
-                    icon: Icon(
-                      Icons.print,
-                      color: Provider.of<ThemeProvider>(context)
-                          .themeData
-                          .colorScheme
-                          .tertiary,
-                    ),
-                    label: const Text(
-                      "Facture",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                    ],
+                    if (permissions['modifier approvisionnements'] == true) ...[
+                      const SizedBox(width: 16.0),
+                      _buildButton(
+                        context: context,
+                        tooltip: "Modifier",
+                        icon: Icons.edit,
+                        label: "Modifier",
+                        onPressed: () => switchView(ApprovisionSaver(editableApprovision: approvision)),
                       ),
-                    ),
-                  ),
+                    ],
+                  ],
                 ),
-                if (permissions['supprimer approvisionnements'] ?? false) ...[
-                  const SizedBox(width: 16.0),
-                  Tooltip(
-                    message: "Supprimer",
-                    child: TextButton.icon(
-                      onPressed: () {
-                        showCancelConfirmationDialog(
-                          context,
-                          () {
-                            _delete(context, approvision.id ?? 0);
-                          },
-                          'Êtes-vous sûr de vouloir supprimer cet approvisionnement ?',
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        elevation: 0.0,
-                        backgroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .primary,
-                        foregroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                      ),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                      ),
-                      label: const Text(
-                        "Supprimer",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                if ((permissions['modifier approvisionnements'] ?? false)) ...[
-                  const SizedBox(width: 16.0),
-                  Tooltip(
-                    message: "Modifier",
-                    child: TextButton.icon(
-                      onPressed: () {
-                        switchView(
-                          ApprovisionSaver(
-                            editableApprovision: approvision,
-                          ),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        elevation: 0.0,
-                        backgroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .primary,
-                        foregroundColor: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                      ),
-                      icon: Icon(
-                        Icons.edit,
-                        color: Provider.of<ThemeProvider>(context)
-                            .themeData
-                            .colorScheme
-                            .tertiary,
-                      ),
-                      label: const Text(
-                        "Modifier",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );

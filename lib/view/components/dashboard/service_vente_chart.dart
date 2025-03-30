@@ -50,7 +50,12 @@ class _ServiceVenteChartState extends State<ServiceVenteChart> {
             padding: EdgeInsets.all(0.0),
             child: dataSale.isEmpty || dataService.isEmpty
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: Provider.of<ThemeProvider>(context)
+                          .themeData
+                          .colorScheme
+                          .secondary,
+                    ),
                   )
                 : _buildBarChart(context),
           ),
@@ -99,7 +104,8 @@ class _ServiceVenteChartState extends State<ServiceVenteChart> {
                     ColumnSeries<ChartData, String>(
                       dataSource: dataSale,
                       xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) => (data.y + getInterval(maxValue)),
+                      yValueMapper: (ChartData data, _) =>
+                          (data.y + getInterval(maxValue)),
                       name: 'Total des dépenses',
                       color: const Color.fromARGB(255, 210, 2, 106),
                     ),

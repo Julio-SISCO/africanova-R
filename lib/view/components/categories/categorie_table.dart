@@ -64,7 +64,13 @@ class _CategorieTableState extends State<CategorieTable> {
             ]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                    child: CircularProgressIndicator(
+                  color: Provider.of<ThemeProvider>(context)
+                      .themeData
+                      .colorScheme
+                      .secondary,
+                ));
               }
               if (snapshot.hasError) {
                 return Center(child: Text('${snapshot.error}'));

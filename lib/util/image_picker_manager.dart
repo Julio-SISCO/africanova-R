@@ -1,10 +1,9 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:africanova/static/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as img;
@@ -37,11 +36,10 @@ Future<List<String>?> saveImagesLocally(List<File> images) async {
   }
 }
 
-Future<File?> getImageFromGallery(
-    ImagePicker picker, BuildContext context) async {
+Future<File?> getImageFromGallery(ImagePicker picker) async {
   XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery);
   if (imagePicked != null) {
-    File? croppedFile = await cropImage(File(imagePicked.path), context);
+    File? croppedFile = await cropImage(File(imagePicked.path));
     if (croppedFile != null) {
       return croppedFile;
     }
@@ -49,12 +47,8 @@ Future<File?> getImageFromGallery(
   return null;
 }
 
-Future<File?> cropImage(File pickedFile, BuildContext context) async {
-  final croppedImagePath = await Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (context) => ImageCropPage(file: pickedFile),
-    ),
-  );
+Future<File?> cropImage(File pickedFile) async {
+  final croppedImagePath = await Get.to(ImageCropPage(file: pickedFile));
 
   if (croppedImagePath != null) {
     return File(croppedImagePath);
@@ -73,30 +67,24 @@ class ImageCropPage extends StatefulWidget {
 
 class _ImageCropPageState extends State<ImageCropPage> {
   Future<void> _cropImage(File file) async {
-    // Charger l'image
     final imageBytes = await file.readAsBytes();
     final image = img.decodeImage(imageBytes);
 
     if (image != null) {
-      // Calculer les dimensions du rectangle de recadrage respectant le ratio 4:3
       final aspectRatio = 4 / 3;
       int cropWidth, cropHeight;
 
       if (image.width / image.height > aspectRatio) {
-        // L'image est plus large que le ratio 4:3
         cropHeight = image.height;
         cropWidth = (cropHeight * aspectRatio).toInt();
       } else {
-        // L'image est plus haute ou égale au ratio 4:3
         cropWidth = image.width;
         cropHeight = (cropWidth / aspectRatio).toInt();
       }
 
-      // Déterminer la position de départ du recadrage (centrée)
       final x = (image.width - cropWidth) ~/ 2;
       final y = (image.height - cropHeight) ~/ 2;
 
-      // Recadrer l'image avec le ratio 4:3
       final croppedImage = img.copyCrop(
         image,
         x: x,
@@ -105,14 +93,13 @@ class _ImageCropPageState extends State<ImageCropPage> {
         height: cropHeight,
       );
 
-      // Enregistrez l'image recadrée dans un fichier temporaire
       final tempDir =
-          await getTemporaryDirectory(); // Utilisez le répertoire temporaire
+          await getTemporaryDirectory();
       final croppedFile = File(
           '${tempDir.path}/cropped_image_${DateTime.now().millisecondsSinceEpoch}.png');
       croppedFile.writeAsBytesSync(img.encodePng(croppedImage));
 
-      Navigator.of(context).pop(croppedFile.path);
+      Get.back(result: croppedFile);
     }
   }
 

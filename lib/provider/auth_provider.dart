@@ -1,15 +1,22 @@
 import 'dart:async';
 
 import 'package:africanova/controller/auth_controller.dart';
+import 'package:africanova/database/approvision.dart';
 import 'package:africanova/database/article.dart';
+import 'package:africanova/database/bilan.dart';
 import 'package:africanova/database/categorie.dart';
+import 'package:africanova/database/categorie_depense.dart';
 import 'package:africanova/database/client.dart';
+import 'package:africanova/database/depense.dart';
 import 'package:africanova/database/employer.dart';
 import 'package:africanova/database/fournisseur.dart';
+import 'package:africanova/database/my_icon.dart';
 import 'package:africanova/database/outil.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
 import 'package:africanova/database/service.dart';
+import 'package:africanova/database/top_articles.dart';
+import 'package:africanova/database/type_depense.dart';
 import 'package:africanova/database/type_service.dart';
 import 'package:africanova/database/user.dart';
 import 'package:africanova/database/vente.dart';
@@ -35,6 +42,15 @@ Future<void> clearAllHiveBoxes() async {
     await Hive.box<Outil>('outilBox').clear();
     await Hive.box<TypeService>('typeServiceBox').clear();
     await Hive.box<Service>('serviceBox').clear();
+    await Hive.box<Approvision>('approvisionBox').clear();
+    await Hive.box<TopArticles>('topArticlesBox').clear();
+    await Hive.box<TopVendeurs>('topVendeursBox').clear();
+    await Hive.box<Bilan>('bilanBox').clear();
+    await Hive.box<Statistique>('statData').clear();
+    await Hive.box<MyIcon>('iconBox').clear();
+    await Hive.box<TypeDepense>('typeDepenseBox').clear();
+    await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
+    await Hive.box<Depense>('depenseBox').clear();
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -63,6 +79,15 @@ Future<void> clearHiveBoxes() async {
     await Hive.box<Outil>('outilBox').clear();
     await Hive.box<TypeService>('typeServiceBox').clear();
     await Hive.box<Service>('serviceBox').clear();
+    await Hive.box<Approvision>('approvisionBox').clear();
+    await Hive.box<TopArticles>('topArticlesBox').clear();
+    await Hive.box<TopVendeurs>('topVendeursBox').clear();
+    await Hive.box<Bilan>('bilanBox').clear();
+    await Hive.box<Statistique>('statData').clear();
+    await Hive.box<MyIcon>('iconBox').clear();
+    await Hive.box<TypeDepense>('typeDepenseBox').clear();
+    await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
+    await Hive.box<Depense>('depenseBox').clear();
   } catch (e) {
     return;
   }
@@ -134,7 +159,9 @@ Future<void> globalLogout() async {
 void startSessionCheck() {
   Timer.periodic(Duration(minutes: 1), (timer) async {
     bool expired = await isSessionExpired();
-    if (expired) {
+    bool isLoggedIn = await isUserLoggedIn();
+
+    if (expired && isLoggedIn) {
       await globalLogout();
     }
   });

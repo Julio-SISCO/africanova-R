@@ -2,12 +2,14 @@ import 'package:africanova/base.dart';
 import 'package:africanova/controller/auth_controller.dart';
 import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/controller/global_controller.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/check_profil.dart';
 import 'package:africanova/view/auth/form_design.dart';
 import 'package:africanova/view/auth/profile_form.dart';
 import 'package:africanova/view/auth/security_question_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class PasswordForgotten extends StatefulWidget {
   final String username;
@@ -246,7 +248,10 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                       child: isLoading
                           ? CircularProgressIndicator(
                               backgroundColor: Colors.white,
-                              color: Colors.grey,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .themeData
+                                  .colorScheme
+                                  .secondary,
                             )
                           : Text(
                               'Enregistrer',

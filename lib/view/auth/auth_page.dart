@@ -2,12 +2,14 @@ import 'package:africanova/base.dart';
 import 'package:africanova/controller/auth_controller.dart';
 import 'package:africanova/controller/global_controller.dart';
 import 'package:africanova/provider/auth_provider.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/check_profil.dart';
 import 'package:africanova/view/auth/form_design.dart';
 import 'package:africanova/view/auth/profile_form.dart';
 import 'package:africanova/view/auth/security_question_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -386,7 +388,10 @@ class _AuthPageState extends State<AuthPage> {
                       child: isLoading
                           ? CircularProgressIndicator(
                               backgroundColor: Colors.white,
-                              color: Colors.grey,
+                              color: Provider.of<ThemeProvider>(context)
+                                  .themeData
+                                  .colorScheme
+                                  .secondary,
                             )
                           : Text(
                               _register ? 'Créer le compte' : 'Connecter',

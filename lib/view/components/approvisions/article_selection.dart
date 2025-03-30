@@ -4,6 +4,7 @@ import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/database/ligne_approvision.dart';
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -12,7 +13,9 @@ import 'package:provider/provider.dart';
 
 class ArticleSelection extends StatefulWidget {
   final Function(LigneApprovision) updateSelection;
-  const ArticleSelection({super.key, required this.updateSelection});
+  final int? count;
+  const ArticleSelection(
+      {super.key, required this.updateSelection, this.count});
 
   @override
   State<ArticleSelection> createState() => _ArticleSelectionState();
@@ -89,13 +92,12 @@ class _ArticleSelectionState extends State<ArticleSelection> {
               else
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: widget.count ?? 4,
+                        crossAxisSpacing: 2.0,
+                        mainAxisSpacing: 2.0,
                         childAspectRatio: 0.8,
                       ),
                       itemCount: filteredArticles.length,
@@ -124,7 +126,7 @@ class _ArticleSelectionState extends State<ArticleSelection> {
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 4.0,
         child: Column(
@@ -165,14 +167,14 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                     article.libelle!,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                   Text(
-                    '${article.prixAchat?.toStringAsFixed(0)} f',
+                    '${formatMontant(article.prixAchat ?? 0)} f',
                     style: const TextStyle(
                       color: Colors.green,
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -182,7 +184,7 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                     maxLines: 1,
                     style: const TextStyle(
                       color: Colors.red,
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

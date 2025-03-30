@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 class TableHeader extends StatefulWidget {
   final bool enableDateFilter;
   final bool enableAdd;
-  final Function(Widget) addAction;
+  final Function(Widget)? addAction;
   final Function(DateTime?)? setDate;
   final Widget addwidget;
   const TableHeader({
     super.key,
     this.enableDateFilter = true,
     this.enableAdd = true,
-    required this.addAction,
+    this.addAction,
     required this.addwidget,
     this.setDate,
   });
@@ -93,7 +93,7 @@ class _TableHeaderState extends State<TableHeader> {
                       ),
                     ),
                     onPressed: () {
-                      widget.addAction(widget.addwidget);
+                      widget.addAction?.call(widget.addwidget);
                     },
                     icon: Icon(
                       Icons.add,
@@ -231,6 +231,8 @@ final PlutoGridColumnFilterConfig columnFilterConfig =
           } else if (column.field == 'adresse') {
             return resolver<CustomPlutoFilter>() as PlutoFilterType;
           } else if (column.field == 'fournisseur') {
+            return resolver<CustomPlutoFilter>() as PlutoFilterType;
+          } else if (column.field == 'permission') {
             return resolver<CustomPlutoFilter>() as PlutoFilterType;
           }
 

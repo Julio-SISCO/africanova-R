@@ -2,9 +2,11 @@ import 'package:africanova/database/employer.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
 import 'package:africanova/database/user.dart';
+import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class RightCard extends StatefulWidget {
   final Function(List<String>) updatePermissions;
@@ -52,14 +54,9 @@ class _RightCardState extends State<RightCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.only(
-        top: 16.0,
-        left: 16.0,
-        right: 16.0,
-        bottom: 32.0,
-      ),
+      margin: EdgeInsets.only(left: 8.0, top: 4.0, bottom: 2.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -93,6 +90,10 @@ class _RightCardState extends State<RightCard> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Checkbox(
+            activeColor: Provider.of<ThemeProvider>(context)
+                .themeData
+                .colorScheme
+                .secondary,
             value: _selectedPermissions.contains(permission),
             onChanged: (bool? value) {
               setState(() {
@@ -109,8 +110,11 @@ class _RightCardState extends State<RightCard> {
 class RoleRightCard extends StatefulWidget {
   final Function(List<String>) updateRoles;
   final User user;
-  const RoleRightCard(
-      {super.key, required this.user, required this.updateRoles});
+  const RoleRightCard({
+    super.key,
+    required this.user,
+    required this.updateRoles,
+  });
 
   @override
   State<RoleRightCard> createState() => _RoleRightCardState();
@@ -153,9 +157,9 @@ class _RoleRightCardState extends State<RoleRightCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -188,6 +192,10 @@ class _RoleRightCardState extends State<RoleRightCard> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Checkbox(
+            activeColor: Provider.of<ThemeProvider>(context)
+                .themeData
+                .colorScheme
+                .secondary,
             value: _selectedRoles.contains(role),
             onChanged: (bool? value) {
               setState(() {
@@ -249,9 +257,9 @@ class _UserInfoCardState extends State<UserInfoCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.all(16.0),
+      margin: EdgeInsets.symmetric(vertical: 4.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -331,6 +339,10 @@ class _UserInfoCardState extends State<UserInfoCard> {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Checkbox(
+            activeColor: Provider.of<ThemeProvider>(context)
+                .themeData
+                .colorScheme
+                .secondary,
             value: _isActive,
             onChanged: (bool? value) {
               setState(() {

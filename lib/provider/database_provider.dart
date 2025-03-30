@@ -6,7 +6,11 @@ import 'dart:io';
 import 'package:africanova/database/approvision.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/database/bilan.dart';
+import 'package:africanova/database/categorie_depense.dart';
+import 'package:africanova/database/depense.dart';
+import 'package:africanova/database/document.dart';
 import 'package:africanova/database/ligne_approvision.dart';
+import 'package:africanova/database/my_icon.dart';
 import 'package:africanova/database/top_articles.dart';
 import 'package:africanova/database/type_article.dart';
 import 'package:africanova/database/categorie.dart';
@@ -18,6 +22,7 @@ import 'package:africanova/database/ligne_article.dart';
 import 'package:africanova/database/ligne_outil.dart';
 import 'package:africanova/database/ligne_vente.dart';
 import 'package:africanova/database/outil.dart';
+import 'package:africanova/database/type_depense.dart';
 import 'package:africanova/database/type_outil.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
@@ -49,7 +54,7 @@ class DatabaseProvider {
 
     if (!directory.existsSync()) {
       directory.createSync(recursive: true);
-    } 
+    }
 
     Hive.init(directory.path);
     // await Hive.initFlutter();
@@ -79,6 +84,11 @@ class DatabaseProvider {
     Hive.registerAdapter(DetailsMouvementsAdapter());
     Hive.registerAdapter(BilanAdapter());
     Hive.registerAdapter(StatistiqueAdapter());
+    Hive.registerAdapter(TypeDepenseAdapter());
+    Hive.registerAdapter(CategorieDepenseAdapter());
+    Hive.registerAdapter(DepenseAdapter());
+    Hive.registerAdapter(MyIconAdapter());
+    Hive.registerAdapter(DocumentAdapter());
   }
 
   static Future<void> openBoxes() async {
@@ -101,6 +111,10 @@ class DatabaseProvider {
     await Hive.openBox<TopVendeurs>('topVendeursBox');
     await Hive.openBox<Bilan>('bilanBox');
     await Hive.openBox<Statistique>('statData');
+    await Hive.openBox<MyIcon>('iconBox');
+    await Hive.openBox<TypeDepense>('typeDepenseBox');
+    await Hive.openBox<CategorieDepense>('categorieDepenseBox');
+    await Hive.openBox<Depense>('depenseBox');
   }
 }
 
@@ -150,4 +164,3 @@ Future<String> getAppVersionData() async {
   String? version = prefs.getString('app_version');
   return version ?? '';
 }
-
