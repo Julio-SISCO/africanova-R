@@ -3,6 +3,7 @@ import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -53,16 +54,19 @@ class _EditRoleFormState extends State<EditRoleForm> {
       });
 
       if (result['status']) {
-        Navigator.pop(context, {
-          'status': true,
+        Get.back(result: {
+          'status': result['status'],
           'roleName': _roleNameController.text,
           'permissions': _selectedPermissions,
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'].toString()),
-          ),
+        Get.snackbar(
+          '',
+          result["message"],
+          titleText: const SizedBox.shrink(),
+          messageText: Center(child: Text(result["message"])),
+          maxWidth: 300,
+          snackPosition: SnackPosition.BOTTOM,
         );
       }
     }
@@ -120,11 +124,10 @@ class _EditRoleFormState extends State<EditRoleForm> {
                             return SizedBox(
                               width: MediaQuery.of(context).size.width * 0.20,
                               child: CheckboxListTile(
-                                
-                            activeColor: Provider.of<ThemeProvider>(context)
-                                .themeData
-                                .colorScheme
-                                .secondary,
+                                activeColor: Provider.of<ThemeProvider>(context)
+                                    .themeData
+                                    .colorScheme
+                                    .secondary,
                                 title: Text(
                                   permission.name,
                                   style: TextStyle(
@@ -157,7 +160,7 @@ class _EditRoleFormState extends State<EditRoleForm> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => Get.back(),
                           child: Text(
                             'Annuler',
                             maxLines: 1,

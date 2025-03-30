@@ -23,7 +23,7 @@ class DetailHeader extends StatelessWidget {
   void _delete(context, int id) async {
     final result = await deleteService(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
       switchView(ServiceMain(
         switchView: (Widget w) => switchView(w),
       ));
@@ -43,7 +43,7 @@ class DetailHeader extends StatelessWidget {
   void _cancel(context, int id) async {
     final result = await cancelService(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
       switchView(ServiceMain(
         switchView: (Widget w) => switchView(w),
       ));

@@ -2,6 +2,7 @@ import 'package:africanova/controller/permissions_controller.dart';
 import 'package:africanova/database/permission.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -56,16 +57,21 @@ class _RoleFormState extends State<RoleForm> {
         loading = false;
       });
       if (result['status']) {
-        Navigator.pop(context, {
+        Get.back(result: {
           'status': result['status'],
           'roleName': _roleNameController.text,
           'permissions': selectedPermissions,
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(result['message'].toString()),
+        Get.snackbar(
+          '',
+          result["message"],
+          titleText: SizedBox.shrink(),
+          messageText: Center(
+            child: Text(result["message"]),
           ),
+          maxWidth: 300,
+          snackPosition: SnackPosition.BOTTOM,
         );
       }
     }
@@ -149,7 +155,7 @@ class _RoleFormState extends State<RoleForm> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                           ),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () => Get.back(),
                           child: Text(
                             'Annuler',
                             maxLines: 1,

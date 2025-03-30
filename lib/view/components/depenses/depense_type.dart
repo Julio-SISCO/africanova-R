@@ -82,7 +82,7 @@ class _DepenseTypeState extends State<DepenseType> {
   void _cancel(context, int id) async {
     final result = await deleteTypeDepense(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

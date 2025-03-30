@@ -42,7 +42,7 @@ class _VenteTableState extends State<VenteTable> {
   void _cancel(context, int id) async {
     final result = await cancelVente(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

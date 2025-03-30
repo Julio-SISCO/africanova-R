@@ -2,6 +2,7 @@ import 'package:africanova/database/role.dart';
 import 'package:africanova/view/components/security/edit_role_form.dart';
 import 'package:africanova/view/components/security/role_and_permission.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RoleCard extends StatefulWidget {
   final Role role;
@@ -21,15 +22,8 @@ class _RoleCardState extends State<RoleCard> {
     );
 
     if (result != null) {
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-      Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        MaterialPageRoute(
-          builder: (context) => RoleAndPermission(),
-        ),
-      );
+      Get.back();
+      Get.to(RoleAndPermission());
     }
   }
 

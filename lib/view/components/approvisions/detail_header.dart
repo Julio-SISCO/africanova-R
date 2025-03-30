@@ -24,7 +24,7 @@ class DetailHeader extends StatelessWidget {
   Future<void> _delete(BuildContext context, int id) async {
     final result = await supprimerApprovision(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
       switchView(ApprovisionTable(switchView: switchView));
     }
     Get.snackbar(

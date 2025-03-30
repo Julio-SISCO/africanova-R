@@ -41,7 +41,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
 
   Future<void> _submit(context) async {
     if (_formKey.currentState!.validate()) {
-      Navigator.pop(context);
+      Get.back();
       setState(() {
         _loading = true;
       });
@@ -76,7 +76,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
   void _delete(context, int id) async {
     final result = await supprimerArticle(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

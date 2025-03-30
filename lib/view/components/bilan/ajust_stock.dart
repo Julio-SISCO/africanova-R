@@ -53,7 +53,7 @@ class _AjustStockState extends State<AjustStock> {
   }
 
   Future<void> _submit(context) async {
-    if (_askConfirm) Navigator.pop(context);
+    if (_askConfirm) Get.back();
     setState(() {
       _loading = true;
     });

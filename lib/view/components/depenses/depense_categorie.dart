@@ -107,7 +107,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
   void _cancel(context, int id) async {
     final result = await deleteCategorieDepense(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

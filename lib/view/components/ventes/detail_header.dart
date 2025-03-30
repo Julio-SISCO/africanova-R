@@ -23,7 +23,7 @@ class DetailHeader extends StatelessWidget {
   void _cancel(context, int id) async {
     final result = await cancelVente(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
       switchView(VenteTable(switchView: switchView));
     }
     Get.snackbar(
@@ -41,7 +41,7 @@ class DetailHeader extends StatelessWidget {
   void _delete(context, int id) async {
     final result = await deleteVente(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
       switchView(VenteTable(switchView: switchView));
     }
     Get.snackbar(

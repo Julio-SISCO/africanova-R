@@ -42,7 +42,7 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
   void _delete(context, int id) async {
     final result = await supprimerApprovision(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

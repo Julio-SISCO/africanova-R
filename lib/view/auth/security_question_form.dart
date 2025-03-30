@@ -122,7 +122,7 @@ class _SecurityQuestionFormState extends State<SecurityQuestionForm> {
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Get.back(),
                   child: Text(
                     "Retour",
                     style: TextStyle(

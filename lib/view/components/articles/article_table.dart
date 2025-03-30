@@ -45,7 +45,7 @@ class _ArticleTableState extends State<ArticleTable> {
   void _delete(context, int id) async {
     final result = await supprimerArticle(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',

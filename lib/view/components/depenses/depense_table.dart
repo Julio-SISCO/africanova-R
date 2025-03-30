@@ -38,7 +38,7 @@ class _DepenseTableState extends State<DepenseTable> {
   void _delete(context, int id) async {
     final result = await supprimerDepense(id);
     if (result['status']) {
-      Navigator.pop(context);
+      Get.back();
     }
     Get.snackbar(
       '',
