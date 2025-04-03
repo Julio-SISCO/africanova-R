@@ -83,7 +83,7 @@ class _TableHeaderState extends State<TableHeader> {
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme
-                          .surface,
+                          .secondary,
                       foregroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme

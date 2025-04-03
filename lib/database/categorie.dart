@@ -16,11 +16,15 @@ class Categorie extends HiveObject {
   @HiveField(3)
   int? id;
 
+  @HiveField(4)
+  int? nbArticle;
+
   Categorie({
     this.code,
     this.libelle,
     this.description,
     this.id,
+    this.nbArticle = 0,
   });
 
   // Méthode pour convertir un JSON en Categorie
@@ -30,6 +34,7 @@ class Categorie extends HiveObject {
       code: json['code'],
       libelle: json['libelle'],
       description: json['description'],
+      nbArticle: json['articles_count'],
     );
   }
 

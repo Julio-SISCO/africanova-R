@@ -4,12 +4,12 @@ import 'package:africanova/controller/article_controller.dart';
 import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/database/categorie.dart';
-import 'package:africanova/provider/permissions_providers.dart';
-
-import 'package:africanova/static/theme.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/image_picker_manager.dart';
+import 'package:africanova/widget/dialogs.dart';
+import 'package:africanova/widget/dropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,7 +38,8 @@ class _ArticleFormState extends State<ArticleForm> {
   List<File> selectedImage = [];
   final ImagePicker _picker = ImagePicker();
   final List<Categorie> _categories = [];
-  int? _selectedCategorie;
+  Categorie? _selectedCategorie;
+  String categorieError = '';
 
   @override
   void initState() {
@@ -61,7 +62,7 @@ class _ArticleFormState extends State<ArticleForm> {
         purchasePriceController.text = article.prixAchat.toString();
         salePriceController.text = article.prixVente.toString();
         quantityController.text = article.stock.toString();
-        _selectedCategorie = article.categorie?.id ?? 0;
+        _selectedCategorie = article.categorie;
       });
     }
   }
@@ -95,46 +96,23 @@ class _ArticleFormState extends State<ArticleForm> {
   }
 
   void _deleteImage(BuildContext ctxt, int id, int index) async {
-    showDialog(
-      context: ctxt,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Confirmation'),
-          content: Text('Voulez-vous vraiment supprimer cette image ?'),
-          actions: [
-            TextButton(
-              child: Text('Annuler'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Supprimer'),
-              onPressed: () async {
-                final result = await supprimerImage(id);
+    final result = await supprimerImage(id);
 
-                if (result['status'] == true) {
-                  setState(() {
-                    widget.editableArticle!.images!.removeAt(index);
-                  });
-                }
-                Get.snackbar(
-                  '',
-                  result["message"],
-                  titleText: SizedBox.shrink(),
-                  messageText: Center(
-                    child: Text(result["message"]),
-                  ),
-                  maxWidth: 300,
-                  snackPosition: SnackPosition.BOTTOM,
-                );
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+    if (result['status'] == true) {
+      setState(() {
+        widget.editableArticle!.images!.removeAt(index);
+      });
+    }
+    Get.back();
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
     );
   }
 
@@ -149,7 +127,7 @@ class _ArticleFormState extends State<ArticleForm> {
       final String description = descriptionController.text;
       final double? prixAchat = double.tryParse(purchasePriceController.text);
       final double? prixVente = double.tryParse(salePriceController.text);
-      final int categorie = _selectedCategorie!;
+      final int categorie = _selectedCategorie?.id ?? 0;
       final List<File> images = selectedImage;
 
       final result = await updateArticle(
@@ -191,12 +169,15 @@ class _ArticleFormState extends State<ArticleForm> {
               widget.editableArticle!.images != null &&
               widget.editableArticle!.images!.isNotEmpty)) {
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Center(
-              child: Text('Associez une image à l\'article'),
-            ),
+        Get.snackbar(
+          '',
+          'Associez une image à l\'article',
+          titleText: SizedBox.shrink(),
+          messageText: Center(
+            child: Text('Associez une image à l\'article'),
           ),
+          maxWidth: 300,
+          snackPosition: SnackPosition.BOTTOM,
         );
       }
     }
@@ -213,7 +194,7 @@ class _ArticleFormState extends State<ArticleForm> {
       final String description = descriptionController.text;
       final double? prixAchat = double.tryParse(purchasePriceController.text);
       final double? prixVente = double.tryParse(salePriceController.text);
-      final int categorie = _selectedCategorie!;
+      final int categorie = _selectedCategorie?.id ?? 0;
       final List<File> images = selectedImage;
 
       final result = await storeArticle(
@@ -262,458 +243,413 @@ class _ArticleFormState extends State<ArticleForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.15),
-      child: FutureBuilder<bool>(
-        future: hasPermission('creer articles'),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(
-              color: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .secondary,
-            ));
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Erreur: ${snapshot.error}'));
-          }
+    return _buildColumn();
+  }
 
-          bool canSaveSale = snapshot.data ?? false;
-          return !canSaveSale
-              ? Center(
-                  child: Text(
-                    'Désolé! Vous n\'êtes pas autorisés à créer un article.',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+  Widget _buildColumn() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      elevation: 0.0,
+      color: Colors.grey.withOpacity(0.1),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _buildForm(),
+      ),
+    );
+  }
+
+  Widget _buildForm() {
+    return Form(
+      key: _formKey,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildActionButtons(),
+                SizedBox(height: 24.0),
+                _buildLabelle(),
+                SizedBox(height: 24.0),
+                _buildCategoryDropdown(),
+                SizedBox(height: 24.0),
+                _buildMontantField(),
+                SizedBox(height: 24.0),
+                _buildDescriptionField(
+                  "Description",
+                  descriptionController,
+                  3,
+                  null,
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: _buildFilePicker(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMontantField() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: constraints.maxWidth * 0.48,
+              child: TextFormField(
+                controller: purchasePriceController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.withOpacity(0.1),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2.0),
+                    borderSide: const BorderSide(),
                   ),
-                )
-              : Card(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.03,
-                    vertical: MediaQuery.of(context).size.height * 0.015,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                  labelText: "Prix d'achat",
+                ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer un montant';
+                  }
+                  final n = num.tryParse(value);
+                  if (n == null) {
+                    return 'Veuillez entrer un montant valide';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            SizedBox(
+              width: constraints.maxWidth * 0.48,
+              child: TextFormField(
+                controller: salePriceController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.withOpacity(0.1),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2.0),
+                    borderSide: const BorderSide(),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0 * 2),
-                    child: Form(key: _formKey, child: _desktopForm(context)),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                  labelText: "Prix de vente",
+                ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+                ],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez entrer un montant';
+                  }
+                  final n = num.tryParse(value);
+                  if (n == null) {
+                    return 'Veuillez entrer un montant valide';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildDescriptionField(String label, controller, int? l, validator) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.grey.withOpacity(0.1),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2.0),
+          borderSide: const BorderSide(),
+        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      ),
+      validator: validator,
+      maxLines: l ?? 1,
+    );
+  }
+
+  Widget _buildFilePicker() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _buildButton(
+          context: context,
+          onPressed: ((selectedImage.length +
+                      (widget.editableArticle?.images?.length ?? 0)) >=
+                  3)
+              ? null
+              : () async {
+                  await _pickImage();
+                },
+          libelle: "Ajouter unne image",
+          icon: Icons.add_a_photo_outlined,
+          width: 200,
+          color: const Color.fromARGB(255, 5, 202, 133),
+        ),
+        SizedBox(height: 16.0),
+        if (imageError != null && imageError!.isNotEmpty)
+          Text(
+            imageError!,
+            style: TextStyle(color: Colors.red[700]),
+          ),
+        SizedBox(height: 16.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 4.0,
+            horizontal: 16.0,
+          ),
+          child: _displayImages(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return _buildButton(
+      context: context,
+      onPressed: isLoading
+          ? null
+          : () {
+              if (widget.editableArticle == null) {
+                _submitForm();
+              } else {
+                _submitEditionForm();
+              }
+            },
+      libelle: "Enregistrer",
+      icon: Icons.save,
+      width: 120,
+      color: const Color.fromARGB(255, 5, 202, 133).withOpacity(0.6),
+    );
+  }
+
+  Widget _displayImages() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (widget.editableArticle != null &&
+            widget.editableArticle!.images != null)
+          for (int i = 0; i < widget.editableArticle!.images!.length; i++) ...[
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Image.network(
+                    buildUrl(widget.editableArticle!.images![i].path),
+                    height: 150,
+                    width: 220,
+                    fit: BoxFit.cover,
                   ),
-                );
+                ),
+                Positioned(
+                  top: -12,
+                  right: 5,
+                  child: IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      showCancelConfirmationDialog(
+                        context,
+                        () {
+                          _deleteImage(context,
+                              widget.editableArticle!.images![i].id, i);
+                        },
+                        'Êtes-vous sûr de vouloir annuler cette image ?',
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.0),
+          ],
+        for (int i = 0; i < selectedImage.length; i++) ...[
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 16.0,
+                ),
+                child: Image.file(
+                  selectedImage[i],
+                  height: 150,
+                  width: 220,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: -12,
+                right: 5,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.cancel,
+                    color:
+                        const Color.fromARGB(255, 5, 202, 133).withOpacity(0.7),
+                  ),
+                  onPressed: () => _removeImage(i),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16.0),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildCategoryDropdown() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildDropdownContainer(constraints),
+            _buildquantityContainer(constraints),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLabelle() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: constraints.maxWidth * 0.48,
+              child: _buildDescriptionField(
+                  "Code de l'article", codeController, null, null),
+            ),
+            SizedBox(
+                width: constraints.maxWidth * 0.48,
+                child: _buildDescriptionField(
+                  "Libellé de l'article",
+                  libelleController,
+                  1,
+                  (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez entrer un libellé';
+                    }
+                    return null;
+                  },
+                )),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildDropdownContainer(BoxConstraints constraints) {
+    return SizedBox(
+      width: constraints.maxWidth * 0.48,
+      child: buildDropdownA<Categorie>(
+        "Catégorie",
+        _categories,
+        _selectedCategorie,
+        Colors.grey.withOpacity(0.1),
+        false,
+        (value) {
+          setState(() {
+            categorieError = '';
+            _selectedCategorie = value;
+          });
         },
       ),
     );
   }
 
-  Widget _desktopForm(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: TextFormField(
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                controller: codeController,
-                decoration: InputDecoration(
-                  labelText: 'Code de l\'article',
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                  filled: true,
-                ),
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            Expanded(
-              child: TextFormField(
-                controller: libelleController,
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                decoration: InputDecoration(
-                  labelText: 'Libellé de l\'article',
-                  filled: true,
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer un libellé';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<int?>(
-                decoration: InputDecoration(
-                  labelText: 'Catégorie',
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                  filled: true,
-                ),
-                value: _selectedCategorie,
-                items: _categories.map((category) {
-                  return DropdownMenuItem<int?>(
-                    value: category.id,
-                    child: Text(category.libelle!),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  categoriesController.text = _categories
-                      .firstWhere((categorie) => categorie.id == value)
-                      .libelle!;
-                  setState(() {
-                    _selectedCategorie = value;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return 'Veuillez sélectionner une catégorie';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            Expanded(
-              child: TextFormField(
-                controller: quantityController,
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                decoration: InputDecoration(
-                  labelText: 'Quantité en stock',
-                  filled: true,
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                ),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer une quantité';
-                  }
-                  final quantity = int.tryParse(value);
-                  if (quantity == null || quantity < 0) {
-                    return 'La quantité doit être supérieure ou égale à 0';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: TextFormField(
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                controller: purchasePriceController,
-                decoration: InputDecoration(
-                  labelText: 'Prix d\'achat',
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                  filled: true,
-                ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer un prix d\'achat';
-                  }
-                  final price = double.tryParse(value);
-                  if (price == null || price < 0) {
-                    return 'Le prix d\'achat doit être supérieur ou égal à 0';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            Expanded(
-              child: TextFormField(
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                controller: salePriceController,
-                decoration: InputDecoration(
-                  labelText: 'Prix de vente',
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                  filled: true,
-                ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer un prix de vente';
-                  }
-                  final price = double.tryParse(value);
-                  if (price == null || price < 0) {
-                    return 'Le prix de vente doit être supérieur ou égal à 0';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        _buildCameraButton(),
-        if ((widget.editableArticle != null &&
-                widget.editableArticle!.images != null &&
-                widget.editableArticle!.images!.isNotEmpty) ||
-            selectedImage.isNotEmpty)
-          _displayImages(),
-        const SizedBox(height: 16.0),
-        TextFormField(
-          controller: descriptionController,
-          cursorColor: Provider.of<ThemeProvider>(context)
-              .themeData
-              .colorScheme
-              .tertiary,
-          decoration: InputDecoration(
-            fillColor: Provider.of<ThemeProvider>(context)
-                .themeData
-                .colorScheme
-                .primary,
-            floatingLabelStyle: TextStyle(
-              color: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .tertiary,
-            ),
-            filled: true,
-            labelText: 'Description de l\'article',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+  Widget _buildquantityContainer(BoxConstraints constraints) {
+    return SizedBox(
+      width: constraints.maxWidth * 0.48,
+      child: TextFormField(
+        controller: quantityController,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.grey.withOpacity(0.1),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2.0),
+            borderSide: const BorderSide(),
           ),
-          maxLines: 4,
+          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          labelText: "Prix de vente",
         ),
-        const SizedBox(height: 30),
-        SizedBox(
-          height: 40,
-          width: MediaQuery.of(context).size.width * .3,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              elevation: 2.0,
-              backgroundColor: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .primary,
-              foregroundColor: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .tertiary,
-              side: BorderSide(
-                width: 2.0,
-                color: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .primary,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            onPressed: isLoading
-                ? null
-                : () {
-                    if (widget.editableArticle == null) {
-                      _submitForm();
-                    } else {
-                      _submitEditionForm();
-                    }
-                  },
-            child: const Text(
-              'Enregistrer',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCameraButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      margin: const EdgeInsets.only(top: 6.0),
-      child: SizedBox(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: selectedImage.length < 3
-                  ? () {
-                      _pickImage();
-                    }
-                  : null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.add_a_photo_outlined,
-                    size: 40,
-                  ),
-                  Text(
-                    ' Ajoutez une image',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Text(
-              imageError ?? '',
-              style: TextStyle(color: Colors.red),
-            ),
-          ],
-        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\d*')),
+        ],
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Veuillez entrer un montant';
+          }
+          final n = num.tryParse(value);
+          if (n == null) {
+            return 'Veuillez entrer un montant valide';
+          }
+          return null;
+        },
       ),
     );
   }
 
-  Widget _displayImages() {
-    return Row(
-      children: [
-        const SizedBox(width: 16.0),
-        Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                if (widget.editableArticle != null &&
-                    widget.editableArticle!.images != null)
-                  for (int i = 0;
-                      i < widget.editableArticle!.images!.length;
-                      i++)
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Image.network(
-                            buildUrl(widget.editableArticle!.images![i].path),
-                            height: 150,
-                            width: 150,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          top: -12,
-                          right: 5,
-                          child: IconButton(
-                            icon: Icon(Icons.cancel, color: bgColor),
-                            onPressed: () => _deleteImage(context,
-                                widget.editableArticle!.images![i].id, i),
-                          ),
-                        ),
-                      ],
-                    ),
-                for (int i = 0; i < selectedImage.length; i++)
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 16.0,
-                        ),
-                        child: Image.file(
-                          selectedImage[i],
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        top: -12,
-                        right: 5,
-                        child: IconButton(
-                          icon: Icon(Icons.cancel, color: Colors.blueGrey),
-                          onPressed: () => _removeImage(i),
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
+  Widget _buildButton({
+    required BuildContext context,
+    required String libelle,
+    required IconData icon,
+    required VoidCallback? onPressed,
+    double? width,
+    Color? color,
+  }) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return SizedBox(
+          height: 40,
+          width: width ?? double.infinity,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: !isLoading
+                  ? const Color.fromARGB(255, 5, 202, 133).withOpacity(0.6)
+                  : color ?? themeProvider.themeData.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0)),
+            ),
+            onPressed: isLoading ? null : onPressed,
+            icon: Icon(icon, size: 20, color: Colors.white),
+            label: Text(
+              libelle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 14, color: Colors.white),
             ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

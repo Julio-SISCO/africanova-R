@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:africanova/database/type_service.dart';
 import 'package:africanova/provider/permissions_providers.dart';
 import 'package:africanova/theme/theme_provider.dart';
@@ -7,7 +5,6 @@ import 'package:africanova/view/components/services/service_type_card.dart';
 import 'package:africanova/view/components/services/service_type_form.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 

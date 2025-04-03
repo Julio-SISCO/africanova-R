@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'dart:io';
 
 import 'package:africanova/controller/dashboard_controller.dart';
@@ -13,7 +11,6 @@ import 'package:africanova/view/components/dashboard/printer.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -155,14 +152,14 @@ class _TopSellerMoreState extends State<TopSellerMore> {
               "${topVendeurs.employer.prenom} ${topVendeurs.employer.nom}"),
         ),
         "vente": PlutoCell(
-          value: "${topVendeurs.totalMontantVente.toStringAsFixed(0)}F",
+          value: "${formatMontant(topVendeurs.totalMontantVente)} f",
         ),
         "service": PlutoCell(
-          value: "${topVendeurs.totalMontantService.toStringAsFixed(0)}F",
+          value: "${formatMontant(topVendeurs.totalMontantService)} f",
         ),
         "total": PlutoCell(
           value:
-              "${(topVendeurs.totalMontantVente + topVendeurs.totalMontantService).toStringAsFixed(0)}F",
+              "${formatMontant(topVendeurs.totalMontantVente + topVendeurs.totalMontantService)} f",
         ),
         "p_vente": PlutoCell(
           value: "${topVendeurs.pourcentageVente.toStringAsFixed(2)} %",
@@ -223,6 +220,44 @@ class _TopSellerMoreState extends State<TopSellerMore> {
                     topVendeurs.map(
                       (topVendeurs) {
                         return _buildRow(topVendeurs);
+                      },
+                    ),
+                  );
+
+                  double totalVente = topVendeurs.fold(
+                      0, (sum, item) => sum + item.totalMontantVente);
+                  double totalService = topVendeurs.fold(
+                      0, (sum, item) => sum + item.totalMontantService);
+                  double totalGeneral = totalVente + totalService;
+
+                  double totalPourcentageVente = topVendeurs.fold(
+                      0, (sum, item) => sum + item.pourcentageVente);
+
+                  double totalPourcentageService = topVendeurs.fold(
+                      0, (sum, item) => sum + item.pourcentageServices);
+
+                  double totalPourcentageTotal =
+                      topVendeurs.fold(0, (sum, item) => sum + item.score);
+
+                  rows.add(
+                    PlutoRow(
+                      cells: {
+                        "vendeur": PlutoCell(value: "TOTAL"),
+                        "vente":
+                            PlutoCell(value: "${formatMontant(totalVente)} f"),
+                        "service": PlutoCell(
+                            value: "${formatMontant(totalService)} f"),
+                        "total": PlutoCell(
+                            value: "${formatMontant(totalGeneral)} f"),
+                        "p_vente": PlutoCell(
+                            value:
+                                "${totalPourcentageVente.toStringAsFixed(2)} %"),
+                        "p_service": PlutoCell(
+                            value:
+                                "${totalPourcentageService.toStringAsFixed(2)} %"),
+                        "p_total": PlutoCell(
+                            value:
+                                "${totalPourcentageTotal.toStringAsFixed(2)} %"),
                       },
                     ),
                   );

@@ -21,13 +21,14 @@ class CategorieAdapter extends TypeAdapter<Categorie> {
       libelle: fields[1] as String?,
       description: fields[2] as String?,
       id: fields[3] as int?,
+      nbArticle: fields[4] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Categorie obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.code)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class CategorieAdapter extends TypeAdapter<Categorie> {
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(4)
+      ..write(obj.nbArticle);
   }
 
   @override

@@ -182,6 +182,7 @@ class _UserEditState extends State<UserEdit> {
                             'Êtes-vous sûr de vouloir modifier ce compte ?',
                           );
                         }
+                        // Get.back();
                       },
                       null,
                     ),

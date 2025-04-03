@@ -1,6 +1,4 @@
 import 'package:africanova/theme/theme_provider.dart';
-import 'package:africanova/view/components/depenses/depense_categorie.dart';
-import 'package:africanova/view/components/depenses/depense_saver.dart';
 import 'package:africanova/view/components/security/user_role_permission.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,19 +34,13 @@ class _PageButtonState extends State<AccessButton> {
                 setState(() => selectedButton = "Acceuil");
                 widget.switchView(null);
               }),
-              _buildButton(context, "Nouveau", Icons.add, () {
-                setState(() => selectedButton = "Nouveau");
-                widget.switchView(DepenseSaver());
-              }),
-              _buildButton(context, "Edition", Icons.edit, () {
-                setState(() => selectedButton = "Edition");
-                widget.switchView(DepenseCategorie());
-              }),
+              _buildButton(context, "Nouveau", Icons.add, () {}),
+              _buildButton(context, "Edition", Icons.edit, () {}),
               _buildButton(context, "Utilisateurs", Icons.group, () {
                 setState(() => selectedButton = "Utilisateurs");
-                widget.switchView(UserRolePermission(
-                 switchView: widget.switchView
-                ),);
+                widget.switchView(
+                  UserRolePermission(switchView: widget.switchView),
+                );
               }),
             ],
           ),

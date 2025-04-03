@@ -1,12 +1,9 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/top_articles.dart';
 import 'package:africanova/provider/charts_provider.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

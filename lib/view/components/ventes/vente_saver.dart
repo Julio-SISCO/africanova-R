@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:africanova/controller/vente_controller.dart';
 import 'package:africanova/database/vente.dart';
 import 'package:africanova/util/date_formatter.dart';

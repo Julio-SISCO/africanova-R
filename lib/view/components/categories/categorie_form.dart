@@ -1,7 +1,5 @@
 import 'package:africanova/controller/categorie_controller.dart';
 import 'package:africanova/database/categorie.dart';
-import 'package:africanova/provider/permissions_providers.dart';
-
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +44,6 @@ class _CategorieFormState extends State<CategorieForm> {
       setState(() {
         isLoading = true;
       });
-
       String? code = codeController.text;
       final String libelle = libelleController.text;
       final String description = descriptionController.text;
@@ -72,7 +69,6 @@ class _CategorieFormState extends State<CategorieForm> {
         libelleController.clear();
         descriptionController.clear();
       }
-
       setState(() {
         isLoading = false;
       });
@@ -84,7 +80,6 @@ class _CategorieFormState extends State<CategorieForm> {
       setState(() {
         isLoading = true;
       });
-
       String? code = codeController.text;
       final String libelle = libelleController.text;
       final String description = descriptionController.text;
@@ -109,7 +104,6 @@ class _CategorieFormState extends State<CategorieForm> {
         libelleController.clear();
         descriptionController.clear();
       }
-
       setState(() {
         isLoading = false;
       });
@@ -118,189 +112,149 @@ class _CategorieFormState extends State<CategorieForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.15,
-        ),
-        child: FutureBuilder<bool>(
-          future: hasPermission('creer categories'),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .secondary,
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(child: Text('Erreur: ${snapshot.error}'));
-            }
+    return _buildColumn();
+  }
 
-            bool canSaveSale = snapshot.data ?? false;
-            return !canSaveSale
-                ? Center(
-                    child: Text(
-                      'Désolé! Vous n\'êtes pas autorisés à créer une catégorie.',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                : Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      padding: EdgeInsets.all(16.0 * 2),
-                      child: Form(
-                        key: _formKey,
-                        child: _desktopForm(context),
-                      ),
-                    ),
-                  );
-          },
-        ),
+  Widget _buildColumn() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      elevation: 0.0,
+      color: Colors.grey.withOpacity(0.1),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _buildForm(),
       ),
     );
   }
 
-  Widget _desktopForm(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: TextFormField(
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                controller: codeController,
-                decoration: InputDecoration(
-                  labelText: 'Code de la catégorie',
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                  filled: true,
+  Widget _buildForm() {
+    return Form(
+      key: _formKey,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildActionButtons(),
+                SizedBox(height: 24.0),
+                _buildLabelle(),
+                SizedBox(height: 24.0),
+                _buildDescriptionField(
+                  "Description",
+                  descriptionController,
+                  3,
+                  null,
                 ),
-              ),
-            ),
-            const SizedBox(width: 16.0),
-            Expanded(
-              child: TextFormField(
-                controller: libelleController,
-                cursorColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                decoration: InputDecoration(
-                  labelText: 'Libellé de la catégorie',
-                  filled: true,
-                  fillColor: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .primary,
-                  floatingLabelStyle: TextStyle(
-                    color: Provider.of<ThemeProvider>(context)
-                        .themeData
-                        .colorScheme
-                        .tertiary,
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Veuillez entrer un libellé';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16.0),
-        TextFormField(
-          controller: descriptionController,
-          cursorColor: Provider.of<ThemeProvider>(context)
-              .themeData
-              .colorScheme
-              .tertiary,
-          decoration: InputDecoration(
-            fillColor: Provider.of<ThemeProvider>(context)
-                .themeData
-                .colorScheme
-                .primary,
-            floatingLabelStyle: TextStyle(
-              color: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .tertiary,
-            ),
-            filled: true,
-            labelText: 'Description de la catégorie',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              ],
             ),
           ),
-          maxLines: 4,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDescriptionField(String label, controller, int? l, validator) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.grey.withOpacity(0.1),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2.0),
+          borderSide: const BorderSide(),
         ),
-        const SizedBox(height: 30),
-        SizedBox(
-          height: 40,
-          width: MediaQuery.of(context).size.width * .3,
-          child: TextButton(
-            style: TextButton.styleFrom(
-              elevation: 2.0,
-              backgroundColor: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .primary,
-              foregroundColor: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .tertiary,
-              side: BorderSide(
-                width: 2.0,
-                color: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .primary,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
+        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      ),
+      validator: validator,
+      maxLines: l ?? 1,
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return _buildButton(
+      context: context,
+      onPressed: isLoading
+          ? null
+          : () {
+              if (widget.editableCategorie == null) {
+                _submitForm();
+              } else {
+                _submitEditionForm();
+              }
+            },
+      libelle: "Enregistrer",
+      icon: Icons.save,
+      width: 120,
+      color: const Color.fromARGB(255, 5, 202, 133).withOpacity(0.6),
+    );
+  }
+
+  Widget _buildLabelle() {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: constraints.maxWidth * 0.48,
+              child: _buildDescriptionField(
+                  "Code de la categorie", codeController, null, null),
             ),
-            onPressed: isLoading
-                ? null
-                : () {
-                    if (widget.editableCategorie == null) {
-                      _submitForm();
-                    } else {
-                      _submitEditionForm();
+            SizedBox(
+                width: constraints.maxWidth * 0.48,
+                child: _buildDescriptionField(
+                  "Libellé de la categorie",
+                  libelleController,
+                  1,
+                  (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Veuillez entrer un libellé';
                     }
+                    return null;
                   },
-            child: const Text(
-              'Enregistrer',
+                )),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildButton({
+    required BuildContext context,
+    required String libelle,
+    required IconData icon,
+    required VoidCallback? onPressed,
+    double? width,
+    Color? color,
+  }) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return SizedBox(
+          height: 40,
+          width: width ?? double.infinity,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: !isLoading
+                  ? const Color.fromARGB(255, 5, 202, 133).withOpacity(0.6)
+                  : color ?? themeProvider.themeData.colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0)),
+            ),
+            onPressed: isLoading ? null : onPressed,
+            icon: Icon(icon, size: 20, color: Colors.white),
+            label: Text(
+              libelle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
+              style: const TextStyle(fontSize: 14, color: Colors.white),
             ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

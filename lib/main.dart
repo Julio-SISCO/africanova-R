@@ -22,7 +22,7 @@ void main() async {
   await DatabaseProvider.getDatabase();
   await DatabaseProvider.openBoxes();
   await clearHiveBoxes();
-  await saveAppVersionData('1.1.8');
+  await saveAppVersionData('1.1.8-b');
 
   bool isLoggedIn = await isUserLoggedIn();
 
@@ -80,18 +80,18 @@ class _StatusCheckerState extends State<StatusChecker> {
   }
 
   _loadStatus() async {
-    final result = await checkForUpdate();
     final isLoggedIn = await isUserLoggedIn();
+    final result = await checkForUpdate();
     final hasProfile = await hasEmployerProfile();
     final safe = await getSafe();
 
     setState(() {
+      _isLoggedIn = isLoggedIn;
       if (result['status'] == true) {
         _availlableVersion = result['availlable'];
         _version = result['version'];
       }
       _safe = safe;
-      _isLoggedIn = isLoggedIn;
       _hasProfile = hasProfile;
     });
   }

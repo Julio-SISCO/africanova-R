@@ -209,7 +209,9 @@ class _UserTableState extends State<UserTable> {
                       IconButton(
                         icon: Icon(
                           Icons.check_circle,
-                          color: Colors.green[800],
+                          color: rendererContext.cell.value.id == _id
+                              ? null
+                              : Colors.green[800],
                         ),
                         onPressed: rendererContext.cell.value.id == _id
                             ? null
@@ -219,7 +221,10 @@ class _UserTableState extends State<UserTable> {
                       ),
                     if (rendererContext.cell.value.isActive)
                       IconButton(
-                        icon: const Icon(Icons.cancel, color: Colors.red),
+                        icon: Icon(Icons.cancel,
+                            color: rendererContext.cell.value.id == _id
+                                ? null
+                                : Colors.red),
                         onPressed: rendererContext.cell.value.id == _id
                             ? null
                             : () {
@@ -258,11 +263,6 @@ class _UserTableState extends State<UserTable> {
                           ),
                         );
                       },
-                    ),
-                  if (permissions['voir comptes'] ?? false)
-                    IconButton(
-                      icon: Icon(Icons.info),
-                      onPressed: () {},
                     ),
                 ],
               );

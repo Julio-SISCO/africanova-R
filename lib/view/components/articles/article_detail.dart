@@ -15,8 +15,11 @@ import 'package:africanova/theme/theme_provider.dart';
 class ArticleDetail extends StatefulWidget {
   final Article article;
   final Function(Widget) switchView;
-  const ArticleDetail(
-      {super.key, required this.article, required this.switchView});
+  const ArticleDetail({
+    super.key,
+    required this.article,
+    required this.switchView,
+  });
 
   @override
   State<ArticleDetail> createState() => _ArticleDetailState();
@@ -171,7 +174,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Affichage de l'image principale
           selectedImage != null && selectedImage!.path.isNotEmpty
               ? ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -274,20 +276,23 @@ class _ArticleDetailState extends State<ArticleDetail> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                child: Center(
-                  child: Text(
-                    widget.article.description != null
-                        ? widget.article.description!
-                        : "Aucune description",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: widget.article.description != null
-                          ? Colors.black
-                          : Colors.grey,
-                    ),
+                child: Text(
+                  widget.article.description != null
+                      ? widget.article.description!
+                      : "Aucune description",
+                  textAlign: widget.article.description != null
+                      ? TextAlign.justify
+                      : TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: widget.article.description != null
+                        ? Provider.of<ThemeProvider>(context)
+                            .themeData
+                            .colorScheme
+                            .tertiary
+                        : Colors.grey,
                   ),
                 ),
               ),

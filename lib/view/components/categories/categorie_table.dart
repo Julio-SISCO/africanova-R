@@ -1,16 +1,15 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:africanova/controller/categorie_controller.dart';
 import 'package:africanova/provider/permissions_providers.dart';
 
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/view/components/categories/categorie_detail.dart';
 import 'package:africanova/view/components/categories/categorie_form.dart';
+import 'package:africanova/widget/dialogs.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:africanova/database/categorie.dart';
@@ -29,6 +28,23 @@ class _CategorieTableState extends State<CategorieTable> {
 
   late PlutoGridStateManager stateManager;
 
+  void _delete(context, int id) async {
+    final result = await supprimerCategorie(id);
+    if (result['status']) {
+      Get.back();
+    }
+    Get.snackbar(
+      '',
+      result["message"],
+      titleText: SizedBox.shrink(),
+      messageText: Center(
+        child: Text(result["message"]),
+      ),
+      maxWidth: 300,
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
+
   List<PlutoColumn> buildColumns(double width) {
     return [
       PlutoColumn(
@@ -40,8 +56,8 @@ class _CategorieTableState extends State<CategorieTable> {
         enableContextMenu: false,
       ),
       PlutoColumn(
-        title: "Nombre d'articles",
-        field: "nb_article",
+        title: "Nombre d'categories",
+        field: "nb_categorie",
         type: PlutoColumnType.number(),
         width: width,
         minWidth: width,
@@ -58,76 +74,80 @@ class _CategorieTableState extends State<CategorieTable> {
         renderer: (rendererContext) {
           return FutureBuilder<Map<String, bool>>(
             future: checkPermissions([
-              'voir articles',
+              'voir categories',
               'modifier categories',
               'supprimer categories',
             ]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                    child: CircularProgressIndicator(
-                  color: Provider.of<ThemeProvider>(context)
-                      .themeData
-                      .colorScheme
-                      .secondary,
-                ));
+                return const SizedBox();
               }
               if (snapshot.hasError) {
-                return Center(child: Text('${snapshot.error}'));
+                return Center(child: Text('Erreur: ${snapshot.error}'));
               }
 
               var permissions = snapshot.data ?? {};
-              return PopupMenuButton<int>(
-                onSelected: (value) async {
-                  if (value == 0) {
-                  } else if (value == 1) {
-                    widget.switchView(
-                      CategorieForm(
-                        editableCategorie: rendererContext.cell.value,
-                      ),
-                    );
-                  } else if (value == 2) {
-                    bool? confirmation = await showConfirmationDialog(context);
 
-                    if (confirmation == true) {
-                      var result = await supprimerCategorie(
-                          rendererContext.cell.value.id ?? 0);
-                      Get.snackbar(
-                        '',
-                        result["message"],
-                        titleText: SizedBox.shrink(),
-                        messageText: Center(
-                          child: Text(result["message"]),
+              return Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  if (permissions['supprimer categories'] ?? false)
+                    Tooltip(
+                      message: 'Supprimer la categorie',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red[600],
                         ),
-                        maxWidth: 300,
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    }
-                  }
-                },
-                itemBuilder: (BuildContext context) {
-                  return [
-                    if (permissions['voir articles'] ?? false)
-                      PopupMenuItem(
-                        height: 16.0 * 2,
-                        value: 0,
-                        child: Text("Articles"),
+                        onPressed: () {
+                          showCancelConfirmationDialog(
+                            context,
+                            () {
+                              _delete(
+                                context,
+                                rendererContext.cell.value.id ?? 0,
+                              );
+                            },
+                            'Êtes-vous sûr de vouloir supprimer cet categorie ?',
+                          );
+                        },
                       ),
-                    if (permissions['modifier categories'] ?? false)
-                      PopupMenuItem(
-                        height: 16.0 * 2,
-                        value: 1,
-                        child: Text("Modifier"),
+                    ),
+                  if ((permissions['modifier categories'] ?? false))
+                    Tooltip(
+                      message: 'Modifier la categorie',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.blue[800],
+                        ),
+                        onPressed: () {
+                          widget.switchView(
+                            CategorieForm(
+                              editableCategorie: rendererContext.cell.value,
+                            ),
+                          );
+                        },
                       ),
-                    if (permissions['supprimer categories'] ?? false)
-                      PopupMenuItem(
-                        height: 16.0 * 2,
-                        value: 2,
-                        child: Text("Supprimer"),
+                    ),
+                  if (permissions['voir categories'] ?? false)
+                    Tooltip(
+                      message: 'Datails de la categorie',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.info,
+                        ),
+                        onPressed: () {
+                          widget.switchView(
+                            CategorieDetail(
+                              categorie: rendererContext.cell.value,
+                              switchView: (Widget w) => widget.switchView(w),
+                            ),
+                          );
+                        },
                       ),
-                  ];
-                },
-                icon: Icon(Icons.more_horiz),
+                    ),
+                ],
               );
             },
           );
@@ -149,7 +169,7 @@ class _CategorieTableState extends State<CategorieTable> {
               return PlutoRow(
                 cells: {
                   'libelle': PlutoCell(value: categorie.libelle),
-                  'nb_article': PlutoCell(value: 0),
+                  'nb_categorie': PlutoCell(value: categorie.nbArticle ?? 0),
                   'action': PlutoCell(value: categorie),
                 },
               );

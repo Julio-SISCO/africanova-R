@@ -104,8 +104,7 @@ class _ServiceVenteChartState extends State<ServiceVenteChart> {
                     ColumnSeries<ChartData, String>(
                       dataSource: dataSale,
                       xValueMapper: (ChartData data, _) => data.x,
-                      yValueMapper: (ChartData data, _) =>
-                          (data.y + getInterval(maxValue)),
+                      yValueMapper: (ChartData data, _) => 0,
                       name: 'Total des dépenses',
                       color: const Color.fromARGB(255, 210, 2, 106),
                     ),

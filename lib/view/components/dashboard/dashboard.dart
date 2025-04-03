@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:africanova/controller/bilan_controller.dart';
 import 'package:africanova/controller/dashboard_controller.dart';
 import 'package:africanova/database/bilan.dart';
@@ -11,7 +9,6 @@ import 'package:africanova/view/components/dashboard/dash_shortcut.dart';
 import 'package:africanova/view/components/dashboard/service_vente_chart.dart';
 import 'package:africanova/view/components/dashboard/top_sellers_table.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 

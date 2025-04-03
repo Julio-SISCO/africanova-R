@@ -247,25 +247,28 @@ class _AppSidebarState extends State<AppSidebar> {
                     icon: const Icon(Icons.attach_money),
                     isSelected: index == 10 || index == 11,
                     menus: [
-                      Menu(
-                        title: 'Dépenses',
-                        press: () {
-                          setState(() {
-                            index = 10;
-                          });
-                          widget.switchView(
-                            DepensePage(
-                              switchView: (Widget w) {
-                                widget.switchView(w);
-                              },
-                            ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.trending_down,
-                          size: 16,
+                      buildMenuWithPermission(
+                        'voir depenses',
+                        Menu(
+                          title: 'Dépenses',
+                          press: () {
+                            setState(() {
+                              index = 10;
+                            });
+                            widget.switchView(
+                              DepensePage(
+                                switchView: (Widget w) {
+                                  widget.switchView(w);
+                                },
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.trending_down,
+                            size: 16,
+                          ),
+                          isSelected: index == 10,
                         ),
-                        isSelected: index == 10,
                       ),
                       Menu(
                         title: 'Revenus',
@@ -282,18 +285,24 @@ class _AppSidebarState extends State<AppSidebar> {
                   MenuDrop(
                     title: 'Autres',
                     icon: Icon(Icons.more_horiz),
-                    isSelected: false,
+                    isSelected: index == 12,
                     menus: [
-                      Menu(
-                        title: 'Autorisations',
-                        press: () {
-                          widget.switchView(RoleAndPermission());
-                        },
-                        icon: const Icon(
-                          Icons.security,
-                          size: 16,
+                      buildMenuWithPermission(
+                        'gestion autorisations',
+                        Menu(
+                          title: 'Autorisations',
+                          press: () {
+                            setState(() {
+                              index = 12;
+                            });
+                            widget.switchView(RoleAndPermission());
+                          },
+                          isSelected: index == 12,
+                          icon: Icon(
+                            Icons.security,
+                            size: 16,
+                          ),
                         ),
-                        isSelected: false,
                       ),
                     ],
                   ),

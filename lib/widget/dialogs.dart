@@ -1,9 +1,8 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:africanova/controller/article_controller.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void showCancelConfirmationDialog(
@@ -28,18 +27,14 @@ void showCancelConfirmationDialog(
                 backgroundColor: Provider.of<ThemeProvider>(context)
                     .themeData
                     .colorScheme
-                    .surface,
-                foregroundColor: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
+                    .tertiary, 
                 elevation: 0.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(2.0),
                 ),
               ),
               onPressed: () {
-                Navigator.of(dialogContext).pop();
+                Get.back(result: dialogContext);
               },
               child: Text(
                 'Non',
@@ -56,11 +51,8 @@ void showCancelConfirmationDialog(
               backgroundColor: Provider.of<ThemeProvider>(context)
                   .themeData
                   .colorScheme
-                  .tertiary,
-              foregroundColor: Provider.of<ThemeProvider>(context)
-                  .themeData
-                  .colorScheme
-                  .surface,
+                  .secondary,
+              foregroundColor: Colors.white,
               elevation: 0.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(2.0),
@@ -95,16 +87,36 @@ Future<void> showEditStockDialog(
       final resultat = await updateStock(article.id!, updatedStock);
 
       if (resultat['status'] == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Modification enregistrée'),
+        Get.snackbar(
+          '',
+          'Modification enregistrée',
+          titleText: SizedBox.shrink(),
+          messageText: Center(
+            child: Text(
+              'Modification enregistrée',
+              style: TextStyle(
+                color: Color(0xFF262D4D),
+              ),
+            ),
           ),
+          maxWidth: 400,
+          snackPosition: SnackPosition.BOTTOM,
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(resultat['message']),
+        Get.snackbar(
+          '',
+          resultat["message"],
+          titleText: SizedBox.shrink(),
+          messageText: Center(
+            child: Text(
+              resultat["message"],
+              style: TextStyle(
+                color: Color(0xFF262D4D),
+              ),
+            ),
           ),
+          maxWidth: 400,
+          snackPosition: SnackPosition.BOTTOM,
         );
       }
     }
@@ -142,7 +154,7 @@ Future<void> showEditStockDialog(
           TextButton(
             child: Text('Annuler'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Get.back();
             },
           ),
           TextButton(
@@ -150,9 +162,21 @@ Future<void> showEditStockDialog(
             onPressed: () async {
               if (formKey.currentState!.validate()) {
                 await submit();
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Modification enregistrée')),
+                Get.back();
+                Get.snackbar(
+                  '',
+                  'Modification enregistrée',
+                  titleText: SizedBox.shrink(),
+                  messageText: Center(
+                    child: Text(
+                      'Modification enregistrée',
+                      style: TextStyle(
+                        color: Color(0xFF262D4D),
+                      ),
+                    ),
+                  ),
+                  maxWidth: 400,
+                  snackPosition: SnackPosition.BOTTOM,
                 );
               }
             },

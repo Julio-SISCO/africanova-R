@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:africanova/controller/service_controller.dart';
 import 'package:africanova/database/type_article.dart';
 import 'package:africanova/database/employer.dart';

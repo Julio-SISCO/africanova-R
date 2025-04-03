@@ -99,7 +99,7 @@ class _ImageCropPageState extends State<ImageCropPage> {
           '${tempDir.path}/cropped_image_${DateTime.now().millisecondsSinceEpoch}.png');
       croppedFile.writeAsBytesSync(img.encodePng(croppedImage));
 
-      Get.back(result: croppedFile);
+      Get.back(result: croppedFile.path);
     }
   }
 

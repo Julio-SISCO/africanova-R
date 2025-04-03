@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import, deprecated_member_use
-
 import 'package:africanova/controller/image_url_controller.dart';
 import 'package:africanova/database/article.dart';
 import 'package:africanova/database/ligne_approvision.dart';
@@ -7,7 +5,6 @@ import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/date_formatter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 

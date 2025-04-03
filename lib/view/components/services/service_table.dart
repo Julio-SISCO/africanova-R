@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:africanova/controller/service_controller.dart';
 import 'package:africanova/database/service.dart';
 import 'package:africanova/provider/permissions_providers.dart';
@@ -8,7 +6,6 @@ import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/services/service_detail.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';

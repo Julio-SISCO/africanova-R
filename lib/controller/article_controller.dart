@@ -379,7 +379,7 @@ Future<Map<String, dynamic>> updateStock(int id, int qte) async {
     }
     return {
       'status': responseData['status'],
-      'article' : Article.fromJson(responseData['article']),
+      'article': Article.fromJson(responseData['article']),
       'message': responseData['message'],
     };
   } on SocketException catch (_) {
@@ -420,13 +420,13 @@ Future<bool?> showConfirmationDialog(BuildContext context) {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(false);
+              Get.back(result: false);
             },
             child: Text('Annuler'),
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(true);
+              Get.back(result: true);
             },
             child: Text('Confirmer'),
           ),
@@ -493,7 +493,7 @@ Future<void> showEditStockDialog(
           TextButton(
             child: Text('Annuler'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Get.back();
             },
           ),
           TextButton(
@@ -501,8 +501,7 @@ Future<void> showEditStockDialog(
             onPressed: () async {
               if (formKey.currentState!.validate()) {
                 await submit();
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pop();
+                Get.back();
               }
             },
           ),
