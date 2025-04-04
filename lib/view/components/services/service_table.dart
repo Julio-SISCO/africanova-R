@@ -6,6 +6,7 @@ import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/services/service_detail.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +24,22 @@ class _ServiceTableState extends State<ServiceTable> {
   List<PlutoColumn> columns = [];
   late PlutoGridStateManager stateManager;
   DateTime? _selectedDate;
+  Uint8List logoBytes = Uint8List(10);
 
   @override
   void initState() {
     super.initState();
     _fetchAndStoreTopArticles();
+    loadAssetImage('assets/logos/logo-light.png').then((bytes) {
+      setState(() {
+        logoBytes = bytes;
+      });
+    });
+  }
+
+  Future<Uint8List> loadAssetImage(String assetPath) async {
+    ByteData data = await rootBundle.load(assetPath);
+    return data.buffer.asUint8List();
   }
 
   Future<void> _fetchAndStoreTopArticles() async {
@@ -100,8 +112,8 @@ class _ServiceTableState extends State<ServiceTable> {
         title: "Actions",
         field: "actions",
         type: PlutoColumnType.text(),
-        width: 100,
-        minWidth: 100,
+        width: 80,
+        minWidth: 80,
         enableContextMenu: false,
         enableFilterMenuItem: false,
         enableSorting: false,
@@ -164,7 +176,9 @@ class _ServiceTableState extends State<ServiceTable> {
       'services': PlutoCell(value: typeServices),
       'client': PlutoCell(value: service.client.fullname ?? 'Non spécifié'),
       'montant': PlutoCell(value: "${formatMontant(total)} f"),
-      'status': PlutoCell(value: service.status == 'en_attente' ? "en attente" : service.status),
+      'status': PlutoCell(
+          value:
+              service.status == 'en_attente' ? "en attente" : service.status),
       'traiteur': PlutoCell(value: traiteur),
       'actions': PlutoCell(value: service),
     });
@@ -234,7 +248,7 @@ class _ServiceTableState extends State<ServiceTable> {
                             columnFilter: columnFilterConfig,
                             style: darkTableStyle,
                           ),
-                columns: buildColumns((totalWidth - 140) / 7),
+                columns: buildColumns((totalWidth - 150) / 7),
                 rows: rows,
                 onChanged: (PlutoGridOnChangedEvent event) {},
                 onLoaded: (PlutoGridOnLoadedEvent event) {

@@ -97,10 +97,7 @@ class _TableHeaderState extends State<TableHeader> {
                     },
                     icon: Icon(
                       Icons.add,
-                      color: Provider.of<ThemeProvider>(context)
-                          .themeData
-                          .colorScheme
-                          .tertiary,
+                      color: Colors.white,
                     ),
                     label: const Text(
                       'Ajouter',
@@ -109,6 +106,7 @@ class _TableHeaderState extends State<TableHeader> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -178,6 +176,7 @@ class _TableHeaderState extends State<TableHeader> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),

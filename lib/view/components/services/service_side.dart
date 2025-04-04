@@ -70,7 +70,10 @@ class _ServiceSideState extends State<ServiceSide> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey[200],
+                  color: Provider.of<ThemeProvider>(context)
+                      .themeData
+                      .colorScheme
+                      .secondary,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(2.0),
                     topRight: Radius.circular(2.0),
@@ -89,7 +92,7 @@ class _ServiceSideState extends State<ServiceSide> {
                               IconButton(
                                 icon: Icon(
                                   Icons.add_circle,
-                                  color: Colors.blueGrey[800],
+                                  color: Colors.white,
                                 ),
                                 onPressed: () {
                                   widget.changeContent(
@@ -121,7 +124,7 @@ class _ServiceSideState extends State<ServiceSide> {
                           color: Colors.white,
                           icon: Icon(
                             Icons.screen_search_desktop_rounded,
-                            color: Colors.blueGrey[800],
+                            color: Colors.white,
                           ),
                           onPressed: () {
                             setState(() {

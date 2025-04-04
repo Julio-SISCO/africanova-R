@@ -356,7 +356,7 @@ class _UserTableState extends State<UserTable> {
                               .value
                               .id ==
                           _id) {
-                        return const Color(0xFF05CA85);
+                        return const Color(0xFF056148);
                       }
 
                       return Provider.of<ThemeProvider>(context, listen: false)

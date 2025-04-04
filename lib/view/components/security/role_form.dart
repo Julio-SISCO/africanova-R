@@ -172,7 +172,10 @@ class _RoleFormState extends State<RoleForm> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             elevation: 0.0,
-                            backgroundColor: Colors.green[600],
+                            backgroundColor:  Provider.of<ThemeProvider>(context)
+                                    .themeData
+                                    .colorScheme
+                                    .secondary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),

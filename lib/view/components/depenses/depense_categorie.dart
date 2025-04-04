@@ -123,8 +123,6 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Provider.of<ThemeProvider>(context, listen: false).themeData;
-
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.85,
       child: Row(

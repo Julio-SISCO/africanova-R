@@ -1,5 +1,6 @@
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class HeadMenu extends StatelessWidget {
@@ -7,25 +8,17 @@ class HeadMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-        vertical: 16.0 * 1.5,
-      ),
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color:
-            Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      height: 150,
+    return SizedBox(
+        
       child: Center(
-        child: Image.asset(
-          'assets/images/logo.png',
+        child: SvgPicture.asset(
+          'assets/logos/logo.svg',
+          width: 250,
+          height: 230,
           fit: BoxFit.contain,
-          height: 60,
+          color: Provider.of<ThemeProvider>(context).isLightTheme()
+              ? Color(0xFF056148)
+              : Colors.white,
         ),
       ),
     );
