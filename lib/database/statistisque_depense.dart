@@ -45,3 +45,10 @@ class StatistisqueDepense {
     };
   }
 }
+
+class DepenseMensuelle {
+  final String mois;
+  final List<StatistisqueDepense> stats;
+
+  DepenseMensuelle({required this.mois, required this.stats});
+}

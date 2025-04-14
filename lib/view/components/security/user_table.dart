@@ -70,6 +70,16 @@ class _UserTableState extends State<UserTable> {
     );
   }
 
+  void updateAction() {
+    widget.switchView(
+      UserTable(
+        users: widget.users,
+        disable: widget.disable,
+        switchView: widget.switchView,
+      ),
+    );
+  }
+
   void delete(int id) async {
     final result = await deleteUser(id);
 
@@ -258,7 +268,7 @@ class _UserTableState extends State<UserTable> {
                         widget.switchView(
                           UserEdit(
                             user: rendererContext.cell.value,
-                            disableAction: () {},
+                            disableAction: updateAction,
                             switchView: widget.switchView,
                           ),
                         );

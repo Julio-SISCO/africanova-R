@@ -20,11 +20,23 @@ class RightCard extends StatefulWidget {
 
 class _RightCardState extends State<RightCard> {
   List<Permission> _permissions = [];
+  List<Permission> _filteredPermissions = [];
   List<String> _selectedPermissions = [];
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     _loadPermissions();
+
+    _searchController.addListener(() {
+      final query = _searchController.text.toLowerCase();
+      setState(() {
+        _filteredPermissions = _permissions
+            .where((p) => p.name.toLowerCase().contains(query))
+            .toList();
+      });
+    });
   }
 
   Future<void> _loadPermissions() async {
@@ -33,6 +45,7 @@ class _RightCardState extends State<RightCard> {
 
     setState(() {
       _permissions = permissions;
+      _filteredPermissions = permissions;
       _selectedPermissions = widget.user.permissions == null
           ? []
           : widget.user.permissions!.map((e) => e.name).toList();
@@ -54,25 +67,56 @@ class _RightCardState extends State<RightCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: EdgeInsets.only(left: 8.0, top: 4.0, bottom: 2.0),
+      margin: const EdgeInsets.only(left: 8.0, top: 4.0, bottom: 2.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(2.0),
       ),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Permissions',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                const Expanded(
+                  flex: 1,
+                  child: Text(
+                    'Permissions',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Rechercher...',
+                      prefixIcon: const Icon(Icons.search),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const Divider(),
-            ..._permissions
-                .map((permission) => _buildPermissionCheckbox(permission.name)),
+            const Divider(height: 24),
+            // Liste scrollable
+            LayoutBuilder(builder: (context, constraints) {
+              return SizedBox(
+                height: constraints.maxWidth * 1.32,
+                child: ListView(
+                  children: _filteredPermissions.map((permission) {
+                    return _buildPermissionCheckbox(permission.name);
+                  }).toList(),
+                ),
+              );
+            }),
           ],
         ),
       ),
@@ -81,25 +125,26 @@ class _RightCardState extends State<RightCard> {
 
   Widget _buildPermissionCheckbox(String permission) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            permission,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          Flexible(
+            child: Text(
+              permission,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Checkbox(
+            value: _selectedPermissions.contains(permission),
+            onChanged: (bool? value) {
+              _togglePermission(permission);
+            },
             activeColor: Provider.of<ThemeProvider>(context)
                 .themeData
                 .colorScheme
                 .secondary,
-            value: _selectedPermissions.contains(permission),
-            onChanged: (bool? value) {
-              setState(() {
-                _togglePermission(permission);
-              });
-            },
           ),
         ],
       ),

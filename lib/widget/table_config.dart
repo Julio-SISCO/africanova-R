@@ -1,4 +1,5 @@
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -27,31 +28,7 @@ class _TableHeaderState extends State<TableHeader> {
   DateTime? _selectedDate;
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-      locale: const Locale('fr', 'FR'),
-      builder: (context, child) {
-        return Theme(
-          data: Provider.of<ThemeProvider>(context).themeData.copyWith(
-                primaryColor: Colors.deepPurple,
-                hintColor: Colors.deepPurple,
-                colorScheme: Provider.of<ThemeProvider>(context).isLightTheme()
-                    ? ColorScheme.light(
-                        primary: Colors.deepPurple,
-                        onPrimary: Colors.white,
-                      )
-                    : ColorScheme.dark(
-                        primary: Colors.deepPurple,
-                        onPrimary: Colors.white,
-                      ),
-              ),
-          child: child!,
-        );
-      },
-    );
+    DateTime? pickedDate = await selecteDate(DateTime.now(), context);
 
     if (pickedDate != null && pickedDate != _selectedDate) {
       setState(() {

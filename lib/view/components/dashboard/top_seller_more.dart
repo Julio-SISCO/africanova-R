@@ -275,37 +275,38 @@ class _TopSellerMoreState extends State<TopSellerMore> {
                           child: Column(
                             spacing: 0.0,
                             children: [
-                              SizedBox(
+                              Container(
                                 height: 45.0,
-                                child: Container(
-                                  color: Colors.blueGrey,
-                                  child: Center(
-                                    child: Text(
-                                      period.toUpperCase(),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                                color: Color(0xFF056148),
+                                child: Center(
+                                  child: Text(
+                                    period.toUpperCase(),
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                               ),
                               Expanded(
-                                child: PlutoGrid(
-                                  configuration:
-                                      Provider.of<ThemeProvider>(context)
-                                              .isLightTheme()
-                                          ? PlutoGridConfiguration(
-                                              style: tableStyle,
-                                              columnFilter: columnFilterConfig,
-                                            )
-                                          : PlutoGridConfiguration.dark(
-                                              columnFilter: columnFilterConfig,
-                                              style: darkTableStyle,
-                                            ),
-                                  columns: buildColumns((totalWidth - 16) / 8),
-                                  rows: rows,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal:  1.0),
+                                  child: PlutoGrid(
+                                    configuration:
+                                        Provider.of<ThemeProvider>(context)
+                                                .isLightTheme()
+                                            ? PlutoGridConfiguration(
+                                                style: tableStyle,
+                                                columnFilter: columnFilterConfig,
+                                              )
+                                            : PlutoGridConfiguration.dark(
+                                                columnFilter: columnFilterConfig,
+                                                style: darkTableStyle,
+                                              ),
+                                    columns: buildColumns((totalWidth - 16) / 8),
+                                    rows: rows,
+                                  ),
                                 ),
                               ),
                             ],

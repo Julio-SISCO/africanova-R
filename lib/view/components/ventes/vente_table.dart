@@ -26,6 +26,11 @@ class _VenteTableState extends State<VenteTable> {
   late String query = "";
   DateTime? _selectedDate;
 
+  double? totalEnregistre;
+  double? totalValide;
+  double? totalEnAttente;
+  double? totalAnnule;
+
   @override
   void initState() {
     super.initState();
@@ -217,31 +222,73 @@ class _VenteTableState extends State<VenteTable> {
   void setDate(DateTime? date) {
     setState(() {
       _selectedDate = date;
+      totalEnregistre = null;
+      totalValide = null;
+      totalEnAttente = null;
+      totalAnnule = null;
+      if (_selectedDate != null) {
+        calculerTotaux();
+      }
     });
   }
 
   void filterDate() {
     final ventes = Hive.box<Vente>("venteHistory").values.toList();
 
-    if (_selectedDate == null) {
-      ventes.sort((a, b) => (b.createdAt ?? DateTime(2000))
-          .compareTo(a.createdAt ?? DateTime(2000)));
+    List<Vente> filteredVentes = _selectedDate == null
+        ? ventes
+        : ventes
+            .where((vente) =>
+                vente.createdAt != null &&
+                vente.createdAt!.year == _selectedDate!.year &&
+                vente.createdAt!.month == _selectedDate!.month &&
+                vente.createdAt!.day == _selectedDate!.day)
+            .toList();
 
-      rows.addAll(
-        ventes.map((vente) => _buildRow(vente)),
-      );
-      return;
+    filteredVentes.sort((a, b) => (b.createdAt ?? DateTime(2000))
+        .compareTo(a.createdAt ?? DateTime(2000)));
+
+    rows.clear();
+    rows.addAll(filteredVentes.map((vente) => _buildRow(vente)));
+  }
+
+  calculerTotaux() {
+    final ventes = Hive.box<Vente>("venteHistory").values.toList();
+    List<Vente> filteredVentes = _selectedDate == null
+        ? ventes
+        : ventes
+            .where((vente) =>
+                vente.createdAt != null &&
+                vente.createdAt!.year == _selectedDate!.year &&
+                vente.createdAt!.month == _selectedDate!.month &&
+                vente.createdAt!.day == _selectedDate!.day)
+            .toList();
+    for (var vente in filteredVentes) {
+      double montant = vente.montantTotal;
+      setState(() {
+        totalEnregistre = (totalEnregistre ?? 0.0) + montant;
+      });
+      totalValide = 0.0;
+      totalEnAttente = 0.0;
+      totalAnnule = 0.0;
+      switch (vente.status?.toLowerCase()) {
+        case 'valide':
+          setState(() {
+            totalValide = (totalValide ?? 0.0) + montant;
+          });
+          break;
+        case 'en_attente':
+          setState(() {
+            totalEnAttente = (totalEnAttente ?? 0.0) + montant;
+          });
+          break;
+        case 'annulee':
+          setState(() {
+            totalAnnule = (totalAnnule ?? 0.0) + montant;
+          });
+          break;
+      }
     }
-    rows.addAll(
-      ventes
-          .where((vente) =>
-              vente.createdAt != null &&
-              vente.createdAt!.year == _selectedDate!.year &&
-              vente.createdAt!.month == _selectedDate!.month &&
-              vente.createdAt!.day == _selectedDate!.day)
-          .map((v) => _buildRow(v))
-          .toList(),
-    );
   }
 
 // Fonction pour éviter la duplication du code
@@ -366,6 +413,54 @@ class _VenteTableState extends State<VenteTable> {
                         },
                       ),
                     ),
+                    if (totalEnregistre != null ||
+                        totalEnAttente != null ||
+                        totalValide != null ||
+                        totalAnnule != null)
+                      Container(
+                        color: const Color(0xFF056148),
+                        height: 50,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (totalEnregistre != null)
+                              _buildSummaryRow(
+                                "TOTAL Enregistré : ".toUpperCase(),
+                                " ${formatMontant(totalEnregistre ?? 0.0)} F",
+                                isBold: true,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            if (totalValide != null)
+                              _buildSummaryRow(
+                                "TOTAL Net : ".toUpperCase(),
+                                " ${formatMontant(totalValide ?? 0.0)} F",
+                                isBold: true,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            if (totalEnAttente != null)
+                              _buildSummaryRow(
+                                "TOTAL En attente : ".toUpperCase(),
+                                " ${formatMontant(totalEnAttente ?? 0.0)} F",
+                                isBold: true,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            if (totalAnnule != null)
+                              _buildSummaryRow(
+                                "TOTAL Annulé : ".toUpperCase(),
+                                " ${formatMontant(totalAnnule ?? 0.0)} F",
+                                isBold: true,
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                          ],
+                        ),
+                      ),
+                    SizedBox(height: 10.0),
                   ],
                 ),
               ),
@@ -373,6 +468,34 @@ class _VenteTableState extends State<VenteTable> {
           },
         );
       },
+    );
+  }
+
+  Widget _buildSummaryRow(String label, String value,
+          {bool isBold = false,
+          Color color = Colors.black,
+          double fontSize = 10}) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(label,
+              style: _textStyle(size: fontSize, bold: isBold, color: color)),
+          Text(value,
+              style:
+                  _textStyle(size: fontSize + 1, bold: isBold, color: color)),
+        ],
+      );
+
+  TextStyle _textStyle(
+      {double size = 11,
+      bool bold = false,
+      bool italic = false,
+      Color color = Colors.black}) {
+    return TextStyle(
+      fontSize: size,
+      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      fontStyle: italic ? FontStyle.italic : FontStyle.normal,
+      color: color,
     );
   }
 }

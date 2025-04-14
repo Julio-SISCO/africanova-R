@@ -69,10 +69,6 @@ class _DepensePageState extends State<DepensePage> {
   }
 
   Widget _defaultContent() {
-    final theme = Provider.of<ThemeProvider>(context, listen: false)
-        .themeData
-        .colorScheme;
-
     return Column(
       children: [
         LayoutBuilder(
@@ -85,7 +81,10 @@ class _DepensePageState extends State<DepensePage> {
                   title: 'Dépenses Annuelles',
                   montant: 55300,
                   value: 1,
-                  color: theme.tertiary,
+                  color: Provider.of<ThemeProvider>(context)
+                      .themeData
+                      .colorScheme
+                      .tertiary,
                   width: cardWidth,
                 ),
                 _buildDepenseCard(
@@ -169,3 +168,4 @@ class _DepensePageState extends State<DepensePage> {
     );
   }
 }
+    

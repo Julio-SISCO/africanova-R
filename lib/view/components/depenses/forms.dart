@@ -1,3 +1,4 @@
+import 'package:africanova/util/date_formatter.dart';
 import 'package:flutter/material.dart';
 
 class DepenseForm extends StatefulWidget {
@@ -34,12 +35,8 @@ class _DepenseFormState extends State<DepenseForm> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final selectedDateTemp = await showDatePicker(
-                  context: context,
-                  initialDate: selectedDate,
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2101),
-                );
+                final selectedDateTemp =
+                    await selecteDate(DateTime.now(), context);
                 if (selectedDateTemp != null &&
                     selectedDateTemp != selectedDate) {
                   setState(() {

@@ -117,8 +117,8 @@ class _UserEditState extends State<UserEdit> {
       updatedIsActive,
     );
     if (result['status']) {
-      // Get.back();
-      // widget.disableAction();
+      Get.back();
+      widget.disableAction();
     }
     setState(() {
       isLoading = false;
@@ -182,7 +182,6 @@ class _UserEditState extends State<UserEdit> {
                             'Êtes-vous sûr de vouloir modifier ce compte ?',
                           );
                         }
-                        // Get.back();
                       },
                       null,
                     ),
