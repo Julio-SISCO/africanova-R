@@ -41,6 +41,9 @@ class Depense extends HiveObject {
   @HiveField(10)
   DateTime updatedAt;
 
+  @HiveField(11)
+  final String? designation;
+
   Depense({
     this.id,
     required this.montant,
@@ -53,9 +56,9 @@ class Depense extends HiveObject {
     this.images = const [],
     required this.createdAt,
     required this.updatedAt,
+    required this.designation,
   });
 
-  /// Convertit un JSON en objet `Depense`
   factory Depense.fromJson(Map<String, dynamic> json) {
     return Depense(
       id: json['id'],
@@ -63,6 +66,7 @@ class Depense extends HiveObject {
           ? double.tryParse(json['montant'].toString()) ?? 0.0
           : 0.0,
       description: json['description'],
+      designation: json['description'],
       date: DateTime.parse(json['date']),
       status: json['status'],
       employer:
@@ -86,6 +90,7 @@ class Depense extends HiveObject {
     return {
       'id': id,
       'montant': montant,
+      'designation': designation,
       'description': description,
       'date': date.toIso8601String(),
       'status': status,

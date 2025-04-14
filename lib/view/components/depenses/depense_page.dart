@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/depenses/depense_chart.dart';
@@ -35,13 +34,20 @@ class _DepensePageState extends State<DepensePage> {
   List<double> values = [];
   Widget _content = Container();
 
+  @override
+  void initState() {
+    super.initState();
+    getValues();
+    _content = _defaultContent();
+  }
+
   void content(Widget? w) {
     setState(() {
       _content = w ?? _defaultContent();
     });
   }
 
-  getValues() {
+  void getValues() {
     final Random random = Random();
     setState(() {
       values = List.generate(
@@ -50,23 +56,12 @@ class _DepensePageState extends State<DepensePage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    getValues();
-    _content = _defaultContent();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          PageButton(
-            switchView: (Widget? w) {
-              content(w);
-            },
-          ),
+          PageButton(switchView: content),
           _content,
         ],
       ),
@@ -74,56 +69,60 @@ class _DepensePageState extends State<DepensePage> {
   }
 
   Widget _defaultContent() {
-    return Column(children: [
-      LayoutBuilder(
-        builder: (context, constraints) {
-          final maxWidth = constraints.maxWidth;
-          return Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            children: [
-              _buildDepenseCard(
-                title: 'Dépenses Annuelles',
-                montant: 55300,
-                value: 1,
-                color: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-                width: (maxWidth - 100) / 4,
-              ),
-              _buildDepenseCard(
-                title: 'Dépenses Fixes',
-                montant: 55300,
-                value: 0.5,
-                color: const Color.fromARGB(255, 47, 2, 210),
-                width: (maxWidth - 100) / 4,
-              ),
-              _buildDepenseCard(
-                title: 'Dépenses Variables',
-                montant: 55300,
-                value: 0.8,
-                color: const Color.fromARGB(255, 5, 202, 133),
-                width: (maxWidth - 100) / 4,
-              ),
-              _buildDepenseCard(
-                title: 'Dépenses Ocasionnelles',
-                montant: 55300,
-                value: 0.4,
-                color: const Color.fromARGB(255, 210, 2, 106),
-                width: (maxWidth - 100) / 4,
-              ),
-            ],
-          );
-        },
-      ),
-      DetailDepense(),
-      Row(
-        children: [
-          Expanded(child: DepenseGraph(label: "Total des dépenses")),
-          Expanded(child: DepenseGraph(label: "Total des dépenses par source")),
-        ],
-      ),
-    ]);
+    final theme = Provider.of<ThemeProvider>(context, listen: false)
+        .themeData
+        .colorScheme;
+
+    return Column(
+      children: [
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final cardWidth = (constraints.maxWidth - 100) / 4;
+            return Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                _buildDepenseCard(
+                  title: 'Dépenses Annuelles',
+                  montant: 55300,
+                  value: 1,
+                  color: theme.tertiary,
+                  width: cardWidth,
+                ),
+                _buildDepenseCard(
+                  title: 'Dépenses Fixes',
+                  montant: 55300,
+                  value: 0.5,
+                  color: const Color.fromARGB(255, 47, 2, 210),
+                  width: cardWidth,
+                ),
+                _buildDepenseCard(
+                  title: 'Dépenses Variables',
+                  montant: 55300,
+                  value: 0.8,
+                  color: const Color.fromARGB(255, 5, 202, 133),
+                  width: cardWidth,
+                ),
+                _buildDepenseCard(
+                  title: 'Dépenses Ocasionnelles',
+                  montant: 55300,
+                  value: 0.4,
+                  color: const Color.fromARGB(255, 210, 2, 106),
+                  width: cardWidth,
+                ),
+              ],
+            );
+          },
+        ),
+        DetailDepense(),
+        Row(
+          children: [
+            Expanded(child: DepenseGraph(label: "Total des dépenses")),
+            Expanded(
+                child: DepenseGraph(label: "Total des dépenses par source")),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _buildDepenseCard({
@@ -134,9 +133,7 @@ class _DepensePageState extends State<DepensePage> {
     required double width,
   }) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
       elevation: 0.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -147,20 +144,14 @@ class _DepensePageState extends State<DepensePage> {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: color,
-              ),
+                  fontWeight: FontWeight.bold, fontSize: 18.0, color: color),
             ),
             const SizedBox(height: 8),
             Text(
               formatMontant(montant),
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: color,
-              ),
+                  fontWeight: FontWeight.bold, fontSize: 18.0, color: color),
             ),
             const SizedBox(height: 8),
             SizedBox(

@@ -28,13 +28,14 @@ class DepenseAdapter extends TypeAdapter<Depense> {
       images: (fields[8] as List).cast<ImageArticle>(),
       createdAt: fields[9] as DateTime,
       updatedAt: fields[10] as DateTime,
+      designation: fields[11] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Depense obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class DepenseAdapter extends TypeAdapter<Depense> {
       ..writeByte(9)
       ..write(obj.createdAt)
       ..writeByte(10)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(11)
+      ..write(obj.designation);
   }
 
   @override

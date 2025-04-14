@@ -18,94 +18,83 @@ class _ClientSelectionState extends State<ClientSelection> {
   @override
   void initState() {
     super.initState();
-    final clients = Hive.box<Client>('clientBox').values.toList();
-    filteredClients = clients;
+    filteredClients = Hive.box<Client>('clientBox').values.toList();
   }
 
-  void filterClients(String query, List<Client> clients) {
+  void _filter(String query, List<Client> all) {
+    final search = query.toLowerCase();
     setState(() {
       filteredClients = query.isEmpty
-          ? clients
-          : clients.where((client) {
-              final labelLower = client.fullname?.toLowerCase() ?? '';
-              final searchLower = query.toLowerCase();
-              return labelLower.contains(searchLower);
-            }).toList();
+          ? all
+          : all
+              .where((c) => (c.fullname ?? '').toLowerCase().contains(search))
+              .toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final color =
+        Provider.of<ThemeProvider>(context).themeData.colorScheme.primary;
+
     return ValueListenableBuilder<Box<Client>>(
       valueListenable: Hive.box<Client>('clientBox').listenable(),
-      builder: (context, box, _) {
-        final List<Client> clients = box.values.toList();
+      builder: (_, box, __) {
+        final clients = box.values.toList();
 
         return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
-          ),
-          elevation: 0.0,
-          color:
-              Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+          elevation: 0,
+          color: color,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: TextField(
-                  onChanged: (value) {
-                    filterClients(value, clients);
-                  },
+                  onChanged: (val) => _filter(val, clients),
                   decoration: InputDecoration(
                     hintText: 'Rechercher...',
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
               ),
               if (clients.isEmpty)
                 const Padding(
-                  padding: EdgeInsets.only(top: 16.0),
+                  padding: EdgeInsets.only(top: 16),
                   child: Text(
                     'Aucun client disponible',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
+              else if (filteredClients.isEmpty)
+                const Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text(
+                    'Aucun résultat trouvé',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey,
+                    ),
+                  ),
+                )
               else
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: ListView.builder(
-                      shrinkWrap: true,
                       itemCount: filteredClients.length,
-                      itemBuilder: (context, index) {
-                        final client = filteredClients[index];
-                        return ListTile(
-                          title: Text(
-                            client.fullname ?? 'Client inconnu',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            '${client.adresse ?? 'Adresse'} | ${client.contact ?? 'Contact'}',
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 14,
-                            ),
-                          ),
-                          onTap: () {
-                            widget.chooseClient(client);
-                            setState(() {
-                              // _client = client;
-                            });
-                          },
+                      itemBuilder: (_, i) {
+                        final client = filteredClients[i];
+                        return AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          child: _buildClientTile(client),
                         );
                       },
                     ),
@@ -115,6 +104,25 @@ class _ClientSelectionState extends State<ClientSelection> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildClientTile(Client client) {
+    return ListTile(
+      title: Text(
+        client.fullname ?? 'Client inconnu',
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(
+        '${client.adresse ?? 'Adresse'} | ${client.contact ?? 'Contact'}',
+        style: const TextStyle(
+          color: Colors.blueGrey,
+          fontWeight: FontWeight.bold,
+          fontStyle: FontStyle.italic,
+          fontSize: 14,
+        ),
+      ),
+      onTap: () => widget.chooseClient(client),
     );
   }
 }

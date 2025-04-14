@@ -40,6 +40,7 @@ class _ArticleFormState extends State<ArticleForm> {
   final List<Categorie> _categories = [];
   Categorie? _selectedCategorie;
   String categorieError = '';
+  Article? editableArticle;
 
   @override
   void initState() {
@@ -53,16 +54,16 @@ class _ArticleFormState extends State<ArticleForm> {
 
   void _initData() {
     if (widget.editableArticle != null) {
-      final article = widget.editableArticle;
-
       setState(() {
-        codeController.text = article!.code ?? '';
-        libelleController.text = article.libelle ?? '';
-        descriptionController.text = article.description ?? '';
-        purchasePriceController.text = article.prixAchat.toString();
-        salePriceController.text = article.prixVente.toString();
-        quantityController.text = article.stock.toString();
-        _selectedCategorie = article.categorie;
+        editableArticle = widget.editableArticle;
+        codeController.text = editableArticle!.code ?? '';
+        libelleController.text = editableArticle?.libelle ?? '';
+        descriptionController.text = editableArticle?.description ?? '';
+        purchasePriceController.text =
+            editableArticle?.prixAchat.toString() ?? '';
+        salePriceController.text = editableArticle?.prixVente.toString() ?? '';
+        quantityController.text = editableArticle?.stock.toString() ?? '';
+        _selectedCategorie = editableArticle?.categorie;
       });
     }
   }
@@ -100,7 +101,7 @@ class _ArticleFormState extends State<ArticleForm> {
 
     if (result['status'] == true) {
       setState(() {
-        widget.editableArticle!.images!.removeAt(index);
+        editableArticle!.images!.removeAt(index);
       });
     }
     Get.back();
@@ -118,7 +119,7 @@ class _ArticleFormState extends State<ArticleForm> {
 
   void _submitEditionForm() async {
     if (_formKey.currentState!.validate() &&
-        (selectedImage.length + widget.editableArticle!.images!.length) > 0) {
+        (selectedImage.length + editableArticle!.images!.length) > 0) {
       setState(() {
         isLoading = true;
       });
@@ -138,7 +139,7 @@ class _ArticleFormState extends State<ArticleForm> {
         prixVente: prixVente,
         categorie: categorie,
         images: images,
-        id: widget.editableArticle!.id!,
+        id: editableArticle!.id!,
       );
       Get.snackbar(
         '',
@@ -159,15 +160,16 @@ class _ArticleFormState extends State<ArticleForm> {
         salePriceController.clear();
         categoriesController.clear();
         images.clear();
+        editableArticle = null;
       }
       setState(() {
         isLoading = false;
       });
     } else {
       if ((selectedImage.isNotEmpty) ||
-          (widget.editableArticle != null &&
-              widget.editableArticle!.images != null &&
-              widget.editableArticle!.images!.isNotEmpty)) {
+          (editableArticle != null &&
+              editableArticle!.images != null &&
+              editableArticle!.images!.isNotEmpty)) {
       } else {
         Get.snackbar(
           '',
@@ -399,7 +401,7 @@ class _ArticleFormState extends State<ArticleForm> {
         _buildButton(
           context: context,
           onPressed: ((selectedImage.length +
-                      (widget.editableArticle?.images?.length ?? 0)) >=
+                      (editableArticle?.images?.length ?? 0)) >=
                   3)
               ? null
               : () async {
@@ -434,7 +436,7 @@ class _ArticleFormState extends State<ArticleForm> {
       onPressed: isLoading
           ? null
           : () {
-              if (widget.editableArticle == null) {
+              if (editableArticle == null) {
                 _submitForm();
               } else {
                 _submitEditionForm();
@@ -451,16 +453,16 @@ class _ArticleFormState extends State<ArticleForm> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (widget.editableArticle != null &&
-            widget.editableArticle!.images != null)
-          for (int i = 0; i < widget.editableArticle!.images!.length; i++) ...[
+        if (editableArticle != null &&
+            editableArticle!.images != null)
+          for (int i = 0; i < editableArticle!.images!.length; i++) ...[
             Stack(
               clipBehavior: Clip.none,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Image.network(
-                    buildUrl(widget.editableArticle!.images![i].path),
+                    buildUrl(editableArticle!.images![i].path),
                     height: 150,
                     width: 220,
                     fit: BoxFit.cover,
@@ -476,7 +478,7 @@ class _ArticleFormState extends State<ArticleForm> {
                         context,
                         () {
                           _deleteImage(context,
-                              widget.editableArticle!.images![i].id, i);
+                              editableArticle!.images![i].id, i);
                         },
                         'Êtes-vous sûr de vouloir annuler cette image ?',
                       );
@@ -598,7 +600,7 @@ class _ArticleFormState extends State<ArticleForm> {
             borderSide: const BorderSide(),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-          labelText: "Prix de vente",
+          labelText: "Quantité",
         ),
         keyboardType: TextInputType.number,
         inputFormatters: [

@@ -1,4 +1,7 @@
+import 'package:africanova/theme/theme_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 String formatDate(DateTime? date) {
   if (date == null) return '';
@@ -51,4 +54,33 @@ String formatDateRange(DateTime start, DateTime end) {
 String formatMontant(double montant) {
   final formatter = NumberFormat("#,##0", "en_US");
   return formatter.format(montant);
+}
+
+Future<DateTime?> selecteDate(DateTime initialDate, BuildContext context) async {
+  final date = await showDatePicker(
+    context: context,
+    initialDate: initialDate,
+    firstDate: DateTime(2000),
+    lastDate: DateTime.now(),
+    locale: const Locale('fr', 'FR'),
+    builder: (context, child) {
+      return Theme(
+        data: Provider.of<ThemeProvider>(context).themeData.copyWith(
+              primaryColor: Color(0xFF056148),
+              hintColor: Color(0xFF056148),
+              colorScheme: Provider.of<ThemeProvider>(context).isLightTheme()
+                  ? ColorScheme.light(
+                      primary: Color(0xFF056148),
+                      onPrimary: Colors.white,
+                    )
+                  : ColorScheme.dark(
+                      primary: Color(0xFF056148),
+                      onPrimary: Colors.white,
+                    ),
+            ),
+        child: child!,
+      );
+    },
+  );
+  return date;
 }

@@ -21,21 +21,18 @@ class _ArticleSelectionState extends State<ArticleSelection> {
   @override
   void initState() {
     super.initState();
-    final articles = Hive.box<Article>('articleBox').values.toList();
-    filteredArticles = articles;
+    filteredArticles = Hive.box<Article>('articleBox').values.toList();
   }
 
-  void filterArticles(String query, List<Article> articles) {
+  void filterArticles(String query, List<Article> allArticles) {
     setState(() {
+      final search = query.toLowerCase();
       filteredArticles = query.isEmpty
-          ? articles
-          : articles.where((article) {
-              final labelLower = article.libelle?.toLowerCase() ?? '';
-              final categorieLower =
-                  article.categorie?.libelle?.toLowerCase() ?? '';
-              final searchLower = query.toLowerCase();
-              return labelLower.contains(searchLower) ||
-                  categorieLower.contains(searchLower);
+          ? allArticles
+          : allArticles.where((a) {
+              final label = a.libelle?.toLowerCase() ?? '';
+              final category = a.categorie?.libelle?.toLowerCase() ?? '';
+              return label.contains(search) || category.contains(search);
             }).toList();
     });
   }
@@ -44,62 +41,45 @@ class _ArticleSelectionState extends State<ArticleSelection> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box<Article>>(
       valueListenable: Hive.box<Article>('articleBox').listenable(),
-      builder: (context, box, _) {
-        final List<Article> articles = box.values.toList();
+      builder: (_, box, __) {
+        final articles = box.values.toList();
 
         return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
-          ),
-          elevation: 0.0,
-          color:
-              Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+          elevation: 0,
+          color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: TextField(
-                  onChanged: (value) {
-                    filterArticles(value, articles);
-                  },
+                  onChanged: (val) => filterArticles(val, articles),
                   decoration: InputDecoration(
                     hintText: 'Rechercher...',
                     prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
               ),
               if (articles.isEmpty)
                 const Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    'Aucun article disponible',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text('Aucun article disponible', style: TextStyle(fontWeight: FontWeight.bold)),
                 )
               else
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      itemCount: filteredArticles.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
                         childAspectRatio: 0.8,
                       ),
-                      itemCount: filteredArticles.length,
-                      itemBuilder: (context, index) {
-                        final article = filteredArticles[index];
-                        return _buildArticleCard(article);
-                      },
+                      itemBuilder: (_, index) => _buildArticleCard(filteredArticles[index]),
                     ),
                   ),
                 ),
@@ -111,77 +91,45 @@ class _ArticleSelectionState extends State<ArticleSelection> {
   }
 
   Widget _buildArticleCard(Article article) {
+    final imagePath = article.images?.firstOrNull?.path;
+    final imageUrl = imagePath != null ? buildUrl(imagePath) : null;
+
     return Stack(
       children: [
         Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          elevation: 4.0,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  child: article.images!.isNotEmpty
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                  child: imageUrl != null
                       ? CachedNetworkImage(
-                          imageUrl: buildUrl(article.images![0].path),
-                          height: MediaQuery.of(context).size.height * .3,
-                          width: MediaQuery.of(context).size.width,
+                          imageUrl: imageUrl,
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: double.infinity,
                           fit: BoxFit.fill,
-                          placeholder: (context, url) =>
-                              LinearProgressIndicator(
-                            color: Colors.grey.withOpacity(.2),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          placeholder: (_, __) => LinearProgressIndicator(color: Colors.grey.withOpacity(0.2)),
+                          errorWidget: (_, __, ___) => const Icon(Icons.error),
                         )
                       : Image.asset(
                           'assets/images/no_image.png',
-                          height: MediaQuery.of(context).size.height * .3,
-                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          width: double.infinity,
                           fit: BoxFit.fill,
                         ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      article.libelle!,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-                    Text(
-                      '${article.prixVente} f',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      '${article.stock} disponible',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    _textLine(article.libelle ?? '', bold: true),
+                    _textLine('${article.prixVente} F', color: Colors.green, size: 10),
+                    _textLine('${article.stock} disponible', color: Colors.red, size: 9),
                   ],
                 ),
               ),
@@ -189,25 +137,35 @@ class _ArticleSelectionState extends State<ArticleSelection> {
           ),
         ),
         Positioned(
-          top: 6.0,
-          right: 6.0,
+          top: 6,
+          right: 6,
           child: CircleAvatar(
             backgroundColor: Colors.blueGrey,
             radius: 12,
             child: IconButton(
               padding: EdgeInsets.zero,
               icon: const Icon(Icons.add, size: 16, color: Colors.white),
-              onPressed: () {
-                final ligne = LigneVente(
-                  article: article,
-                  montant: article.prixVente,
-                );
-                widget.updateSelection(ligne);
-              },
+              onPressed: () => widget.updateSelection(LigneVente(
+                article: article,
+                montant: article.prixVente,
+              )),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _textLine(String text, {Color color = Colors.black, double size = 12, bool bold = false}) {
+    return Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: size,
+        fontWeight: bold ? FontWeight.w600 : FontWeight.w500,
+        color: color,
+      ),
     );
   }
 }

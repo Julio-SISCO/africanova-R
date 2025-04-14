@@ -32,12 +32,10 @@ Future<Map<String, dynamic>> storeArticle({
       ..fields['stock'] = stock.toString()
       ..fields['categorie_id'] = categorie.toString();
 
-    // Ajout du code seulement s'il n'est pas null ou vide
     if (code != null && code.isNotEmpty) {
       request.fields['code'] = code;
     }
 
-    // Ajout des champs prixAchat et prixVente s'ils ne sont pas null
     if (prixAchat != null) {
       request.fields['prix_achat'] = prixAchat.toString();
     }
@@ -45,7 +43,6 @@ Future<Map<String, dynamic>> storeArticle({
       request.fields['prix_vente'] = prixVente.toString();
     }
 
-    // Ajout des fichiers images
     for (File image in images) {
       final mimeTypeData = lookupMimeType(image.path)?.split('/');
       if (mimeTypeData != null && mimeTypeData.length == 2) {
@@ -59,7 +56,6 @@ Future<Map<String, dynamic>> storeArticle({
       }
     }
 
-    // Envoi de la requête
     final response = await request.send();
     final responseBody = await response.stream.bytesToString();
     final responseData = json.decode(responseBody);
@@ -88,6 +84,7 @@ Future<Map<String, dynamic>> storeArticle({
     return {
       'status': responseData['status'],
       'message': responseData['message'],
+      'error': responseData['error'] ?? '',
     };
   } on SocketException catch (_) {
     return {

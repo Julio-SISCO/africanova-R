@@ -14,6 +14,7 @@ Future<Map<String, dynamic>> storeDepense({
   required double montant,
   required DateTime date,
   required String status,
+  required String? designation,
   required String? description,
   required int categorie,
   required List<File> fichiers,
@@ -27,6 +28,7 @@ Future<Map<String, dynamic>> storeDepense({
       ..fields['date'] = date.toIso8601String()
       ..fields['status'] = status
       ..fields['description'] = description ?? ''
+      ..fields['designation'] = designation ?? ''
       ..fields['categorie'] = categorie.toString();
 
     for (File fichier in fichiers) {
@@ -83,6 +85,7 @@ Future<Map<String, dynamic>> updateDepense({
   double? prixVente,
   double? prixAchat,
   required String libelle,
+  required String designation,
   required String description,
   required int categorie,
   required List<File>? images,

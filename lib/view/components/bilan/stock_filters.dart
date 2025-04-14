@@ -1,4 +1,5 @@
 import 'package:africanova/theme/theme_provider.dart';
+import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/bilan/ajust_stock.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -51,31 +52,8 @@ class _StockFiltersState extends State<StockFilters> {
   }
 
   Future<void> _selectDate(BuildContext context, bool isStart) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: isStart ? _startDate : _endDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-      locale: const Locale('fr', 'FR'),
-      builder: (context, child) {
-        return Theme(
-          data: Provider.of<ThemeProvider>(context).themeData.copyWith(
-                primaryColor: Colors.deepPurple,
-                hintColor: Colors.deepPurple,
-                colorScheme: Provider.of<ThemeProvider>(context).isLightTheme()
-                    ? ColorScheme.light(
-                        primary: Colors.deepPurple,
-                        onPrimary: Colors.white,
-                      )
-                    : ColorScheme.dark(
-                        primary: Colors.deepPurple,
-                        onPrimary: Colors.white,
-                      ),
-              ),
-          child: child!,
-        );
-      },
-    );
+    DateTime? pickedDate =
+        await selecteDate(isStart ? _startDate : _endDate, context);
 
     if (pickedDate != null) {
       setState(() {

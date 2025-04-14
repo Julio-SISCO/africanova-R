@@ -3,9 +3,9 @@ import "package:africanova/database/vente.dart";
 import "package:africanova/provider/permissions_providers.dart";
 import "package:africanova/theme/theme_provider.dart";
 import "package:africanova/util/date_formatter.dart";
+import "package:africanova/view/components/ventes/facture_vente.dart";
 import "package:africanova/view/components/ventes/vente_saver.dart";
 import "package:africanova/widget/dialogs.dart";
-import "package:africanova/widget/pdf/header.dart";
 import "package:africanova/widget/table_config.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
@@ -197,12 +197,10 @@ class _VenteTableState extends State<VenteTable> {
                         ),
                         onPressed: () {
                           widget.switchView(
-                            PdfHeaderPreview(vente: rendererContext.cell.value),
-
-                            // VenteDetail(
-                            //   vente: rendererContext.cell.value,
-                            //   switchView: (Widget w) => widget.switchView(w),
-                            // ),
+                            FactureVente(
+                              vente: rendererContext.cell.value,
+                              switchView: (Widget w) => widget.switchView(w),
+                            ),
                           );
                         },
                       ),

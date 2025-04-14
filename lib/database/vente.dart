@@ -76,8 +76,8 @@ class Vente extends HiveObject {
 
   // Méthode pour calculer le total TTC
   double calculateTotal() {
-    double totalLignes = lignes.fold(0,
-        (sum, ligne) => sum + (ligne.article?.prixVente ?? 0) * ligne.quantite);
+    double totalLignes = lignes.fold(
+        0, (sum, ligne) => sum + (ligne.montant ?? 0) * ligne.quantite);
     double taxeAmount = 0.0;
     double remiseAmount = 0.0;
 
