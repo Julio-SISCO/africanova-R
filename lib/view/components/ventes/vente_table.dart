@@ -263,16 +263,16 @@ class _VenteTableState extends State<VenteTable> {
                 vente.createdAt!.month == _selectedDate!.month &&
                 vente.createdAt!.day == _selectedDate!.day)
             .toList();
+      totalValide = 0.0;
+      totalEnAttente = 0.0;
+      totalAnnule = 0.0;
     for (var vente in filteredVentes) {
       double montant = vente.montantTotal;
       setState(() {
         totalEnregistre = (totalEnregistre ?? 0.0) + montant;
       });
-      totalValide = 0.0;
-      totalEnAttente = 0.0;
-      totalAnnule = 0.0;
       switch (vente.status?.toLowerCase()) {
-        case 'valide':
+        case 'complete':
           setState(() {
             totalValide = (totalValide ?? 0.0) + montant;
           });

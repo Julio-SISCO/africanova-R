@@ -56,8 +56,8 @@ class _CategorieTableState extends State<CategorieTable> {
         enableContextMenu: false,
       ),
       PlutoColumn(
-        title: "Nombre d'categories",
-        field: "nb_categorie",
+        title: "Nombre d'articles",
+        field: "nb_article",
         type: PlutoColumnType.number(),
         width: width,
         minWidth: width,
@@ -169,7 +169,7 @@ class _CategorieTableState extends State<CategorieTable> {
               return PlutoRow(
                 cells: {
                   'libelle': PlutoCell(value: categorie.libelle),
-                  'nb_categorie': PlutoCell(value: categorie.nbArticle ?? 0),
+                  'nb_article': PlutoCell(value: categorie.nbArticle ?? 0),
                   'action': PlutoCell(value: categorie),
                 },
               );

@@ -108,46 +108,51 @@ class ServiceDetail extends StatelessWidget {
   }
 
   Widget _buildServiceTypes(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTitle("Types de services"),
-        SizedBox(height: 8.0),
-        Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
-          elevation: 0.0,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  double totalWidth = constraints.maxWidth;
-                  double itemWidth = (totalWidth - 16) / 4;
-
-                  return Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    alignment: WrapAlignment.start,
-                    children: service.typeServices.isNotEmpty
-                        ? service.typeServices.map((typeService) {
-                            return SizedBox(
-                              width: itemWidth,
-                              child: _buildTypeDetail(typeService),
-                            );
-                          }).toList()
-                        : [
-                            const Center(
-                              child: Text("Aucun service disponible"),
-                            ),
-                          ],
-                  );
-                },
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTitle("Types de services"),
+          SizedBox(height: 8.0),
+          SizedBox(
+            height: 400.0,
+            child: Card(
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+              elevation: 0.0,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      double totalWidth = constraints.maxWidth;
+                      double itemWidth = (totalWidth - 16) / 4;
+                  
+                      return Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        alignment: WrapAlignment.start,
+                        children: service.typeServices.isNotEmpty
+                            ? service.typeServices.map((typeService) {
+                                return SizedBox(
+                                  width: itemWidth,
+                                  child: _buildTypeDetail(typeService),
+                                );
+                              }).toList()
+                            : [
+                                const Center(
+                                  child: Text("Aucun service disponible"),
+                                ),
+                              ],
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

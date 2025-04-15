@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 class ServiceOutilCard extends StatefulWidget {
   final Outil outil;
+  
   const ServiceOutilCard({
     super.key,
     required this.outil,

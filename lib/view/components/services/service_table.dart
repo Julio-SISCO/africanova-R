@@ -6,7 +6,6 @@ import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/services/service_detail.dart';
 import 'package:africanova/widget/table_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:provider/provider.dart';
@@ -24,23 +23,18 @@ class _ServiceTableState extends State<ServiceTable> {
   List<PlutoColumn> columns = [];
   late PlutoGridStateManager stateManager;
   DateTime? _selectedDate;
-  Uint8List logoBytes = Uint8List(10);
+
+  double? totalEnregistre;
+  double? totalValide;
+  double? totalEnAttente;
+  double? totalAnnule;
 
   @override
   void initState() {
     super.initState();
     _fetchAndStoreTopArticles();
-    loadAssetImage('assets/logos/logo-light.png').then((bytes) {
-      setState(() {
-        logoBytes = bytes;
-      });
-    });
   }
 
-  Future<Uint8List> loadAssetImage(String assetPath) async {
-    ByteData data = await rootBundle.load(assetPath);
-    return data.buffer.asUint8List();
-  }
 
   Future<void> _fetchAndStoreTopArticles() async {
     await getService();
@@ -161,6 +155,44 @@ class _ServiceTableState extends State<ServiceTable> {
     ];
   }
 
+  calculerTotaux() {
+    final services = Hive.box<Service>("serviceBox").values.toList();
+    List<Service> filteredServices = _selectedDate == null
+        ? services
+        : services
+            .where((service) =>
+                service.createdAt.year == _selectedDate!.year &&
+                service.createdAt.month == _selectedDate!.month &&
+                service.createdAt.day == _selectedDate!.day)
+            .toList();
+    totalValide = 0.0;
+    totalEnAttente = 0.0;
+    totalAnnule = 0.0;
+    for (var service in filteredServices) {
+      double montant = service.total ?? 0.0;
+      setState(() {
+        totalEnregistre = (totalEnregistre ?? 0.0) + montant;
+      });
+      switch (service.status?.toLowerCase()) {
+        case 'complete':
+          setState(() {
+            totalValide = (totalValide ?? 0.0) + montant;
+          });
+          break;
+        case 'en_attente':
+          setState(() {
+            totalEnAttente = (totalEnAttente ?? 0.0) + montant;
+          });
+          break;
+        case 'annulee':
+          setState(() {
+            totalAnnule = (totalAnnule ?? 0.0) + montant;
+          });
+          break;
+      }
+    }
+  }
+
   PlutoRow _buildRow(Service service) {
     final formattedDate = formatDate(service.createdAt);
     final typeServices = service.typeServices
@@ -187,6 +219,13 @@ class _ServiceTableState extends State<ServiceTable> {
   void setDate(DateTime? date) {
     setState(() {
       _selectedDate = date;
+      totalEnregistre = null;
+      totalValide = null;
+      totalEnAttente = null;
+      totalAnnule = null;
+      if (_selectedDate != null) {
+        calculerTotaux();
+      }
     });
   }
 
@@ -214,70 +253,151 @@ class _ServiceTableState extends State<ServiceTable> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<Service>>(
-      valueListenable: Hive.box<Service>("serviceBox").listenable(),
-      builder: (context, box, _) {
-        final services = box.values.toList();
-        services.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return Column(
+      children: [
+        Expanded(
+          child: ValueListenableBuilder<Box<Service>>(
+            valueListenable: Hive.box<Service>("serviceBox").listenable(),
+            builder: (context, box, _) {
+              final services = box.values.toList();
+              services.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-        rows.clear();
-        if (_selectedDate == null) {
-          rows.addAll(
-            services.map(
-              (service) {
-                return _buildRow(service);
-              },
-            ),
-          );
-        } else {
-          filterDate();
-        }
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            double totalWidth = constraints.maxWidth;
-            return Padding(
-              padding: EdgeInsets.all(6.0),
-              child: PlutoGrid(
-                configuration:
-                    Provider.of<ThemeProvider>(context).isLightTheme()
-                        ? PlutoGridConfiguration(
-                            style: tableStyle,
-                            columnFilter: columnFilterConfig,
-                          )
-                        : PlutoGridConfiguration.dark(
-                            columnFilter: columnFilterConfig,
-                            style: darkTableStyle,
-                          ),
-                columns: buildColumns((totalWidth - 150) / 7),
-                rows: rows,
-                onChanged: (PlutoGridOnChangedEvent event) {},
-                onLoaded: (PlutoGridOnLoadedEvent event) {
-                  event.stateManager.setShowColumnFilter(true);
-                  event.stateManager
-                      .setSelectingMode(PlutoGridSelectingMode.cell);
+              rows.clear();
+              if (_selectedDate == null) {
+                rows.addAll(
+                  services.map(
+                    (service) {
+                      return _buildRow(service);
+                    },
+                  ),
+                );
+              } else {
+                filterDate();
+              }
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  double totalWidth = constraints.maxWidth;
+                  return Padding(
+                    padding: EdgeInsets.all(6.0),
+                    child: PlutoGrid(
+                      configuration:
+                          Provider.of<ThemeProvider>(context).isLightTheme()
+                              ? PlutoGridConfiguration(
+                                  style: tableStyle,
+                                  columnFilter: columnFilterConfig,
+                                )
+                              : PlutoGridConfiguration.dark(
+                                  columnFilter: columnFilterConfig,
+                                  style: darkTableStyle,
+                                ),
+                      columns: buildColumns((totalWidth - 150) / 7),
+                      rows: rows,
+                      onChanged: (PlutoGridOnChangedEvent event) {},
+                      onLoaded: (PlutoGridOnLoadedEvent event) {
+                        event.stateManager.setShowColumnFilter(true);
+                        event.stateManager
+                            .setSelectingMode(PlutoGridSelectingMode.cell);
 
-                  stateManager = event.stateManager;
-                },
-                createHeader: (stateManager) => TableHeader(
-                  enableAdd: false,
-                  addAction: (Widget w) {},
-                  addwidget: Container(),
-                  setDate: (DateTime? d) {
-                    setDate(d);
-                  },
-                ),
-                createFooter: (stateManager) {
-                  stateManager.setPageSize(15, notify: false);
-                  return PlutoPagination(
-                    stateManager,
-                    pageSizeToMove: 1,
+                        stateManager = event.stateManager;
+                      },
+                      createHeader: (stateManager) => TableHeader(
+                        enableAdd: false,
+                        addAction: (Widget w) {},
+                        addwidget: Container(),
+                        setDate: (DateTime? d) {
+                          setDate(d);
+                        },
+                      ),
+                      createFooter: (stateManager) {
+                        stateManager.setPageSize(15, notify: false);
+                        return PlutoPagination(
+                          stateManager,
+                          pageSizeToMove: 1,
+                        );
+                      },
+                    ),
                   );
                 },
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          ),
+        ),
+        if (totalEnregistre != null ||
+            totalEnAttente != null ||
+            totalValide != null ||
+            totalAnnule != null)
+          Container(
+            color: const Color(0xFF056148),
+            height: 50,
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (totalEnregistre != null)
+                  _buildSummaryRow(
+                    "TOTAL Enregistré : ".toUpperCase(),
+                    " ${formatMontant(totalEnregistre ?? 0.0)} F",
+                    isBold: true,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                if (totalValide != null)
+                  _buildSummaryRow(
+                    "TOTAL Net : ".toUpperCase(),
+                    " ${formatMontant(totalValide ?? 0.0)} F",
+                    isBold: true,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                if (totalEnAttente != null)
+                  _buildSummaryRow(
+                    "TOTAL En attente : ".toUpperCase(),
+                    " ${formatMontant(totalEnAttente ?? 0.0)} F",
+                    isBold: true,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                if (totalAnnule != null)
+                  _buildSummaryRow(
+                    "TOTAL Annulé : ".toUpperCase(),
+                    " ${formatMontant(totalAnnule ?? 0.0)} F",
+                    isBold: true,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+              ],
+            ),
+          ),
+        SizedBox(height: 10.0),
+      ],
+    );
+  }
+
+  Widget _buildSummaryRow(String label, String value,
+          {bool isBold = false,
+          Color color = Colors.black,
+          double fontSize = 10}) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(label,
+              style: _textStyle(size: fontSize, bold: isBold, color: color)),
+          Text(value,
+              style:
+                  _textStyle(size: fontSize + 1, bold: isBold, color: color)),
+        ],
+      );
+
+  TextStyle _textStyle(
+      {double size = 11,
+      bool bold = false,
+      bool italic = false,
+      Color color = Colors.black}) {
+    return TextStyle(
+      fontSize: size,
+      fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+      fontStyle: italic ? FontStyle.italic : FontStyle.normal,
+      color: color,
     );
   }
 }
