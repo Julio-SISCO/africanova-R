@@ -240,7 +240,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
           elevation: 0.0,
@@ -255,7 +255,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                   flex: 6,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     elevation: 0.0,
                     color: Provider.of<ThemeProvider>(context)
@@ -270,7 +270,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                           children: [
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -278,13 +278,13 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: fournisseurSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -292,13 +292,13 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: articleSelected(),
                               ),
                             ),
                             // Card(
                             //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(2.0),
+                            //     borderRadius: BorderRadius.circular(4.0),
                             //   ),
                             //   elevation: 0.0,
                             //   color: Provider.of<ThemeProvider>(context)
@@ -306,7 +306,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                             //       .colorScheme
                             //       .surface,
                             //   child: Padding(
-                            //     padding: EdgeInsets.all(2.0),
+                            //     padding: EdgeInsets.all(4.0),
                             //     child: taxesRemise(),
                             //   ),
                             // ),
@@ -356,7 +356,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
   Widget articleSelected() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -434,7 +434,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
@@ -512,7 +512,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           color:
@@ -547,7 +547,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
   Widget summary() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -567,7 +567,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                 ),
               ),
             ),
-            SizedBox(height: 32.0),
+            SizedBox(height: 34.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -601,7 +601,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
               .colorScheme
               .tertiary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
         ),
         onPressed: disabled ? null : onPress,
@@ -630,7 +630,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       double totalWidth = constraints.maxWidth;
       return Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 0.0,
         margin: EdgeInsets.all(0.0),

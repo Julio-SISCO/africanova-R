@@ -30,7 +30,7 @@ class _BilanHeaderState extends State<BilanHeader> {
       foregroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.tertiary,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
     );
   }
@@ -46,7 +46,7 @@ class _BilanHeaderState extends State<BilanHeader> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       child: Padding(

@@ -367,7 +367,7 @@ class _VenteSaverState extends State<VenteSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
           elevation: 0.0,
@@ -382,7 +382,7 @@ class _VenteSaverState extends State<VenteSaver> {
                   flex: 4,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     elevation: 0.0,
                     color: Provider.of<ThemeProvider>(context)
@@ -396,7 +396,7 @@ class _VenteSaverState extends State<VenteSaver> {
                           children: [
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -404,13 +404,13 @@ class _VenteSaverState extends State<VenteSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: clientSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -418,13 +418,13 @@ class _VenteSaverState extends State<VenteSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: articleSelected(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -432,7 +432,7 @@ class _VenteSaverState extends State<VenteSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: taxesRemise(),
                               ),
                             ),
@@ -482,7 +482,7 @@ class _VenteSaverState extends State<VenteSaver> {
   Widget articleSelected() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -570,7 +570,7 @@ class _VenteSaverState extends State<VenteSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
@@ -648,7 +648,7 @@ class _VenteSaverState extends State<VenteSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           color:
@@ -928,7 +928,7 @@ class _VenteSaverState extends State<VenteSaver> {
   Widget summary() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -959,7 +959,7 @@ class _VenteSaverState extends State<VenteSaver> {
                 ),
               ),
             ),
-            SizedBox(height: 32.0),
+            SizedBox(height: 34.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -997,7 +997,7 @@ class _VenteSaverState extends State<VenteSaver> {
               .colorScheme
               .tertiary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
         ),
         onPressed: disabled ? null : onPress,
@@ -1026,7 +1026,7 @@ class _VenteSaverState extends State<VenteSaver> {
       double totalWidth = constraints.maxWidth;
       return Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 0.0,
         margin: EdgeInsets.all(0.0),

@@ -118,7 +118,7 @@ class _StockFiltersState extends State<StockFilters> {
                     .secondary,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               icon: Icon(Icons.store),
@@ -145,7 +145,7 @@ class _StockFiltersState extends State<StockFilters> {
                     .secondary,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               icon: Icon(Icons.filter_alt),
@@ -177,7 +177,7 @@ class _StockFiltersState extends State<StockFilters> {
         ),
         children: [
           Container(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(14.0),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Provider.of<ThemeProvider>(context)
@@ -400,7 +400,7 @@ class _StockFiltersState extends State<StockFilters> {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         child: Wrap(
           alignment: WrapAlignment.spaceBetween,

@@ -14,7 +14,7 @@ class HeadMenu extends StatelessWidget {
         child: SvgPicture.asset(
           'assets/logos/logo.svg',
           width: 250,
-          height: 230,
+          height: 150,
           fit: BoxFit.contain,
           color: Provider.of<ThemeProvider>(context).isLightTheme()
               ? Color(0xFF056148)

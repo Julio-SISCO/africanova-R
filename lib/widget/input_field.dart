@@ -34,7 +34,7 @@ class DefaultInputField extends StatelessWidget {
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
-            Radius.circular(2.0),
+            Radius.circular(4.0),
           ),
         ),
         labelStyle: TextStyle(

@@ -23,7 +23,7 @@
 //   Widget build(BuildContext context) {
 //     return Card(
 //       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(2.0),
+//         borderRadius: BorderRadius.circular(4.0),
 //       ),
 //       elevation: 0.0,
 //       child: Padding(
@@ -64,7 +64,7 @@
 //                   : themeProvider.themeData.colorScheme.primary,
 //               foregroundColor: themeProvider.themeData.colorScheme.tertiary,
 //               shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(2.0)),
+//                   borderRadius: BorderRadius.circular(4.0)),
 //             ),
 //             onPressed: onPressed,
 //             icon: Icon(icon,

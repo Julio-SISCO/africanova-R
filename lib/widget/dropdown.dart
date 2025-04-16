@@ -38,10 +38,10 @@ Widget buildDropdown<T>(
           filled: true,
           fillColor: color ?? Colors.grey.withOpacity(0.4),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
             borderSide: none ? BorderSide.none : const BorderSide(),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
         ),
       ),
     );
@@ -79,10 +79,10 @@ Widget buildDropdownA<T>(
           filled: true,
           fillColor: color ?? Colors.grey.withOpacity(0.4),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
             borderSide: none ? BorderSide.none : const BorderSide(),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
         ),
       ),
     );
@@ -126,10 +126,10 @@ Widget buildDropdown2<MyIcon>(
           filled: true,
           fillColor: Colors.grey.withOpacity(0.4),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
             borderSide: BorderSide.none,
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
         ),
       ),
     );

@@ -64,7 +64,7 @@ class _MoreHeaderState extends State<MoreHeader> {
       foregroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.tertiary,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
     );
   }
@@ -73,7 +73,7 @@ class _MoreHeaderState extends State<MoreHeader> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       child: Padding(
@@ -131,7 +131,7 @@ class _MoreHeaderState extends State<MoreHeader> {
                           .secondary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
                     icon: Icon(Icons.filter_alt),
@@ -169,7 +169,7 @@ class _MoreHeaderState extends State<MoreHeader> {
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         child: Wrap(
           alignment: WrapAlignment.spaceBetween,

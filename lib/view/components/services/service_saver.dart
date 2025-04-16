@@ -570,7 +570,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
           elevation: 0.0,
@@ -585,7 +585,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                   flex: 4,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     elevation: 0.0,
                     color: Provider.of<ThemeProvider>(context)
@@ -599,7 +599,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                           children: [
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               color: Provider.of<ThemeProvider>(context)
@@ -607,50 +607,50 @@ class _ServiceSaverState extends State<ServiceSaver> {
                                   .colorScheme
                                   .surface,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: clientSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: typeSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: outilSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: articleSelect(),
                               ),
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Card(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2.0),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   elevation: 0.0,
                                   color: Provider.of<ThemeProvider>(context)
@@ -689,11 +689,11 @@ class _ServiceSaverState extends State<ServiceSaver> {
                             ),
                             Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
-                                padding: EdgeInsets.all(2.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: taxesRemise(),
                               ),
                             ),
@@ -743,7 +743,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
   Widget articleSelect() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -836,7 +836,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
   Widget outilSelect() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -936,7 +936,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
   Widget typeSelect() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -1022,7 +1022,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
@@ -1100,7 +1100,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           color:
@@ -1453,7 +1453,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
   Widget summary() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -1484,7 +1484,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                 ),
               ),
             ),
-            SizedBox(height: 32.0),
+            SizedBox(height: 34.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -1523,7 +1523,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
               .colorScheme
               .tertiary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
         ),
         onPressed: disabled ? null : onPress,
@@ -1552,7 +1552,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       double totalWidth = constraints.maxWidth;
       return Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 0.0,
         margin: EdgeInsets.all(0.0),

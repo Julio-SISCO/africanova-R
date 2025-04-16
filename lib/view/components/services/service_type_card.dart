@@ -44,7 +44,7 @@ class _ServiceTypeCardState extends State<ServiceTypeCard> {
         duration: const Duration(milliseconds: 2),
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 4.0,
           color: _isHovered

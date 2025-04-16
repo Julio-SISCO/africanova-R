@@ -117,7 +117,7 @@ class _CategorieFormState extends State<CategorieForm> {
 
   Widget _buildColumn() {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       color: Colors.grey.withOpacity(0.1),
       child: Padding(
@@ -164,10 +164,10 @@ class _CategorieFormState extends State<CategorieForm> {
         filled: true,
         fillColor: Colors.grey.withOpacity(0.1),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
           borderSide: const BorderSide(),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
       ),
       validator: validator,
       maxLines: l ?? 1,
@@ -242,7 +242,7 @@ class _CategorieFormState extends State<CategorieForm> {
                   ? const Color.fromARGB(255, 5, 202, 133).withOpacity(0.6)
                   : color ?? themeProvider.themeData.colorScheme.primary,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0)),
+                  borderRadius: BorderRadius.circular(4.0)),
             ),
             onPressed: isLoading ? null : onPressed,
             icon: Icon(icon, size: 20, color: Colors.white),

@@ -131,7 +131,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
             flex: 2,
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               elevation: 0.0,
               child: Padding(
@@ -167,7 +167,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
                                     child: Card(
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(4.0),
                                       ),
                                       elevation: 0.0,
                                       child: ListTile(
@@ -265,7 +265,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
             flex: 1,
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               elevation: 2.0,
               child: Padding(
@@ -285,7 +285,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
                           labelText: 'Libellé',
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
                         validator: (value) => value == null || value.isEmpty
@@ -319,7 +319,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
                           labelText: 'Description (optionnelle)',
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
                         maxLines: 3,
@@ -411,7 +411,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
                                 backgroundColor:
                                     const Color.fromARGB(255, 5, 202, 133),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
+                                  borderRadius: BorderRadius.circular(4.0),
                                 ),
                               ),
                               icon: isLoading
@@ -449,7 +449,7 @@ class _DepenseCategorieState extends State<DepenseCategorie> {
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.grey,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2.0),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                 ),
                                 child: const Text(

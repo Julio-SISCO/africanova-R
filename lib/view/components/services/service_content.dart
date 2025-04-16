@@ -31,7 +31,7 @@ class _ServiceContentState extends State<ServiceContent> {
             height: MediaQuery.of(context).size.height,
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               elevation: 0.0,
               child: Column(

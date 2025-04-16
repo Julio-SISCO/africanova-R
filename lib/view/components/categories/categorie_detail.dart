@@ -66,7 +66,7 @@ class _CategorieDetailState extends State<CategorieDetail> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           child: ListTile(
@@ -190,7 +190,7 @@ class _CategorieDetailState extends State<CategorieDetail> {
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 1.0,
         child: Column(

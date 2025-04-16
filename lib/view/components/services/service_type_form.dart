@@ -247,7 +247,7 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(0.0),
           elevation: 0.0,
@@ -258,7 +258,7 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                 flex: 3,
                 child: Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(2.0),
+                    borderRadius: BorderRadius.circular(4.0),
                   ),
                   elevation: 0.0,
                   color: Provider.of<ThemeProvider>(context)
@@ -418,7 +418,7 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                 flex: 3,
                 child: Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(2.0),
+                    borderRadius: BorderRadius.circular(4.0),
                   ),
                   elevation: 0.0,
                   color: Provider.of<ThemeProvider>(context)

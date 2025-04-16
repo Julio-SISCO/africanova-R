@@ -295,7 +295,7 @@ class _ProfileFormPageState extends State<ProfileForm> {
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: isLoading ? () {} : _validate,

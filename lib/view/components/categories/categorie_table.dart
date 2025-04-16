@@ -182,7 +182,7 @@ class _CategorieTableState extends State<CategorieTable> {
             double totalWidth = constraints.maxWidth;
             return Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               margin: EdgeInsets.all(0.0),
               color: Provider.of<ThemeProvider>(context)

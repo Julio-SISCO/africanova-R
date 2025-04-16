@@ -36,7 +36,7 @@ class _ServiceHeadState extends State<ServiceHead> {
       foregroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.tertiary,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
     );
   }
@@ -52,7 +52,7 @@ class _ServiceHeadState extends State<ServiceHead> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       child: Padding(
@@ -134,7 +134,7 @@ class _ServiceHeadState extends State<ServiceHead> {
                         .colorScheme
                         .tertiary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                   ),
                   icon: const Icon(

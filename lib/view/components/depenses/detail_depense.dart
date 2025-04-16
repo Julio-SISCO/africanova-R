@@ -70,7 +70,7 @@ class _DetailDepenseState extends State<DetailDepense> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       elevation: 0.0,
       child: Padding(
@@ -102,8 +102,8 @@ class _DetailDepenseState extends State<DetailDepense> {
                             color: Color.fromARGB(255, 5, 202, 133))),
                     columnSpacing: 30,
                     headingTextStyle: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12.0),
-                    dataTextStyle: const TextStyle(fontSize: 12.0),
+                        fontWeight: FontWeight.bold, fontSize: 14.0),
+                    dataTextStyle: const TextStyle(fontSize: 14.0),
                     columns: [
                       const DataColumn(
                           label: Text(

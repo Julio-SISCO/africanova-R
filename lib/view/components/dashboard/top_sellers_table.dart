@@ -166,7 +166,7 @@ class _TopSellerTableState extends State<TopSellerTable> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: SizedBox(
                         height: 30.0,
                         child: TextButton(
@@ -180,7 +180,7 @@ class _TopSellerTableState extends State<TopSellerTable> {
                                 .colorScheme
                                 .tertiary,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
+                              borderRadius: BorderRadius.circular(4.0),
                             ),
                           ),
                           child: Text("Plus de détails"),

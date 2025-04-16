@@ -222,7 +222,7 @@ class _AuthPageState extends State<AuthPage> {
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(
-                          Radius.circular(2.0),
+                          Radius.circular(4.0),
                         ),
                       ),
                       labelStyle: TextStyle(
@@ -269,7 +269,7 @@ class _AuthPageState extends State<AuthPage> {
                       filled: true,
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -326,7 +326,7 @@ class _AuthPageState extends State<AuthPage> {
                         filled: true,
                         border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
                         ),
                         labelStyle: TextStyle(
                           color: Colors.black,
@@ -381,7 +381,7 @@ class _AuthPageState extends State<AuthPage> {
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: isLoading ? () {} : _login,

@@ -43,7 +43,7 @@ class _FournisseurSelectionState extends State<FournisseurSelection> {
 
         return Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           color:

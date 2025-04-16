@@ -54,12 +54,12 @@ class _ServiceSideState extends State<ServiceSide> {
       height: MediaQuery.of(context).size.height,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         elevation: 0.0,
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           color:
@@ -75,8 +75,8 @@ class _ServiceSideState extends State<ServiceSide> {
                       .colorScheme
                       .secondary,
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(2.0),
-                    topRight: Radius.circular(2.0),
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
                   ),
                 ),
                 child: Column(

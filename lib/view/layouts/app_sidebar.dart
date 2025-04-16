@@ -27,8 +27,13 @@ class _AppSidebarState extends State<AppSidebar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+      decoration: BoxDecoration(
+        color:
+            Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+        borderRadius: BorderRadius.circular(4.0),
+      ),
       padding: EdgeInsets.symmetric(vertical: 16.0),
+      margin: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
       child: Column(
         children: [
           Expanded(

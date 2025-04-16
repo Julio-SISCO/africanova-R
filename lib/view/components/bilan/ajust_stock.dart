@@ -115,7 +115,7 @@ class _AjustStockState extends State<AjustStock> {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       margin: EdgeInsets.all(0.0),
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
@@ -124,7 +124,7 @@ class _AjustStockState extends State<AjustStock> {
         padding: const EdgeInsets.all(4.0),
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(0.0),
           color:
@@ -276,7 +276,7 @@ class _AjustStockState extends State<AjustStock> {
                                                     .tertiary,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(2.0),
+                                                  BorderRadius.circular(4.0),
                                             ),
                                           ),
                                           onPressed: () {
@@ -314,7 +314,7 @@ class _AjustStockState extends State<AjustStock> {
                                                     .tertiary,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(2.0),
+                                                  BorderRadius.circular(4.0),
                                             ),
                                           ),
                                           onPressed: () {
@@ -385,7 +385,7 @@ class _AjustStockState extends State<AjustStock> {
   Widget imageBuilder() {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       color: Provider.of<ThemeProvider>(context)
           .themeData

@@ -43,7 +43,7 @@ class _ArticlePlusVenduState extends State<ArticlePlusVendu> {
                     height: totalWidth * 0.8,
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                       color: Provider.of<ThemeProvider>(context)
                           .themeData

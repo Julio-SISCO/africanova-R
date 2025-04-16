@@ -146,7 +146,7 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                       filled: true,
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -202,7 +202,7 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                       filled: true,
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       ),
                       labelStyle: TextStyle(
                         color: Colors.black,
@@ -241,7 +241,7 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: isLoading ? () {} : _login,

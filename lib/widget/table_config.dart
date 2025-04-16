@@ -66,7 +66,7 @@ class _TableHeaderState extends State<TableHeader> {
                           .colorScheme
                           .tertiary,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
                     onPressed: () {
@@ -138,7 +138,7 @@ class _TableHeaderState extends State<TableHeader> {
                           .secondary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
                     onPressed: (_selectedDate != null && widget.setDate != null)
@@ -221,7 +221,7 @@ final PlutoGridStyleConfig tableStyle = PlutoGridStyleConfig(
   enableCellBorderVertical: true,
   enableCellBorderHorizontal: true,
   cellColorGroupedRow: const Color(0x80F6F6F6),
-  gridBorderRadius: BorderRadius.circular(2.0),
+  gridBorderRadius: BorderRadius.circular(4.0),
   gridPopupBorderRadius: BorderRadius.circular(7),
   rowColor: Colors.grey.shade300,
   gridBackgroundColor: Colors.grey.shade300,
@@ -233,7 +233,7 @@ final PlutoGridStyleConfig darkTableStyle = PlutoGridStyleConfig.dark(
   enableCellBorderVertical: true,
   enableCellBorderHorizontal: true,
   cellColorGroupedRow: const Color(0x80F6F6F6),
-  gridBorderRadius: BorderRadius.circular(2.0),
+  gridBorderRadius: BorderRadius.circular(4.0),
   gridPopupBorderRadius: BorderRadius.circular(7),
   rowColor: Color(0xFF262D4D),
   borderColor: Color(0xFF111118),

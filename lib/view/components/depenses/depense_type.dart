@@ -108,7 +108,7 @@ class _DepenseTypeState extends State<DepenseType> {
             flex: 2,
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               elevation: 0.0,
               child: Padding(
@@ -142,7 +142,7 @@ class _DepenseTypeState extends State<DepenseType> {
                                     child: Card(
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(4.0),
                                       ),
                                       elevation: 0.0,
                                       child: ListTile(
@@ -233,7 +233,7 @@ class _DepenseTypeState extends State<DepenseType> {
             flex: 1,
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
               elevation: 2.0,
               child: Padding(
@@ -250,7 +250,7 @@ class _DepenseTypeState extends State<DepenseType> {
                           labelText: 'Libellé',
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
                         validator: (value) => value == null || value.isEmpty
@@ -265,7 +265,7 @@ class _DepenseTypeState extends State<DepenseType> {
                           labelText: 'Description (optionnelle)',
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
                         maxLines: 3,
@@ -282,7 +282,7 @@ class _DepenseTypeState extends State<DepenseType> {
                                 backgroundColor:
                                     const Color.fromARGB(255, 5, 202, 133),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
+                                  borderRadius: BorderRadius.circular(4.0),
                                 ),
                               ),
                               icon: isLoading
@@ -320,7 +320,7 @@ class _DepenseTypeState extends State<DepenseType> {
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.grey,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2.0),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                 ),
                                 child: const Text(

@@ -16,7 +16,7 @@ void showCancelConfirmationDialog(
         backgroundColor:
             Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(4.0),
         ),
         content: Text(message),
         actions: <Widget>[
@@ -30,7 +30,7 @@ void showCancelConfirmationDialog(
                     .tertiary, 
                 elevation: 0.0,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               onPressed: () {
@@ -55,7 +55,7 @@ void showCancelConfirmationDialog(
               foregroundColor: Colors.white,
               elevation: 0.0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0),
+                borderRadius: BorderRadius.circular(4.0),
               ),
             ),
             onPressed: action,

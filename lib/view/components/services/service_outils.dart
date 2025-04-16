@@ -97,7 +97,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
         final outils = box.values.toList();
         return Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(4.0),
           ),
           elevation: 0.0,
           child: Row(
@@ -107,7 +107,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                 flex: 4,
                 child: Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(2.0),
+                    borderRadius: BorderRadius.circular(4.0),
                   ),
                   elevation: 0.0,
                   color: Provider.of<ThemeProvider>(context)
@@ -135,7 +135,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                                           .secondary,
                                   foregroundColor: Colors.white,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2.0),
+                                    borderRadius: BorderRadius.circular(4.0),
                                   ),
                                 ),
                                 onPressed: () {
@@ -183,7 +183,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                     children: [
                       Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                         elevation: 0.0,
                         color: Provider.of<ThemeProvider>(context)
@@ -238,7 +238,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                 labelText: 'Libellé',
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               validator: (value) => value == null || value.isEmpty
@@ -256,7 +256,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                 labelText: 'Description (optionnelle)',
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
               ),
               maxLines: 3,
@@ -270,7 +270,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                     style: TextButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 5, 202, 133),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2.0),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
                     icon: _isLoading
@@ -307,7 +307,7 @@ class _ServiceOutilState extends State<ServiceOutil> {
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.grey,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       child: const Text(

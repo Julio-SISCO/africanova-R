@@ -67,12 +67,12 @@ class _RightCardState extends State<RightCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      margin: const EdgeInsets.only(left: 8.0, top: 4.0, bottom: 2.0),
+      margin: const EdgeInsets.only(left: 8.0, top: 4.0, bottom: 4.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(14.0),
         child: Column(
           children: [
             Row(
@@ -204,7 +204,7 @@ class _RoleRightCardState extends State<RoleRightCard> {
       elevation: 0,
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -304,7 +304,7 @@ class _UserInfoCardState extends State<UserInfoCard> {
       elevation: 0,
       margin: EdgeInsets.symmetric(vertical: 4.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),

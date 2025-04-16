@@ -45,8 +45,9 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+          Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       body: Row(
+        spacing: 0.0,
         children: [
           if (!_hideSideBar)
             Expanded(child: AppSidebar(switchView: _switchView)),
@@ -58,18 +59,14 @@ class _BaseAppState extends State<BaseApp> {
                 Expanded(
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
-                    margin: EdgeInsets.all(.0),
                     elevation: 0.0,
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme
                         .primary,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: _view,
-                    ),
+                    child: _view,
                   ),
                 ),
               ],

@@ -80,12 +80,12 @@ class _DashboardState extends State<Dashboard> {
                             height: 135,
                             child: Card(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2.0),
+                                borderRadius: BorderRadius.circular(4.0),
                               ),
                               elevation: 0.0,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 2.0, vertical: 2.0),
+                                    horizontal: 2.0, vertical: 4.0),
                                 child: ValueListenableBuilder<Box<Statistique>>(
                                   valueListenable:
                                       Hive.box<Statistique>("statData")
@@ -164,12 +164,12 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
+                              borderRadius: BorderRadius.circular(4.0),
                             ),
                             elevation: 0.0,
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 2.0, vertical: 2.0),
+                                  horizontal: 2.0, vertical: 4.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

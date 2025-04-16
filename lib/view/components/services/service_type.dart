@@ -85,7 +85,7 @@ class _ServiceTypeState extends State<ServiceType> {
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
+              borderRadius: BorderRadius.circular(4.0),
             ),
             elevation: 4.0,
             color: Provider.of<ThemeProvider>(context)
@@ -159,7 +159,7 @@ class _ServiceTypeState extends State<ServiceType> {
                   ),
                   if (widget.typeService.description != null)
                     Padding(
-                      padding: EdgeInsets.only(left: 32.0),
+                      padding: EdgeInsets.only(left: 34.0),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * .7,
                         child: Text(

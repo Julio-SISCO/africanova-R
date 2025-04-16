@@ -31,7 +31,7 @@ class ServiceDetail extends StatelessWidget {
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
+              borderRadius: BorderRadius.circular(4.0),
             ),
             color: Provider.of<ThemeProvider>(context)
                 .themeData
@@ -60,7 +60,7 @@ class ServiceDetail extends StatelessWidget {
 
   Widget _buildClientAndFactureInfo(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -118,7 +118,7 @@ class ServiceDetail extends StatelessWidget {
             height: 400.0,
             child: Card(
               shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
               elevation: 0.0,
               child: SingleChildScrollView(
                 child: Padding(
@@ -158,10 +158,10 @@ class ServiceDetail extends StatelessWidget {
 
   Widget _buildServiceSummary(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -178,7 +178,7 @@ class ServiceDetail extends StatelessWidget {
 
   Widget _buildTypeDetail(TypeService typeService) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       margin: EdgeInsets.all(4.0),
       elevation: 0.0,
       child: Padding(
@@ -199,7 +199,7 @@ class ServiceDetail extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style:
-                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 12.0),
+                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
             ),
           ],
         ),

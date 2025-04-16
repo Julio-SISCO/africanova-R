@@ -101,7 +101,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0),
+              borderRadius: BorderRadius.circular(4.0),
             ),
             margin: EdgeInsets.all(0.0),
             color: Provider.of<ThemeProvider>(context)
@@ -113,7 +113,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
               padding: const EdgeInsets.all(4.0),
               child: Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(4.0),
                 ),
                 margin: EdgeInsets.all(0.0),
                 color: Provider.of<ThemeProvider>(context)
@@ -135,7 +135,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                           color: Provider.of<ThemeProvider>(context)
                               .themeData
@@ -163,7 +163,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
     return Card(
       margin: EdgeInsets.only(top: 16.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       color: Provider.of<ThemeProvider>(context)
           .themeData
@@ -317,7 +317,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   width: totalWidth / 2,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
@@ -348,7 +348,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   width: totalWidth / 2,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
@@ -393,7 +393,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                   width: totalWidth,
                   child: Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2.0),
+                      borderRadius: BorderRadius.circular(4.0),
                     ),
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
@@ -529,7 +529,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                             .colorScheme
                             .tertiary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: () {
@@ -562,7 +562,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                             .colorScheme
                             .tertiary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: () {
@@ -595,7 +595,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                             .colorScheme
                             .tertiary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       onPressed: () {
@@ -645,7 +645,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                             .colorScheme
                             .tertiary,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.circular(4.0),
                         ),
                       ),
                       label: const Text(
@@ -723,7 +723,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                               .colorScheme
                               .tertiary,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
                         onPressed: () {

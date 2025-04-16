@@ -67,7 +67,7 @@ class _UserRolePermissionState extends State<UserRolePermission> {
     return Card(
       elevation: 0.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       margin: EdgeInsets.all(0.0),
       child: FutureBuilder<Map<String, dynamic>>(

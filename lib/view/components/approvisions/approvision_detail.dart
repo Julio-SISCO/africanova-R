@@ -35,7 +35,7 @@ class ApprovisionDetail extends StatelessWidget {
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(2.0)),
+                borderRadius: BorderRadius.circular(4.0)),
             color: theme.primary,
             elevation: 0.0,
             child: Padding(
@@ -62,11 +62,11 @@ class ApprovisionDetail extends StatelessWidget {
 
   Widget _buildInfoSection(BuildContext context, ColorScheme theme) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       color: theme.primary,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +134,7 @@ class ApprovisionDetail extends StatelessWidget {
 
   Widget _buildArticleDetail(LigneApprovision ligne) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       child: Row(
         children: [
@@ -187,11 +187,11 @@ class ApprovisionDetail extends StatelessWidget {
 
   Widget _buildTotalSection(ColorScheme theme) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       elevation: 0.0,
       color: theme.primary,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,

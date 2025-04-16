@@ -23,7 +23,12 @@ class _AppHeaderState extends State<AppHeader> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      color: Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+      margin: EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0 ),
+      decoration: BoxDecoration(
+        color:
+            Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+        borderRadius: BorderRadius.circular(4.0),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
