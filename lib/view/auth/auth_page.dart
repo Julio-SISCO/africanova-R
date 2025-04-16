@@ -122,7 +122,7 @@ class _AuthPageState extends State<AuthPage> {
                             width: totalWidth / 2,
                             child: TextButton(
                               style: TextButton.styleFrom(
-                                elevation: 0.0,
+                                
                                 backgroundColor:
                                     _register ? Colors.grey : Color(0xFF262D4D),
                                 foregroundColor: Colors.white,
@@ -153,7 +153,7 @@ class _AuthPageState extends State<AuthPage> {
                             width: totalWidth / 2,
                             child: TextButton(
                               style: TextButton.styleFrom(
-                                elevation: 0.0,
+                                
                                 backgroundColor: !_register
                                     ? Colors.grey
                                     : Color(0xFF262D4D),
@@ -377,7 +377,7 @@ class _AuthPageState extends State<AuthPage> {
                     width: double.infinity,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(

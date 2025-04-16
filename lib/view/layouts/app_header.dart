@@ -21,39 +21,40 @@ class AppHeader extends StatefulWidget {
 class _AppHeaderState extends State<AppHeader> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      margin: EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0 ),
-      decoration: BoxDecoration(
-        color:
-            Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+    return Card(
+      margin: EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Wrap(
-            children: [
-              IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: widget.hideSideBar,
-                color: Provider.of<ThemeProvider>(context)
-                    .themeData
-                    .colorScheme
-                    .tertiary,
-              ),
-              const SearchField(),
-            ],
-          ),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              const AlertNotif(),
-              SizedBox(width: 20),
-              const ProfilCard(),
-            ],
-          ),
-        ],
+      color: Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Wrap(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: widget.hideSideBar,
+                  color: Provider.of<ThemeProvider>(context)
+                      .themeData
+                      .colorScheme
+                      .tertiary,
+                ),
+                const SearchField(),
+              ],
+            ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                const AlertNotif(),
+                SizedBox(width: 20),
+                const ProfilCard(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

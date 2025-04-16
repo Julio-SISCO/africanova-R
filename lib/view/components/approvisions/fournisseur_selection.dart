@@ -45,7 +45,7 @@ class _FournisseurSelectionState extends State<FournisseurSelection> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          elevation: 0.0,
+          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(

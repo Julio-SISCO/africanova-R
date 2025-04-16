@@ -19,7 +19,7 @@ class _BilanHeaderState extends State<BilanHeader> {
   int _activeIndex = 0;
   ButtonStyle _buttonStyle({bool isActive = false}) {
     return TextButton.styleFrom(
-      elevation: 0.0,
+      
       backgroundColor: isActive
           ? Provider.of<ThemeProvider>(context)
               .themeData
@@ -48,7 +48,7 @@ class _BilanHeaderState extends State<BilanHeader> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(

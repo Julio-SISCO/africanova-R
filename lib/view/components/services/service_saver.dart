@@ -573,7 +573,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
-          elevation: 0.0,
+          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
           child: Padding(
@@ -587,7 +587,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    elevation: 0.0,
+                    
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme
@@ -601,7 +601,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -615,7 +615,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: typeSelect(),
@@ -625,7 +625,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: outilSelect(),
@@ -635,7 +635,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: articleSelect(),
@@ -645,14 +645,14 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: Card(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
-                                  elevation: 0.0,
+                                  
                                   color: Provider.of<ThemeProvider>(context)
                                       .themeData
                                       .colorScheme
@@ -691,7 +691,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              elevation: 0.0,
+                              
                               child: Padding(
                                 padding: EdgeInsets.all(4.0),
                                 child: taxesRemise(),
@@ -745,7 +745,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -838,7 +838,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -938,7 +938,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -1024,7 +1024,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          elevation: 0.0,
+          
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -1102,7 +1102,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          elevation: 0.0,
+          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Padding(
@@ -1455,7 +1455,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(16.0),
@@ -1554,7 +1554,7 @@ class _ServiceSaverState extends State<ServiceSaver> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        elevation: 0.0,
+        
         margin: EdgeInsets.all(0.0),
         color:
             Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,

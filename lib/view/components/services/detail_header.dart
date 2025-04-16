@@ -81,7 +81,7 @@ class DetailHeader extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          elevation: 0.0,
+          
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
@@ -91,7 +91,7 @@ class DetailHeader extends StatelessWidget {
                   child: TextButton.icon(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                      elevation: 0.0,
+                      
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme
@@ -136,7 +136,7 @@ class DetailHeader extends StatelessWidget {
                         );
                       },
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -182,7 +182,7 @@ class DetailHeader extends StatelessWidget {
                         );
                       },
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -226,7 +226,7 @@ class DetailHeader extends StatelessWidget {
                         );
                       },
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme

@@ -37,7 +37,7 @@ class ServiceDetail extends StatelessWidget {
                 .themeData
                 .colorScheme
                 .primary,
-            elevation: 0.0,
+            
             margin: EdgeInsets.zero,
             child: Padding(
               padding: const EdgeInsets.all(0.0),
@@ -61,7 +61,7 @@ class ServiceDetail extends StatelessWidget {
   Widget _buildClientAndFactureInfo(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -119,7 +119,7 @@ class ServiceDetail extends StatelessWidget {
             child: Card(
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-              elevation: 0.0,
+              
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -159,7 +159,7 @@ class ServiceDetail extends StatelessWidget {
   Widget _buildServiceSummary(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Row(
@@ -180,7 +180,7 @@ class ServiceDetail extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       margin: EdgeInsets.all(4.0),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -56,7 +56,7 @@ class _TableHeaderState extends State<TableHeader> {
                   height: 30,
                   child: TextButton.icon(
                     style: TextButton.styleFrom(
-                      elevation: 0.0,
+                      
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme
@@ -131,7 +131,7 @@ class _TableHeaderState extends State<TableHeader> {
                   height: 30,
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      elevation: 0.0,
+                      
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme

@@ -33,7 +33,7 @@ class _ServiceContentState extends State<ServiceContent> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              elevation: 0.0,
+              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

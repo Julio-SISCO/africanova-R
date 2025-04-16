@@ -50,7 +50,7 @@ class DetailHeader extends StatelessWidget {
           child: TextButton.icon(
             onPressed: onPressed,
             style: TextButton.styleFrom(
-              elevation: 0.0,
+              
               backgroundColor: const Color.fromARGB(255, 5, 202, 133).withOpacity(0.4),
               foregroundColor: colorScheme.tertiary,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
@@ -86,7 +86,7 @@ class DetailHeader extends StatelessWidget {
           builder: (context, themeProvider, child) {
             return Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-              elevation: 0.0,
+              
               color: themeProvider.themeData.colorScheme.primary,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),

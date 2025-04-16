@@ -111,7 +111,7 @@ class _StockFiltersState extends State<StockFilters> {
             TextButton.icon(
               style: TextButton.styleFrom(
                 padding: EdgeInsets.all(16.0),
-                elevation: 0.0,
+                
                 backgroundColor: Provider.of<ThemeProvider>(context)
                     .themeData
                     .colorScheme
@@ -138,7 +138,7 @@ class _StockFiltersState extends State<StockFilters> {
             TextButton.icon(
               style: TextButton.styleFrom(
                 padding: EdgeInsets.all(16.0),
-                elevation: 0.0,
+                
                 backgroundColor: Provider.of<ThemeProvider>(context)
                     .themeData
                     .colorScheme

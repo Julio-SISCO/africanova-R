@@ -5,6 +5,7 @@ import 'package:africanova/view/components/bilan/bilan_main.dart';
 import 'package:africanova/view/components/mobile_money/transferer.dart';
 import 'package:africanova/view/components/services/service_saver.dart';
 import 'package:africanova/view/components/ventes/vente_saver.dart';
+import 'package:africanova/widget/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -17,42 +18,17 @@ class DashShortcut extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Hive.box<User>('userBox').get('currentUser');
     final theme = Provider.of<ThemeProvider>(context).themeData.colorScheme;
-
-    Widget buildButton(String label, IconData icon, Widget view, bool visible) {
-      return visible
-          ? SizedBox(
-              height: 35,
-              child: TextButton.icon(
-                style: TextButton.styleFrom(
-                  elevation: 0.0,
-                  backgroundColor: theme.primary,
-                  foregroundColor: theme.tertiary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                ),
-                onPressed: () => switchView(view),
-                icon: Icon(icon, color: theme.tertiary),
-                label: Text(
-                  label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
-            )
-          : const SizedBox.shrink();
-    }
-
     return Column(
       children: [
         SizedBox(
           height: 60.0,
           child: Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-            elevation: 0.0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0)),
+            
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -60,18 +36,21 @@ class DashShortcut extends StatelessWidget {
                     spacing: 8.0,
                     children: [
                       CircleAvatar(
-                        child: Icon(Icons.account_circle_rounded, color: theme.tertiary),
+                        child: Icon(Icons.account_circle_rounded,
+                            color: theme.tertiary),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "${user!.employer!.prenom} ${user.employer!.nom}",
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           Text(
                             "${user.employer!.contact} | ${user.employer!.adresse}",
-                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -86,7 +65,8 @@ class DashShortcut extends StatelessWidget {
                     ]),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(color: theme.secondary);
+                        return CircularProgressIndicator(
+                            color: theme.secondary);
                       }
                       if (snapshot.hasError) {
                         return Text('Erreur: ${snapshot.error}');
@@ -96,16 +76,41 @@ class DashShortcut extends StatelessWidget {
                       return Wrap(
                         spacing: 8.0,
                         children: [
-                          buildButton('Transfert', Icons.share, Transfert(),
-                              permissions['enregistrer ventes'] ?? false),
-                          buildButton('Vente', Icons.sell, VenteSaver(),
-                              permissions['enregistrer ventes'] ?? false),
-                          buildButton('Service', Icons.computer_rounded, ServiceSaver(),
-                              permissions['enregistrer services'] ?? false),
-                          buildButton('Bilan', Icons.summarize_outlined,
-                              BilanMain(switchView: switchView), permissions['faire bilan'] ?? false),
-                          buildButton('Plus de statistiques', Icons.table_chart, Placeholder(),
-                              permissions['voir dashboard'] ?? false),
+                          buildAccessButton(
+                            'Transfert',
+                            Icons.share,
+                            Transfert(),
+                            permissions['enregistrer ventes'] ?? false,
+                            switchView,
+                          ),
+                          buildAccessButton(
+                            'Vente',
+                            Icons.sell,
+                            VenteSaver(),
+                            permissions['enregistrer ventes'] ?? false,
+                            switchView,
+                          ),
+                          buildAccessButton(
+                            'Service',
+                            Icons.computer_rounded,
+                            ServiceSaver(),
+                            permissions['enregistrer services'] ?? false,
+                            switchView,
+                          ),
+                          buildAccessButton(
+                            'Bilan',
+                            Icons.summarize_outlined,
+                            BilanMain(switchView: switchView),
+                            permissions['faire bilan'] ?? false,
+                            switchView,
+                          ),
+                          buildAccessButton(
+                            'Plus de statistiques',
+                            Icons.table_chart,
+                            Placeholder(),
+                            permissions['voir dashboard'] ?? false,
+                            switchView,
+                          ),
                         ],
                       );
                     },

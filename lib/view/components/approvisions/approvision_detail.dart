@@ -37,7 +37,7 @@ class ApprovisionDetail extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0)),
             color: theme.primary,
-            elevation: 0.0,
+            
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -63,7 +63,7 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildInfoSection(BuildContext context, ColorScheme theme) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      elevation: 0.0,
+      
       color: theme.primary,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -135,7 +135,7 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildArticleDetail(LigneApprovision ligne) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      elevation: 0.0,
+      
       child: Row(
         children: [
           Expanded(flex: 2, child: _buildArticleImage(ligne)),
@@ -188,7 +188,7 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildTotalSection(ColorScheme theme) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      elevation: 0.0,
+      
       color: theme.primary,
       child: Padding(
         padding: const EdgeInsets.all(14.0),

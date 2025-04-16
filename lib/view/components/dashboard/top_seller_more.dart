@@ -266,7 +266,7 @@ class _TopSellerMoreState extends State<TopSellerMore> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    elevation: 0.0,
+                    
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         double totalWidth = constraints.maxWidth;

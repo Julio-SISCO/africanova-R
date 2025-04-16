@@ -56,7 +56,7 @@ class _DepenseGraphState extends State<DepenseGraph> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

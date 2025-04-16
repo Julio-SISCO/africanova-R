@@ -108,7 +108,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                 .themeData
                 .colorScheme
                 .surface,
-            elevation: 0.0,
+            
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
@@ -120,7 +120,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     .themeData
                     .colorScheme
                     .primary,
-                elevation: 0.0,
+                
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
@@ -141,7 +141,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                               .themeData
                               .colorScheme
                               .primary,
-                          elevation: 0.0,
+                          
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: articleInfo(),
@@ -170,7 +170,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
           .colorScheme
           .surface
           .withOpacity(0.2),
-      elevation: 0.0,
+      
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -324,7 +324,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    elevation: 0.0,
+                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -355,7 +355,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    elevation: 0.0,
+                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -400,7 +400,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    elevation: 0.0,
+                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -519,7 +519,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -552,7 +552,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -585,7 +585,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -635,7 +635,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       },
                       icon: const Icon(Icons.delete),
                       style: TextButton.styleFrom(
-                        elevation: 0.0,
+                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -713,7 +713,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       height: 45,
                       child: TextButton.icon(
                         style: TextButton.styleFrom(
-                          elevation: 0.0,
+                          
                           backgroundColor: Provider.of<ThemeProvider>(context)
                               .themeData
                               .colorScheme

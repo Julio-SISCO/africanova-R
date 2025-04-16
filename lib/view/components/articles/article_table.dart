@@ -212,7 +212,7 @@ class _ArticleTableState extends State<ArticleTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              elevation: 0.0,
+              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

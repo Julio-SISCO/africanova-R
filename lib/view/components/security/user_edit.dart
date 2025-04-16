@@ -147,7 +147,7 @@ class _UserEditState extends State<UserEdit> {
                 borderRadius: BorderRadius.circular(4.0),
               ),
               margin: EdgeInsets.all(0.0),
-              elevation: 0.0,
+              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Row(

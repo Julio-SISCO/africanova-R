@@ -58,7 +58,7 @@ class _MoreHeaderState extends State<MoreHeader> {
 
   ButtonStyle _buttonStyle() {
     return TextButton.styleFrom(
-      elevation: 0.0,
+      
       backgroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       foregroundColor:
@@ -75,7 +75,7 @@ class _MoreHeaderState extends State<MoreHeader> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      elevation: 0.0,
+      
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
@@ -124,7 +124,7 @@ class _MoreHeaderState extends State<MoreHeader> {
                   message: "Appliquer le filtre",
                   child: TextButton.icon(
                     style: TextButton.styleFrom(
-                      elevation: 0.0,
+                      
                       backgroundColor: Provider.of<ThemeProvider>(context)
                           .themeData
                           .colorScheme
