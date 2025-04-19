@@ -2,7 +2,7 @@ import 'package:africanova/controller/user_controller.dart';
 import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/user.dart';
 import 'package:africanova/provider/permissions_providers.dart';
-import 'package:africanova/static/theme.dart';
+import 'package:africanova/theme/theme.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/util/date_formatter.dart';
 import 'package:africanova/view/components/security/user_edit.dart';

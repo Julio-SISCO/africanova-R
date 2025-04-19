@@ -158,7 +158,7 @@ class ApprovisionDetail extends StatelessWidget {
         placeholder: (context, url) =>
             LinearProgressIndicator(color: Colors.grey.withOpacity(.2)),
         errorWidget: (context, url, error) => Image.asset(
-            'assets/images/no_image.png',
+            'assets/images/placeholder.png',
             height: 100,
             fit: BoxFit.fill),
       ),

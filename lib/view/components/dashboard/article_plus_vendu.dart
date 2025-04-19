@@ -251,7 +251,7 @@ class _ArticlePlusVenduState extends State<ArticlePlusVendu> {
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
               : Image.asset(
-                  'assets/images/no_image.png',
+                  'assets/images/placeholder.png',
                   height: 30,
                   width: 30,
                   fit: BoxFit.fill,

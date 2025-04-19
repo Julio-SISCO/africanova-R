@@ -135,3 +135,55 @@ Widget buildDropdown2<MyIcon>(
     );
   });
 }
+
+Widget buildDropdownB(
+  String label,
+  List<String> items,
+  String? selectedValue,
+  ValueChanged<String?>? onChanged, {
+  String? Function(String?)? validator,
+}) {
+  final entries = UnmodifiableListView<DropdownMenuEntry<String>>(
+    items.map(
+      (item) => DropdownMenuEntry<String>(
+        value: item,
+        label: item,
+      ),
+    ),
+  );
+
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: DropdownMenu<String>(
+          width: constraints.maxWidth,
+          label: Text(label),
+          initialSelection: selectedValue,
+          onSelected: onChanged,
+          dropdownMenuEntries: entries,
+          enableFilter: true,
+          requestFocusOnTap: true,
+          leadingIcon: const Icon(Icons.search),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.grey.withOpacity(0.2),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
+          ),
+          menuStyle: MenuStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}

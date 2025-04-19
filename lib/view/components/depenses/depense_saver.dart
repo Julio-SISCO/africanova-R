@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DepenseSaver extends StatefulWidget {
@@ -82,42 +81,6 @@ class _DepenseSaverState extends State<DepenseSaver> {
     }
   }
 
-  Widget _buildDatePicker() {
-    return StatefulBuilder(
-      builder: (context, setLocalState) {
-        String text = DateFormat('dd MMMM yyyy', 'fr').format(_selectedDate);
-        return InkWell(
-          onTap: () async {
-            DateTime? picked = await selecteDate(_selectedDate, context);
-            if (picked != null) {
-              setState(() => _selectedDate = picked);
-              setLocalState(() {
-                text = DateFormat('dd MMMM yyyy', 'fr').format(_selectedDate);
-              });
-            }
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  text,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                const Icon(Icons.calendar_today, size: 18),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   Widget _buildLeftColumn() => Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
         elevation: 0,
@@ -162,7 +125,15 @@ class _DepenseSaverState extends State<DepenseSaver> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(child: _buildCategoryDropdown()),
-                      Expanded(child: _buildDatePicker()),
+                      Expanded(
+                          child: buildDatePicker(
+                        initialDate: _selectedDate,
+                        onDateChanged: (newDate) {
+                          setState(() {
+                            _selectedDate = newDate;
+                          });
+                        },
+                      )),
                     ],
                   ),
                   const SizedBox(height: 24),

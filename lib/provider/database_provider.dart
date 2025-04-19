@@ -10,6 +10,7 @@ import 'package:africanova/database/document.dart';
 import 'package:africanova/database/ligne_approvision.dart';
 import 'package:africanova/database/my_icon.dart';
 import 'package:africanova/database/top_articles.dart';
+import 'package:africanova/database/transfert.dart';
 import 'package:africanova/database/type_article.dart';
 import 'package:africanova/database/categorie.dart';
 import 'package:africanova/database/client.dart';
@@ -87,6 +88,7 @@ class DatabaseProvider {
     Hive.registerAdapter(DepenseAdapter());
     Hive.registerAdapter(MyIconAdapter());
     Hive.registerAdapter(DocumentAdapter());
+    Hive.registerAdapter(TransfertAdapter());
   }
 
   static Future<void> openBoxes() async {
@@ -113,6 +115,7 @@ class DatabaseProvider {
     await Hive.openBox<TypeDepense>('typeDepenseBox');
     await Hive.openBox<CategorieDepense>('categorieDepenseBox');
     await Hive.openBox<Depense>('depenseBox');
+    await Hive.openBox<Transfert>('transfertBox');
   }
 }
 

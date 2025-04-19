@@ -189,7 +189,7 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       color: Colors.grey.withOpacity(.2),
                     ),
                     errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/no_image.png',
+                      'assets/images/placeholder.png',
                       width: double.infinity,
                       fit: BoxFit.fill,
                     ),

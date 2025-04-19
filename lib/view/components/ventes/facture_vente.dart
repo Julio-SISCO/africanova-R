@@ -209,13 +209,13 @@ class FactureVente extends StatelessWidget {
                       placeholder: (_, __) =>
                           LinearProgressIndicator(color: Colors.grey.withOpacity(.2)),
                       errorWidget: (_, __, ___) => Image.asset(
-                        'assets/images/no_image.png',
+                        'assets/images/placeholder.png',
                         height: 100,
                         fit: BoxFit.fill,
                       ),
                     )
                   : Image.asset(
-                      'assets/images/no_image.png',
+                      'assets/images/placeholder.png',
                       height: 100,
                       fit: BoxFit.fill,
                     ),

@@ -16,6 +16,7 @@ import 'package:africanova/database/permission.dart';
 import 'package:africanova/database/role.dart';
 import 'package:africanova/database/service.dart';
 import 'package:africanova/database/top_articles.dart';
+import 'package:africanova/database/transfert.dart';
 import 'package:africanova/database/type_depense.dart';
 import 'package:africanova/database/type_service.dart';
 import 'package:africanova/database/user.dart';
@@ -51,6 +52,7 @@ Future<void> clearAllHiveBoxes() async {
     await Hive.box<TypeDepense>('typeDepenseBox').clear();
     await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
     await Hive.box<Depense>('depenseBox').clear();
+    await Hive.box<Transfert>('transfertBox').clear();
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -88,6 +90,7 @@ Future<void> clearHiveBoxes() async {
     await Hive.box<TypeDepense>('typeDepenseBox').clear();
     await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
     await Hive.box<Depense>('depenseBox').clear();
+    await Hive.box<Transfert>('transfertBox').clear();
   } catch (e) {
     return;
   }

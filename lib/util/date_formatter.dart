@@ -84,3 +84,44 @@ Future<DateTime?> selecteDate(DateTime initialDate, BuildContext context) async 
   );
   return date;
 }
+
+
+Widget buildDatePicker({
+  required DateTime initialDate,
+  required ValueChanged<DateTime> onDateChanged,
+}) {
+  return StatefulBuilder(
+    builder: (context, setLocalState) {
+      String text = DateFormat('dd MMMM yyyy', 'fr').format(initialDate);
+
+      return InkWell(
+        onTap: () async {
+          DateTime? picked = await selecteDate(initialDate, context);
+          if (picked != null) {
+            onDateChanged(picked);
+            setLocalState(() {
+              text = DateFormat('dd MMMM yyyy', 'fr').format(picked);
+            });
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: const TextStyle(fontSize: 14),
+              ),
+              const Icon(Icons.calendar_today, size: 18),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}

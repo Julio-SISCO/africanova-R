@@ -1,5 +1,6 @@
 import 'package:africanova/util/string_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DefaultInputField extends StatelessWidget {
   const DefaultInputField({
@@ -60,4 +61,46 @@ String? validateEmail(String? value) {
     }
   }
   return null;
+}
+
+Widget buildNumberInputField(
+  String label,
+  TextEditingController controller, {
+  String prefix = 'FCFA',
+  String suffix = '',
+  String? Function(String?)? validator,
+}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(height: 4),
+        TextFormField(
+          controller: controller,
+          validator: validator,
+          decoration: InputDecoration(
+            prefixText: '$prefix ',
+            suffixText: suffix,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+          keyboardType: TextInputType.numberWithOptions(decimal: true),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*')),
+          ],
+        ),
+      ],
+    ),
+  );
 }

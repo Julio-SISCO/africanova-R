@@ -411,7 +411,7 @@ class _AjustStockState extends State<AjustStock> {
                       color: Colors.grey.withOpacity(.2),
                     ),
                     errorWidget: (context, url, error) => Image.asset(
-                      'assets/images/no_image.png',
+                      'assets/images/placeholder.png',
                       width: double.infinity,
                       fit: BoxFit.fill,
                     ),
@@ -500,7 +500,7 @@ class _AjustStockState extends State<AjustStock> {
                           const Icon(Icons.error),
                     )
                   : Image.asset(
-                      'assets/images/no_image.png',
+                      'assets/images/placeholder.png',
                       height: MediaQuery.of(context).size.height * .3,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.fill,

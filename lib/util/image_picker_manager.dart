@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:africanova/static/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -127,11 +126,11 @@ class _ImageCropPageState extends State<ImageCropPage> {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     elevation: 2.0,
-                    backgroundColor: Colors.blueGrey,
-                    foregroundColor: bgColor,
+                    backgroundColor: const Color(0xFF056148),
+                    foregroundColor: Colors.white,
                     side: const BorderSide(
                       width: 2.0,
-                      color: Colors.blueGrey,
+                      color: Color(0xFF056148),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),

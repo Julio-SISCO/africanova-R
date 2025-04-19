@@ -552,7 +552,7 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                               const Icon(Icons.error),
                         )
                       : Image.asset(
-                          'assets/images/no_image.png',
+                          'assets/images/placeholder.png',
                           height: MediaQuery.of(context).size.height * .3,
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fill,

@@ -258,7 +258,7 @@ class _CategorieDetailState extends State<CategorieDetail> {
       );
     } else {
       return Image.asset(
-        'assets/images/no_image.png',
+        'assets/images/placeholder.png',
         height: 150,
         width: double.infinity,
         fit: BoxFit.cover,

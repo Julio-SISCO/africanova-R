@@ -115,7 +115,7 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                           errorWidget: (_, __, ___) => const Icon(Icons.error),
                         )
                       : Image.asset(
-                          'assets/images/no_image.png',
+                          'assets/images/placeholder.png',
                           height: MediaQuery.of(context).size.height * 0.3,
                           width: double.infinity,
                           fit: BoxFit.fill,

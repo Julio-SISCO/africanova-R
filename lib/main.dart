@@ -22,7 +22,7 @@ void main() async {
   await DatabaseProvider.getDatabase();
   await DatabaseProvider.openBoxes();
   await clearHiveBoxes();
-  await saveAppVersionData('1.1.8-b');
+  await saveAppVersionData('1.1.9');
 
   bool isLoggedIn = await isUserLoggedIn();
 

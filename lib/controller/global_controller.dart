@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:africanova/database/categorie_depense.dart';
 import 'package:africanova/database/depense.dart';
 import 'package:africanova/database/my_icon.dart';
+import 'package:africanova/database/transfert.dart';
 import 'package:africanova/database/type_depense.dart';
 import 'package:africanova/provider/auth_provider.dart';
 import 'package:africanova/database/approvision.dart';
@@ -61,6 +62,21 @@ Future<Map<String, dynamic>> getGlobalData() async {
 
         for (var icon in icons.reversed) {
           await box.add(icon);
+        }
+      }
+      if (responseData['transferts'] != null &&
+          responseData['transferts'].isNotEmpty) {
+        final List<dynamic> transfertsJson = responseData['transferts'];
+
+        List<Transfert> transferts = transfertsJson
+            .map((json) => Transfert.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        var box = Hive.box<Transfert>('transfertBox');
+        await box.clear();
+
+        for (var transfert in transferts.reversed) {
+          await box.add(transfert);
         }
       }
 
