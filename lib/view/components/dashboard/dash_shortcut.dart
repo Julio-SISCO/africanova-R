@@ -62,6 +62,7 @@ class DashShortcut extends StatelessWidget {
                   FutureBuilder<Map<String, bool>>(
                     future: checkPermissions([
                       'enregistrer ventes',
+                      'enregistrer transferts',
                       'enregistrer services',
                       'faire bilan',
                       'voir dashboard',
@@ -84,7 +85,7 @@ class DashShortcut extends StatelessWidget {
                               'Transfert',
                               Icons.share,
                               Transferer(),
-                              permissions['enregistrer ventes'] ?? false,
+                              permissions['enregistrer transferts'] ?? false,
                               switchView,
                             ),
                             buildAccessButton(

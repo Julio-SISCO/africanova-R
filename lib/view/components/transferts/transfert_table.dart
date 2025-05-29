@@ -27,7 +27,7 @@ class _TransfertTableState extends State<TransfertTable> {
   }
 
   Future<void> _loadTransferts() async {
-    final transferts = Hive.box<Transfert>("transfertBox").values.toList();
+    final transferts = Hive.box<Transfert>("transfertsBox").values.toList();
     setState(() {
       rows.clear();
       rows.addAll(transferts.map((transfert) => _buildRow(transfert)));
@@ -188,7 +188,7 @@ class _TransfertTableState extends State<TransfertTable> {
   }
 
   void _deleteTransfert(Transfert transfert) {
-    Hive.box<Transfert>("transfertBox").delete(transfert.key);
+    Hive.box<Transfert>("transfertsBox").delete(transfert.key);
     _loadTransferts();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Transfert supprimé avec succès")),

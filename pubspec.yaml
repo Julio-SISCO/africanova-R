@@ -58,6 +58,7 @@ dependencies:
   month_picker_dialog: ^6.0.3
   flutter_svg: ^2.0.17
   file_picker: ^9.2.3
+  image: ^4.5.4
 
 
 dev_dependencies:
@@ -112,6 +113,11 @@ flutter:
     - family: Oswald
       fonts:
         - asset: assets/fonts/Oswald-VariableFont_wght.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Italic.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

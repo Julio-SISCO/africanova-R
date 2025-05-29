@@ -72,7 +72,7 @@ Future<Map<String, dynamic>> getGlobalData() async {
             .map((json) => Transfert.fromJson(json as Map<String, dynamic>))
             .toList();
 
-        var box = Hive.box<Transfert>('transfertBox');
+        var box = Hive.box<Transfert>('transfertsBox');
         await box.clear();
 
         for (var transfert in transferts.reversed) {

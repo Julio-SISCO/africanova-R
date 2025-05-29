@@ -23,7 +23,7 @@ Future<Map<String, dynamic>> sendTransfert(Transfert transfert) async {
 
     if (response.statusCode == 201) {
       final responseData = json.decode(response.body);
-      final box = Hive.box<Transfert>('transfertBox');
+      final box = Hive.box<Transfert>('transfertsBox');
       Transfert transfert0 = Transfert.fromJson(responseData['transfert']);
 
       List<Transfert> existingTransferts = box.values.toList();
@@ -96,7 +96,7 @@ Future<Map<String, dynamic>> updateTransfert(Transfert transfert, int id) async 
     // Vérifier la réponse du serveur
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      final box = Hive.box<Transfert>('transfertBox');
+      final box = Hive.box<Transfert>('transfertsBox');
       Transfert transfert = Transfert.fromJson(responseData['transfert']);
       int? transfertIndex;
 
@@ -167,7 +167,7 @@ Future<Map<String, dynamic>> cancelTransfert(int id) async {
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      final box = Hive.box<Transfert>('transfertBox');
+      final box = Hive.box<Transfert>('transfertsBox');
       int? transfertIndex;
 
       for (int i = 0; i < box.length; i++) {
@@ -237,7 +237,7 @@ Future<Map<String, dynamic>> deleteTransfert(int id) async {
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      final box = Hive.box<Transfert>('transfertBox');
+      final box = Hive.box<Transfert>('transfertsBox');
       int? transfertIndex;
 
       for (int i = 0; i < box.length; i++) {
@@ -315,7 +315,7 @@ Future<Map<String, dynamic>> getTransfert() async {
             .toList();
 
         // Ouvrir la boîte Hive pour les articles
-        var box = await Hive.openBox<Transfert>('transfertBox');
+        var box = await Hive.openBox<Transfert>('transfertsBox');
         await box.clear();
 
         // Ajouter les nouveaux articles dans la boîte Hive

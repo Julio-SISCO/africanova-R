@@ -115,7 +115,7 @@ class DatabaseProvider {
     await Hive.openBox<TypeDepense>('typeDepenseBox');
     await Hive.openBox<CategorieDepense>('categorieDepenseBox');
     await Hive.openBox<Depense>('depenseBox');
-    await Hive.openBox<Transfert>('transfertBox');
+    await Hive.openBox<Transfert>('transfertsBox');
   }
 }
 

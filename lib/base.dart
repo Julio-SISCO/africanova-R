@@ -1,8 +1,10 @@
+import 'package:africanova/database/permission.dart';
 import 'package:africanova/theme/theme_provider.dart';
 import 'package:africanova/view/components/dashboard/dashboard.dart';
 import 'package:africanova/view/layouts/app_header.dart';
 import 'package:africanova/view/layouts/app_sidebar.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 class BaseApp extends StatefulWidget {
@@ -19,6 +21,8 @@ class _BaseAppState extends State<BaseApp> {
     },
   );
   bool _hideSideBar = false;
+  List<String> _userPermissions = [];
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +31,14 @@ class _BaseAppState extends State<BaseApp> {
         _switchView(w);
       },
     );
+    _loadPermissions();
+  }
+
+  void _loadPermissions() async {
+    final box = Hive.box<Permission>('userPermissionBox');
+    setState(() {
+      _userPermissions = box.values.map((e) => e.name).toList();
+    });
   }
 
   void _switchView(Widget view) {
@@ -47,10 +59,15 @@ class _BaseAppState extends State<BaseApp> {
       backgroundColor:
           Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       body: Row(
-        spacing: 0.0,
         children: [
           if (!_hideSideBar)
-            Expanded(child: AppSidebar(switchView: _switchView)),
+            Expanded(
+              child: AppSidebar(
+                switchView: _switchView,
+                userPermissions:
+                    _userPermissions, // Transmettre les permissions
+              ),
+            ),
           Expanded(
             flex: 6,
             child: Column(
@@ -61,7 +78,6 @@ class _BaseAppState extends State<BaseApp> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme

@@ -1,4 +1,4 @@
-import 'package:africanova/controller/transfert_controller.Dart';
+import 'package:africanova/controller/transferts_controller.dart';
 import 'package:africanova/database/transfert.dart';
 import 'package:flutter/material.dart';
 import 'package:africanova/util/date_formatter.dart';

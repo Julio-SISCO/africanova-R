@@ -52,7 +52,7 @@ Future<void> clearAllHiveBoxes() async {
     await Hive.box<TypeDepense>('typeDepenseBox').clear();
     await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
     await Hive.box<Depense>('depenseBox').clear();
-    await Hive.box<Transfert>('transfertBox').clear();
+    await Hive.box<Transfert>('transfertsBox').clear();
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -90,7 +90,7 @@ Future<void> clearHiveBoxes() async {
     await Hive.box<TypeDepense>('typeDepenseBox').clear();
     await Hive.box<CategorieDepense>('categorieDepenseBox').clear();
     await Hive.box<Depense>('depenseBox').clear();
-    await Hive.box<Transfert>('transfertBox').clear();
+    await Hive.box<Transfert>('transfertsBox').clear();
   } catch (e) {
     return;
   }

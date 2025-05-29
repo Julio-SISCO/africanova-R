@@ -15,7 +15,8 @@ import 'package:provider/provider.dart';
 
 class AppSidebar extends StatefulWidget {
   final Function(Widget) switchView;
-  const AppSidebar({super.key, required this.switchView});
+  final List<String> userPermissions;
+  const AppSidebar({super.key, required this.switchView, required this.userPermissions});
 
   @override
   State<AppSidebar> createState() => _AppSidebarState();
@@ -24,7 +25,10 @@ class AppSidebar extends StatefulWidget {
 class _AppSidebarState extends State<AppSidebar> {
   int index = 0;
 
-  Widget buildMenu(String title, IconData icon, int menuIndex, Widget view) {
+  Widget buildMenu(String title, IconData icon, int menuIndex, Widget view, {required String permission}) {
+    if (!widget.userPermissions.contains(permission)) {
+      return const SizedBox.shrink();
+    }
     return Menu(
       title: title,
       press: () {
@@ -37,6 +41,9 @@ class _AppSidebarState extends State<AppSidebar> {
   }
 
   Widget buildMenuDrop(String title, IconData icon, List<Widget> menus, bool isSelected) {
+    if (menus.whereType<Menu>().isEmpty) {
+      return const SizedBox.shrink();
+    }
     return MenuDrop(
       title: title,
       icon: Icon(icon),
@@ -63,15 +70,39 @@ class _AppSidebarState extends State<AppSidebar> {
                   children: [
                     HeadMenu(),
                     Divider(color: theme.primary),
-                    buildMenu('Tableau de Bord', Icons.widgets_rounded, 0, Dashboard(switchView: widget.switchView)),
+                    buildMenu(
+                      'Tableau de Bord',
+                      Icons.widgets_rounded,
+                      0,
+                      Dashboard(switchView: widget.switchView),
+                      permission: 'voir dashboard',
+                    ),
                     const SizedBox(height: 8.0),
                     buildMenuDrop(
                       'Activités',
                       Icons.access_time_rounded,
                       [
-                        buildMenu('Ventes', Icons.sell, 1, VenteTable(switchView: widget.switchView)),
-                        buildMenu('Services', Icons.computer_rounded, 2, ServiceMain(switchView: widget.switchView)),
-                        buildMenu('Commandes', Icons.domain_verification_rounded, 3, const Placeholder()),
+                        buildMenu(
+                          'Ventes',
+                          Icons.sell,
+                          1,
+                          VenteTable(switchView: widget.switchView),
+                          permission: 'voir ventes',
+                        ),
+                        buildMenu(
+                          'Services',
+                          Icons.computer_rounded,
+                          2,
+                          ServiceMain(switchView: widget.switchView),
+                          permission: 'voir services',
+                        ),
+                        buildMenu(
+                          'Commandes',
+                          Icons.domain_verification_rounded,
+                          3,
+                          const Placeholder(),
+                          permission: 'voir commandes',
+                        ),
                       ],
                       index == 1 || index == 2 || index == 3,
                     ),
@@ -80,8 +111,20 @@ class _AppSidebarState extends State<AppSidebar> {
                       'Boutique',
                       Icons.shopify,
                       [
-                        buildMenu('Catégories', Icons.category, 5, CategorieTable(switchView: widget.switchView)),
-                        buildMenu('Articles', Icons.add_to_photos, 6, ArticleTable(switchView: widget.switchView)),
+                        buildMenu(
+                          'Catégories',
+                          Icons.category,
+                          5,
+                          CategorieTable(switchView: widget.switchView),
+                          permission: 'voir categories',
+                        ),
+                        buildMenu(
+                          'Articles',
+                          Icons.add_to_photos,
+                          6,
+                          ArticleTable(switchView: widget.switchView),
+                          permission: 'voir articles',
+                        ),
                       ],
                       index == 5 || index == 6,
                     ),
@@ -90,9 +133,27 @@ class _AppSidebarState extends State<AppSidebar> {
                       'Personnels',
                       Icons.groups_2,
                       [
-                        buildMenu('Employers', Icons.person, 7, EmployerTable(switchView: widget.switchView)),
-                        buildMenu('Clients', Icons.people, 8, ClientTable(switchView: widget.switchView)),
-                        buildMenu('Fournisseurs', Icons.store, 9, FournisseurTable(switchView: widget.switchView)),
+                        buildMenu(
+                          'Employers',
+                          Icons.person,
+                          7,
+                          EmployerTable(switchView: widget.switchView),
+                          permission: 'voir employers',
+                        ),
+                        buildMenu(
+                          'Clients',
+                          Icons.people,
+                          8,
+                          ClientTable(switchView: widget.switchView),
+                          permission: 'voir clients',
+                        ),
+                        buildMenu(
+                          'Fournisseurs',
+                          Icons.store,
+                          9,
+                          FournisseurTable(switchView: widget.switchView),
+                          permission: 'voir fournisseurs',
+                        ),
                       ],
                       index == 7 || index == 8 || index == 9,
                     ),
@@ -101,8 +162,20 @@ class _AppSidebarState extends State<AppSidebar> {
                       'Finances',
                       Icons.attach_money,
                       [
-                        buildMenu('Dépenses', Icons.trending_down, 10, DepensePage(switchView: widget.switchView)),
-                        buildMenu('Revenus', Icons.trending_up, 11, const Placeholder()),
+                        buildMenu(
+                          'Dépenses',
+                          Icons.trending_down,
+                          10,
+                          DepensePage(switchView: widget.switchView),
+                          permission: 'voir depenses',
+                        ),
+                        buildMenu(
+                          'Revenus',
+                          Icons.trending_up,
+                          11,
+                          const Placeholder(),
+                          permission: 'voir revenus',
+                        ),
                       ],
                       index == 10 || index == 11,
                     ),
@@ -111,7 +184,13 @@ class _AppSidebarState extends State<AppSidebar> {
                       'Autres',
                       Icons.more_horiz,
                       [
-                        buildMenu('Autorisations', Icons.security, 12, RoleAndPermission()),
+                        buildMenu(
+                          'Autorisations',
+                          Icons.security,
+                          12,
+                          RoleAndPermission(),
+                          permission: 'gestion autorisations',
+                        ),
                       ],
                       index == 12,
                     ),
