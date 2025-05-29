@@ -56,7 +56,8 @@ String formatMontant(double montant) {
   return formatter.format(montant);
 }
 
-Future<DateTime?> selecteDate(DateTime initialDate, BuildContext context) async {
+Future<DateTime?> selecteDate(
+    DateTime initialDate, BuildContext context) async {
   final date = await showDatePicker(
     context: context,
     initialDate: initialDate,
@@ -84,7 +85,6 @@ Future<DateTime?> selecteDate(DateTime initialDate, BuildContext context) async 
   );
   return date;
 }
-
 
 Widget buildDatePicker({
   required DateTime initialDate,

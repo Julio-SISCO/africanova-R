@@ -82,7 +82,6 @@ class _DashboardState extends State<Dashboard> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 2.0, vertical: 4.0),
@@ -166,7 +165,6 @@ class _DashboardState extends State<Dashboard> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0),
                             ),
-                            
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 2.0, vertical: 4.0),

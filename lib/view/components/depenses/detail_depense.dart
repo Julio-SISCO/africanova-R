@@ -72,7 +72,6 @@ class _DetailDepenseState extends State<DetailDepense> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

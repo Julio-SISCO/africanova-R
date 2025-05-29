@@ -108,7 +108,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                 .themeData
                 .colorScheme
                 .surface,
-            
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Card(
@@ -120,7 +119,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     .themeData
                     .colorScheme
                     .primary,
-                
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Row(
@@ -141,7 +139,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                               .themeData
                               .colorScheme
                               .primary,
-                          
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: articleInfo(),
@@ -170,7 +167,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
           .colorScheme
           .surface
           .withOpacity(0.2),
-      
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -324,7 +320,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -355,7 +350,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -400,7 +394,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                         .colorScheme
                         .surface
                         .withOpacity(0.2),
-                    
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -519,7 +512,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -552,7 +544,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -585,7 +576,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                     height: 45,
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
-                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -635,7 +625,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       },
                       icon: const Icon(Icons.delete),
                       style: TextButton.styleFrom(
-                        
                         backgroundColor: Provider.of<ThemeProvider>(context)
                             .themeData
                             .colorScheme
@@ -713,7 +702,6 @@ class _ArticleDetailState extends State<ArticleDetail> {
                       height: 45,
                       child: TextButton.icon(
                         style: TextButton.styleFrom(
-                          
                           backgroundColor: Provider.of<ThemeProvider>(context)
                               .themeData
                               .colorScheme

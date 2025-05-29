@@ -114,7 +114,6 @@ class _EditRoleFormState extends State<EditRoleForm> {
                   const SizedBox(height: 16),
                   Expanded(
                     child: Card(
-                      
                       child: SingleChildScrollView(
                         padding: EdgeInsets.all(8),
                         child: Wrap(
@@ -154,7 +153,6 @@ class _EditRoleFormState extends State<EditRoleForm> {
                       SizedBox(
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            
                             backgroundColor: Colors.blueGrey[600],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -176,7 +174,6 @@ class _EditRoleFormState extends State<EditRoleForm> {
                       SizedBox(
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            
                             backgroundColor: Colors.green[600],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),

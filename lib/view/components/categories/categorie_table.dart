@@ -189,7 +189,6 @@ class _CategorieTableState extends State<CategorieTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

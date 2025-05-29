@@ -31,7 +31,6 @@ class _FournisseurTableState extends State<FournisseurTable> {
     await getFournisseurs();
   }
 
-
   final List<PlutoColumn> columns = [];
   final List<PlutoRow> rows = [];
 
@@ -204,7 +203,6 @@ class _FournisseurTableState extends State<FournisseurTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

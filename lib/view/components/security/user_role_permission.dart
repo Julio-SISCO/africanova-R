@@ -65,7 +65,6 @@ class _UserRolePermissionState extends State<UserRolePermission> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),

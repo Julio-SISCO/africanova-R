@@ -15,8 +15,7 @@ import "package:provider/provider.dart";
 
 class ApprovisionTable extends StatefulWidget {
   final Function(Widget) switchView;
-  const ApprovisionTable(
-      {super.key, required this.switchView});
+  const ApprovisionTable({super.key, required this.switchView});
 
   @override
   State<ApprovisionTable> createState() => _ApprovisionTableState();
@@ -279,7 +278,6 @@ class _ApprovisionTableState extends State<ApprovisionTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

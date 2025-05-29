@@ -28,7 +28,8 @@ class DashShortcut extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -36,7 +37,8 @@ class DashShortcut extends StatelessWidget {
                     spacing: 8.0,
                     children: [
                       CircleAvatar(
-                        child: Icon(Icons.account_circle_rounded, color: theme.tertiary),
+                        child: Icon(Icons.account_circle_rounded,
+                            color: theme.tertiary),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +71,8 @@ class DashShortcut extends StatelessWidget {
                     ]),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(color: theme.secondary);
+                        return CircularProgressIndicator(
+                            color: theme.secondary);
                       }
                       if (snapshot.hasError) {
                         return Text('Erreur: ${snapshot.error}');
@@ -129,5 +132,4 @@ class DashShortcut extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -201,7 +201,6 @@ class _ClientTableState extends State<ClientTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

@@ -119,7 +119,6 @@ class _AjustStockState extends State<AjustStock> {
       ),
       margin: EdgeInsets.all(0.0),
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
-      
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Card(
@@ -129,7 +128,6 @@ class _AjustStockState extends State<AjustStock> {
           margin: EdgeInsets.all(0.0),
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
-          
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Row(
@@ -261,7 +259,6 @@ class _AjustStockState extends State<AjustStock> {
                                         height: 45,
                                         child: TextButton.icon(
                                           style: TextButton.styleFrom(
-                                            
                                             backgroundColor:
                                                 Provider.of<ThemeProvider>(
                                                         context)
@@ -299,7 +296,6 @@ class _AjustStockState extends State<AjustStock> {
                                         height: 45,
                                         child: TextButton.icon(
                                           style: TextButton.styleFrom(
-                                            
                                             backgroundColor:
                                                 Provider.of<ThemeProvider>(
                                                         context)
@@ -392,7 +388,6 @@ class _AjustStockState extends State<AjustStock> {
           .colorScheme
           .surface
           .withOpacity(0.2),
-      
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

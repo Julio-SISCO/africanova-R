@@ -9,7 +9,6 @@ class HeadMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        
       child: Center(
         child: SvgPicture.asset(
           'assets/logos/logo.svg',

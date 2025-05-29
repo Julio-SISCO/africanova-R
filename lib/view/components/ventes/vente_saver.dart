@@ -370,7 +370,6 @@ class _VenteSaverState extends State<VenteSaver> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
           child: Padding(
@@ -384,7 +383,6 @@ class _VenteSaverState extends State<VenteSaver> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme
@@ -398,7 +396,6 @@ class _VenteSaverState extends State<VenteSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -412,7 +409,6 @@ class _VenteSaverState extends State<VenteSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -426,7 +422,6 @@ class _VenteSaverState extends State<VenteSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -484,7 +479,6 @@ class _VenteSaverState extends State<VenteSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -572,7 +566,6 @@ class _VenteSaverState extends State<VenteSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -650,7 +643,6 @@ class _VenteSaverState extends State<VenteSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Padding(
@@ -682,11 +674,10 @@ class _VenteSaverState extends State<VenteSaver> {
                           ),
                         ),
                         Checkbox(
-                          
-                            activeColor: Provider.of<ThemeProvider>(context)
-                                .themeData
-                                .colorScheme
-                                .secondary,
+                          activeColor: Provider.of<ThemeProvider>(context)
+                              .themeData
+                              .colorScheme
+                              .secondary,
                           value: _showTaxe,
                           onChanged: (bool? value) {
                             setState(() {
@@ -712,11 +703,10 @@ class _VenteSaverState extends State<VenteSaver> {
                           ),
                         ),
                         Checkbox(
-                          
-                            activeColor: Provider.of<ThemeProvider>(context)
-                                .themeData
-                                .colorScheme
-                                .secondary,
+                          activeColor: Provider.of<ThemeProvider>(context)
+                              .themeData
+                              .colorScheme
+                              .secondary,
                           value: _showRemise,
                           onChanged: (bool? value) {
                             setState(() {
@@ -775,7 +765,6 @@ class _VenteSaverState extends State<VenteSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            
                             activeColor: Provider.of<ThemeProvider>(context)
                                 .themeData
                                 .colorScheme
@@ -868,7 +857,6 @@ class _VenteSaverState extends State<VenteSaver> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Checkbox(
-                            
                             activeColor: Provider.of<ThemeProvider>(context)
                                 .themeData
                                 .colorScheme
@@ -930,7 +918,6 @@ class _VenteSaverState extends State<VenteSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(16.0),
@@ -1028,7 +1015,6 @@ class _VenteSaverState extends State<VenteSaver> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        
         margin: EdgeInsets.all(0.0),
         color:
             Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,

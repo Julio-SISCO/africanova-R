@@ -266,7 +266,6 @@ class _TopSellerMoreState extends State<TopSellerMore> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         double totalWidth = constraints.maxWidth;
@@ -291,20 +290,22 @@ class _TopSellerMoreState extends State<TopSellerMore> {
                               ),
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal:  1.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 1.0),
                                   child: PlutoGrid(
-                                    configuration:
-                                        Provider.of<ThemeProvider>(context)
-                                                .isLightTheme()
-                                            ? PlutoGridConfiguration(
-                                                style: tableStyle,
-                                                columnFilter: columnFilterConfig,
-                                              )
-                                            : PlutoGridConfiguration.dark(
-                                                columnFilter: columnFilterConfig,
-                                                style: darkTableStyle,
-                                              ),
-                                    columns: buildColumns((totalWidth - 16) / 8),
+                                    configuration: Provider.of<ThemeProvider>(
+                                                context)
+                                            .isLightTheme()
+                                        ? PlutoGridConfiguration(
+                                            style: tableStyle,
+                                            columnFilter: columnFilterConfig,
+                                          )
+                                        : PlutoGridConfiguration.dark(
+                                            columnFilter: columnFilterConfig,
+                                            style: darkTableStyle,
+                                          ),
+                                    columns:
+                                        buildColumns((totalWidth - 16) / 8),
                                     rows: rows,
                                   ),
                                 ),

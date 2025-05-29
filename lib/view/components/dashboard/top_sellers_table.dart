@@ -174,7 +174,6 @@ class _TopSellerTableState extends State<TopSellerTable> {
                             widget.switchView(TopSellerMore());
                           },
                           style: TextButton.styleFrom(
-                            
                             foregroundColor: Provider.of<ThemeProvider>(context)
                                 .themeData
                                 .colorScheme

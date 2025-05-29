@@ -81,7 +81,8 @@ Future<Map<String, dynamic>> sendTransfert(Transfert transfert) async {
   }
 }
 
-Future<Map<String, dynamic>> updateTransfert(Transfert transfert, int id) async {
+Future<Map<String, dynamic>> updateTransfert(
+    Transfert transfert, int id) async {
   try {
     final jsonTransfert = json.encode(transfert.toJson());
 
@@ -306,7 +307,8 @@ Future<Map<String, dynamic>> getTransfert() async {
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      if (responseData['transferts'] != null && responseData['transferts'].isNotEmpty) {
+      if (responseData['transferts'] != null &&
+          responseData['transferts'].isNotEmpty) {
         final List<dynamic> transfertsJson = responseData['transferts'];
 
         // Mapper les données JSON vers des objets Article

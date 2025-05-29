@@ -109,7 +109,6 @@ class _RoleFormState extends State<RoleForm> {
                   const SizedBox(height: 16),
                   Expanded(
                     child: Card(
-                      
                       child: SingleChildScrollView(
                         padding: EdgeInsets.all(8),
                         child: Wrap(
@@ -149,7 +148,6 @@ class _RoleFormState extends State<RoleForm> {
                       SizedBox(
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            
                             backgroundColor: Colors.blueGrey[600],
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -171,11 +169,10 @@ class _RoleFormState extends State<RoleForm> {
                       SizedBox(
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            
-                            backgroundColor:  Provider.of<ThemeProvider>(context)
-                                    .themeData
-                                    .colorScheme
-                                    .secondary,
+                            backgroundColor: Provider.of<ThemeProvider>(context)
+                                .themeData
+                                .colorScheme
+                                .secondary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),

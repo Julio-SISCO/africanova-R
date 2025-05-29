@@ -16,7 +16,8 @@ import 'package:provider/provider.dart';
 class AppSidebar extends StatefulWidget {
   final Function(Widget) switchView;
   final List<String> userPermissions;
-  const AppSidebar({super.key, required this.switchView, required this.userPermissions});
+  const AppSidebar(
+      {super.key, required this.switchView, required this.userPermissions});
 
   @override
   State<AppSidebar> createState() => _AppSidebarState();
@@ -25,7 +26,8 @@ class AppSidebar extends StatefulWidget {
 class _AppSidebarState extends State<AppSidebar> {
   int index = 0;
 
-  Widget buildMenu(String title, IconData icon, int menuIndex, Widget view, {required String permission}) {
+  Widget buildMenu(String title, IconData icon, int menuIndex, Widget view,
+      {required String permission}) {
     if (!widget.userPermissions.contains(permission)) {
       return const SizedBox.shrink();
     }
@@ -40,7 +42,8 @@ class _AppSidebarState extends State<AppSidebar> {
     );
   }
 
-  Widget buildMenuDrop(String title, IconData icon, List<Widget> menus, bool isSelected) {
+  Widget buildMenuDrop(
+      String title, IconData icon, List<Widget> menus, bool isSelected) {
     if (menus.whereType<Menu>().isEmpty) {
       return const SizedBox.shrink();
     }

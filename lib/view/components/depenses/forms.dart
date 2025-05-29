@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CategorieDepenseForm extends StatefulWidget {
   const CategorieDepenseForm({super.key});
 

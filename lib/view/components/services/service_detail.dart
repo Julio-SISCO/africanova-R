@@ -37,7 +37,6 @@ class ServiceDetail extends StatelessWidget {
                 .themeData
                 .colorScheme
                 .primary,
-            
             margin: EdgeInsets.zero,
             child: Padding(
               padding: const EdgeInsets.all(0.0),
@@ -61,7 +60,6 @@ class ServiceDetail extends StatelessWidget {
   Widget _buildClientAndFactureInfo(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -117,9 +115,8 @@ class ServiceDetail extends StatelessWidget {
           SizedBox(
             height: 400.0,
             child: Card(
-              shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-              
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0)),
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -127,7 +124,7 @@ class ServiceDetail extends StatelessWidget {
                     builder: (context, constraints) {
                       double totalWidth = constraints.maxWidth;
                       double itemWidth = (totalWidth - 16) / 4;
-                  
+
                       return Wrap(
                         spacing: 8.0,
                         runSpacing: 8.0,
@@ -159,7 +156,6 @@ class ServiceDetail extends StatelessWidget {
   Widget _buildServiceSummary(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Row(
@@ -180,7 +176,6 @@ class ServiceDetail extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       margin: EdgeInsets.all(4.0),
-      
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

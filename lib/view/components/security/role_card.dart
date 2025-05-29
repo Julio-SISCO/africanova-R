@@ -35,7 +35,6 @@ class _RoleCardState extends State<RoleCard> {
           width: 180.0,
           height: 60.0,
           child: Card(
-            
             color: Colors.white,
             child: Padding(
               padding: EdgeInsets.all(8.0),

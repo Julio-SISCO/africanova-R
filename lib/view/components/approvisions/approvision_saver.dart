@@ -243,11 +243,10 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(.0),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical:  4.0),
+            padding: EdgeInsets.symmetric(vertical: 4.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -257,14 +256,12 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    
                     color: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme
                         .primary,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 
-                       4.0),
+                      padding: EdgeInsets.symmetric(vertical: 4.0),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -272,7 +269,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -286,7 +282,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
-                              
                               color: Provider.of<ThemeProvider>(context)
                                   .themeData
                                   .colorScheme
@@ -300,7 +295,7 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
                             //   shape: RoundedRectangleBorder(
                             //     borderRadius: BorderRadius.circular(4.0),
                             //   ),
-                            //   
+                            //
                             //   color: Provider.of<ThemeProvider>(context)
                             //       .themeData
                             //       .colorScheme
@@ -358,7 +353,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(8.0),
@@ -436,7 +430,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           margin: EdgeInsets.only(top: 4.0, left: 4.0, right: 4.0, bottom: 1.0),
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
@@ -514,7 +507,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Padding(
@@ -549,7 +541,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
       child: Padding(
         padding: EdgeInsets.all(16.0),
@@ -632,7 +623,6 @@ class _ApprovisionSaverState extends State<ApprovisionSaver> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        
         margin: EdgeInsets.all(0.0),
         color:
             Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,

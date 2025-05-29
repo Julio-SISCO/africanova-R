@@ -96,7 +96,6 @@ class _RolePermissionTableState extends State<RolePermissionTable> {
           margin: EdgeInsets.all(0.0),
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.surface,
-          
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(

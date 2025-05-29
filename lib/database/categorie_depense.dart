@@ -34,7 +34,9 @@ class CategorieDepense extends HiveObject {
       id: json['id'],
       nom: json['nom'],
       description: json['description'],
-      typeDepense: json['type_depense'] == null ? null :  TypeDepense.fromJson(json['type_depense']),
+      typeDepense: json['type_depense'] == null
+          ? null
+          : TypeDepense.fromJson(json['type_depense']),
       icon: json['icon'] == null ? null : MyIcon.fromJson(json['icon']),
     );
   }

@@ -118,7 +118,6 @@ class _CategorieFormState extends State<CategorieForm> {
   Widget _buildColumn() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       color: Colors.grey.withOpacity(0.1),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

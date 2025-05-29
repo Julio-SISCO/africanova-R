@@ -18,7 +18,8 @@ class _FournisseurSelectionState extends State<FournisseurSelection> {
   @override
   void initState() {
     super.initState();
-    final fournisseurs = Hive.box<Fournisseur>('fournisseurBox').values.toList();
+    final fournisseurs =
+        Hive.box<Fournisseur>('fournisseurBox').values.toList();
     filteredFournisseurs = fournisseurs;
   }
 
@@ -45,7 +46,6 @@ class _FournisseurSelectionState extends State<FournisseurSelection> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(

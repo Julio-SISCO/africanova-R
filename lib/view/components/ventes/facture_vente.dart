@@ -50,10 +50,12 @@ class FactureVente extends StatelessWidget {
               minHeight: MediaQuery.of(context).size.height * 0.85,
             ),
             child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2)),
               elevation: 0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -64,10 +66,14 @@ class FactureVente extends StatelessWidget {
                     _buildMontants(
                       totalLignes: totalLignes,
                       context: context,
-                      tvaLabel: formatLabel("TVA", vente.taxe, vente.taxeInPercent == true),
-                      tvaValue: calcLigne(vente.taxe, vente.taxeInPercent == true),
-                      remiseLabel: formatLabel("REMISE", vente.remise, vente.remiseInPercent == true),
-                      remiseValue: calcLigne(vente.remise, vente.remiseInPercent == true),
+                      tvaLabel: formatLabel(
+                          "TVA", vente.taxe, vente.taxeInPercent == true),
+                      tvaValue:
+                          calcLigne(vente.taxe, vente.taxeInPercent == true),
+                      remiseLabel: formatLabel("REMISE", vente.remise,
+                          vente.remiseInPercent == true),
+                      remiseValue: calcLigne(
+                          vente.remise, vente.remiseInPercent == true),
                     ),
                   ],
                 ),
@@ -89,18 +95,22 @@ class FactureVente extends StatelessWidget {
           "Date : ${DateFormat('dd MMMM yyyy', 'fr').format(vente.createdAt ?? DateTime.now())}",
           "Vendeur : ${vente.employer?.prenom ?? vente.initiateur?.prenom ?? 'ANOC'}",
         ]),
-        _infoBloc("INFO CLIENT", [
-          vente.client?.fullname ?? 'Commun',
-          vente.client?.adresse ?? 'Commun',
-          vente.client?.contact ?? 'Commun',
-        ], alignEnd: true),
+        _infoBloc(
+            "INFO CLIENT",
+            [
+              vente.client?.fullname ?? 'Commun',
+              vente.client?.adresse ?? 'Commun',
+              vente.client?.contact ?? 'Commun',
+            ],
+            alignEnd: true),
       ],
     );
   }
 
   Widget _infoBloc(String title, List<String> lines, {bool alignEnd = false}) {
     return Column(
-      crossAxisAlignment: alignEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment:
+          alignEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Text(title,
             style: const TextStyle(
@@ -157,8 +167,8 @@ class FactureVente extends StatelessWidget {
               color: const Color(0xFF056148),
               height: 45,
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-              child: _buildSummaryRow("TOTAL A PAYER : ",
-                  " ${formatMontant(vente.montantTotal)} F",
+              child: _buildSummaryRow(
+                  "TOTAL A PAYER : ", " ${formatMontant(vente.montantTotal)} F",
                   isBold: true, fontSize: 18, color: Colors.white),
             ),
           ],
@@ -206,8 +216,8 @@ class FactureVente extends StatelessWidget {
                       imageUrl: imageUrl,
                       fit: BoxFit.fill,
                       height: 100,
-                      placeholder: (_, __) =>
-                          LinearProgressIndicator(color: Colors.grey.withOpacity(.2)),
+                      placeholder: (_, __) => LinearProgressIndicator(
+                          color: Colors.grey.withOpacity(.2)),
                       errorWidget: (_, __, ___) => Image.asset(
                         'assets/images/placeholder.png',
                         height: 100,
@@ -232,7 +242,8 @@ class FactureVente extends StatelessWidget {
                       fontWeight: FontWeight.w600, size: 14),
                   _textLine('Prix : ${ligne.montant?.toInt() ?? 0} F'),
                   _textLine('Quantité : ${ligne.quantite}'),
-                  _textLine('Total : ${ligne.quantite * (ligne.montant ?? 0).toInt()} F'),
+                  _textLine(
+                      'Total : ${ligne.quantite * (ligne.montant ?? 0).toInt()} F'),
                 ],
               ),
             ),
@@ -250,7 +261,8 @@ class FactureVente extends StatelessWidget {
         text,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(color: Colors.blueGrey, fontWeight: fontWeight, fontSize: size),
+        style: TextStyle(
+            color: Colors.blueGrey, fontWeight: fontWeight, fontSize: size),
       ),
     );
   }

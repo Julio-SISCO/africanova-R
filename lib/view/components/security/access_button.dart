@@ -20,7 +20,6 @@ class _PageButtonState extends State<AccessButton> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       margin: EdgeInsets.all(0.0),
       child: Padding(
         padding: const EdgeInsets.all(4.0),

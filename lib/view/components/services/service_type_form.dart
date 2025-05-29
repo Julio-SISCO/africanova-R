@@ -250,7 +250,6 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
             borderRadius: BorderRadius.circular(4.0),
           ),
           margin: EdgeInsets.all(0.0),
-          
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -260,7 +259,6 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  
                   color: Provider.of<ThemeProvider>(context)
                       .themeData
                       .colorScheme
@@ -359,7 +357,6 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                                         widget.switchView(w),
                                   )),
                                   style: TextButton.styleFrom(
-                                    
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
@@ -385,7 +382,6 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                                 child: TextButton(
                                   onPressed: _saveServiceType,
                                   style: TextButton.styleFrom(
-                                    
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
@@ -420,7 +416,6 @@ class _ServiceTypeFormState extends State<ServiceTypeForm> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  
                   color: Provider.of<ThemeProvider>(context)
                       .themeData
                       .colorScheme

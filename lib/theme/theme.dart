@@ -24,7 +24,6 @@ ThemeData darkMode = ThemeData(
   ),
 );
 
-
 Color getRandomColor() {
   final Random random = Random();
   return Color.fromARGB(

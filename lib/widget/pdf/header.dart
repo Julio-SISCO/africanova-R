@@ -179,7 +179,8 @@ pw.Widget _buildArticleCell(String libelle, String description) {
   );
 }
 
-pw.Widget _buildTextCell(String text, {pw.TextAlign textAlign = pw.TextAlign.left}) {
+pw.Widget _buildTextCell(String text,
+    {pw.TextAlign textAlign = pw.TextAlign.left}) {
   return pw.Padding(
     padding: const pw.EdgeInsets.all(8.0),
     child: pw.Text(

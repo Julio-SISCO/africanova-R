@@ -50,10 +50,11 @@ class DetailHeader extends StatelessWidget {
           child: TextButton.icon(
             onPressed: onPressed,
             style: TextButton.styleFrom(
-              
-              backgroundColor: const Color.fromARGB(255, 5, 202, 133).withOpacity(0.4),
+              backgroundColor:
+                  const Color.fromARGB(255, 5, 202, 133).withOpacity(0.4),
               foregroundColor: colorScheme.tertiary,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0)),
             ),
             icon: Icon(icon, color: colorScheme.tertiary),
             label: Text(
@@ -77,16 +78,20 @@ class DetailHeader extends StatelessWidget {
         'annuler approvisionnements',
       ]),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) return const SizedBox();
-        if (snapshot.hasError) return Center(child: Text('Erreur: ${snapshot.error}'));
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox();
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Erreur: ${snapshot.error}'));
+        }
 
         final permissions = snapshot.data ?? {};
 
         return Consumer<ThemeProvider>(
           builder: (context, themeProvider, child) {
             return Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-              
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0)),
               color: themeProvider.themeData.colorScheme.primary,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -99,7 +104,8 @@ class DetailHeader extends StatelessWidget {
                       label: "Facture",
                       onPressed: () {},
                     ),
-                    if (permissions['supprimer approvisionnements'] == true) ...[
+                    if (permissions['supprimer approvisionnements'] ==
+                        true) ...[
                       const SizedBox(width: 16.0),
                       _buildButton(
                         context: context,
@@ -122,7 +128,8 @@ class DetailHeader extends StatelessWidget {
                         tooltip: "Modifier",
                         icon: Icons.edit,
                         label: "Modifier",
-                        onPressed: () => switchView(ApprovisionSaver(editableApprovision: approvision)),
+                        onPressed: () => switchView(
+                            ApprovisionSaver(editableApprovision: approvision)),
                       ),
                     ],
                   ],

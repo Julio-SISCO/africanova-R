@@ -25,7 +25,6 @@ class _ServiceHeadState extends State<ServiceHead> {
   int _activeIndex = 0;
   ButtonStyle _buttonStyle({bool isActive = false}) {
     return TextButton.styleFrom(
-      
       backgroundColor: isActive
           ? Provider.of<ThemeProvider>(context)
               .themeData
@@ -54,7 +53,6 @@ class _ServiceHeadState extends State<ServiceHead> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
-      
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
@@ -124,7 +122,6 @@ class _ServiceHeadState extends State<ServiceHead> {
                     ServiceSaver(),
                   ),
                   style: TextButton.styleFrom(
-                    
                     backgroundColor: Provider.of<ThemeProvider>(context)
                         .themeData
                         .colorScheme

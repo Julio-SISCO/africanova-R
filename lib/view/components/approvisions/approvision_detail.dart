@@ -37,7 +37,6 @@ class ApprovisionDetail extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0)),
             color: theme.primary,
-            
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -63,7 +62,6 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildInfoSection(BuildContext context, ColorScheme theme) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       color: theme.primary,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -135,7 +133,6 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildArticleDetail(LigneApprovision ligne) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       child: Row(
         children: [
           Expanded(flex: 2, child: _buildArticleImage(ligne)),
@@ -174,10 +171,12 @@ class ApprovisionDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildText(ligne.article.libelle ?? "Inconnu", isBold: true),
-            _buildText('Prix :${formatMontant((ligne.prix ?? 0.0).toDouble())} F',
+            _buildText(
+                'Prix :${formatMontant((ligne.prix ?? 0.0).toDouble())} F',
                 color: Colors.blueGrey),
             _buildText('Quantité :${ligne.quantite}', color: Colors.blueGrey),
-            _buildText('Total :${formatMontant(ligne.quantite * (ligne.prix ?? 0.0).toDouble())} F',
+            _buildText(
+                'Total :${formatMontant(ligne.quantite * (ligne.prix ?? 0.0).toDouble())} F',
                 color: Colors.blueGrey),
           ],
         ),
@@ -188,7 +187,6 @@ class ApprovisionDetail extends StatelessWidget {
   Widget _buildTotalSection(ColorScheme theme) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       color: theme.primary,
       child: Padding(
         padding: const EdgeInsets.all(14.0),

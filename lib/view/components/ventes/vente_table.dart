@@ -263,9 +263,9 @@ class _VenteTableState extends State<VenteTable> {
                 vente.createdAt!.month == _selectedDate!.month &&
                 vente.createdAt!.day == _selectedDate!.day)
             .toList();
-      totalValide = 0.0;
-      totalEnAttente = 0.0;
-      totalAnnule = 0.0;
+    totalValide = 0.0;
+    totalEnAttente = 0.0;
+    totalAnnule = 0.0;
     for (var vente in filteredVentes) {
       double montant = vente.montantTotal;
       setState(() {
@@ -368,7 +368,6 @@ class _VenteTableState extends State<VenteTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

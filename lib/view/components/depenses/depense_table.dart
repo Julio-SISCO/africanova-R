@@ -255,7 +255,6 @@ class _DepenseTableState extends State<DepenseTable> {
                   .themeData
                   .colorScheme
                   .surface,
-              
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Column(

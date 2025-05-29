@@ -58,7 +58,8 @@ class DetailHeader extends StatelessWidget {
             elevation: 0,
             backgroundColor: theme.primary,
             foregroundColor: theme.tertiary,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
           ),
           icon: Icon(icon, color: theme.tertiary),
           label: Text(
@@ -75,10 +76,15 @@ class DetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, bool>>(
-      future: checkPermissions(['modifier ventes', 'supprimer ventes', 'annuler ventes']),
+      future: checkPermissions(
+          ['modifier ventes', 'supprimer ventes', 'annuler ventes']),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) return const SizedBox();
-        if (snapshot.hasError) return Center(child: Text('Erreur: ${snapshot.error}'));
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SizedBox();
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Erreur: ${snapshot.error}'));
+        }
 
         final permissions = snapshot.data ?? {};
         final buttons = <Widget>[
@@ -107,7 +113,8 @@ class DetailHeader extends StatelessWidget {
               tooltip: "Supprimer",
               onPressed: () => showCancelConfirmationDialog(
                 context,
-                () => _handleAction(context, () => deleteVente(vente.id ?? 0), 'Suppression...'),
+                () => _handleAction(context, () => deleteVente(vente.id ?? 0),
+                    'Suppression...'),
                 'Êtes-vous sûr de vouloir supprimer cette vente ?',
               ),
             ),
@@ -124,7 +131,8 @@ class DetailHeader extends StatelessWidget {
               tooltip: "Annuler la vente",
               onPressed: () => showCancelConfirmationDialog(
                 context,
-                () => _handleAction(context, () => cancelVente(vente.id ?? 0), 'Annulation...'),
+                () => _handleAction(
+                    context, () => cancelVente(vente.id ?? 0), 'Annulation...'),
                 'Êtes-vous sûr de vouloir annuler cette vente ?',
               ),
             ),

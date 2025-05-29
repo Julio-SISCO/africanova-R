@@ -56,12 +56,10 @@ class _ServiceSideState extends State<ServiceSide> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4.0),
         ),
-        
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(

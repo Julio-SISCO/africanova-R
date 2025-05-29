@@ -68,7 +68,6 @@ class _CategorieDetailState extends State<CategorieDetail> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           child: ListTile(
             title: Text(
               widget.categorie.libelle ?? "Libelle",

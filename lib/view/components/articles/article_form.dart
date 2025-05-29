@@ -251,7 +251,6 @@ class _ArticleFormState extends State<ArticleForm> {
   Widget _buildColumn() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      
       color: Colors.grey.withOpacity(0.1),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -453,8 +452,7 @@ class _ArticleFormState extends State<ArticleForm> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (editableArticle != null &&
-            editableArticle!.images != null)
+        if (editableArticle != null && editableArticle!.images != null)
           for (int i = 0; i < editableArticle!.images!.length; i++) ...[
             Stack(
               clipBehavior: Clip.none,
@@ -477,8 +475,8 @@ class _ArticleFormState extends State<ArticleForm> {
                       showCancelConfirmationDialog(
                         context,
                         () {
-                          _deleteImage(context,
-                              editableArticle!.images![i].id, i);
+                          _deleteImage(
+                              context, editableArticle!.images![i].id, i);
                         },
                         'Êtes-vous sûr de vouloir annuler cette image ?',
                       );

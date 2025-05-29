@@ -35,7 +35,6 @@ class _ServiceTableState extends State<ServiceTable> {
     _fetchAndStoreTopArticles();
   }
 
-
   Future<void> _fetchAndStoreTopArticles() async {
     await getService();
   }

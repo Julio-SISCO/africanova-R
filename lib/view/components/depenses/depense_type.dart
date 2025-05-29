@@ -110,7 +110,6 @@ class _DepenseTypeState extends State<DepenseType> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -144,7 +143,6 @@ class _DepenseTypeState extends State<DepenseType> {
                                         borderRadius:
                                             BorderRadius.circular(4.0),
                                       ),
-                                      
                                       child: ListTile(
                                         tileColor: Colors.grey.withOpacity(0.1),
                                         title: Text(

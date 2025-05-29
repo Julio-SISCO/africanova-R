@@ -10,9 +10,12 @@ Future<Uint8List> factureVente(Vente vente) async {
   final pdf = pw.Document();
 
   // Charger les polices Roboto
-  final robotoRegular = pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Regular.ttf'));
-  final robotoBold = pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Bold.ttf'));
-  final robotoItalic = pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Italic.ttf'));
+  final robotoRegular =
+      pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Regular.ttf'));
+  final robotoBold =
+      pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Bold.ttf'));
+  final robotoItalic =
+      pw.Font.ttf(await rootBundle.load('assets/fonts/Roboto-Italic.ttf'));
 
   final totalLignes = vente.lignes.fold<double>(
     0,
@@ -57,7 +60,8 @@ Future<Uint8List> factureVente(Vente vente) async {
                       color: PdfColor.fromHex("#056148"),
                     )),
                 pw.SizedBox(height: 4),
-                pw.Text("Réf : ${vente.numFacture}", style: _textStyle(robotoRegular)),
+                pw.Text("Réf : ${vente.numFacture}",
+                    style: _textStyle(robotoRegular)),
                 pw.SizedBox(height: 4),
                 pw.Text(
                   "Date : ${DateFormat('dd MMMM yyyy', 'fr').format(vente.createdAt ?? DateTime.now())}",
@@ -76,10 +80,13 @@ Future<Uint8List> factureVente(Vente vente) async {
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 _sectionTitle("Emmetteur", robotoBold),
-                pw.Text("Hédzranawoé,\nEn face du club de Karaté,\nNon loin de la Pharmacie Hédzranawoé,\nLomé-Togo",
+                pw.Text(
+                    "Hédzranawoé,\nEn face du club de Karaté,\nNon loin de la Pharmacie Hédzranawoé,\nLomé-Togo",
                     style: _textStyle(robotoRegular, size: 10)),
-                pw.Text("(+228) 90802525/99026979", style: _textStyle(robotoRegular, size: 10)),
-                pw.Text("Vendeur : ${vente.employer?.prenom ?? vente.initiateur?.prenom ?? 'ANOC'}",
+                pw.Text("(+228) 90802525/99026979",
+                    style: _textStyle(robotoRegular, size: 10)),
+                pw.Text(
+                    "Vendeur : ${vente.employer?.prenom ?? vente.initiateur?.prenom ?? 'ANOC'}",
                     style: _textStyle(robotoRegular, size: 10)),
               ],
             ),
@@ -87,9 +94,12 @@ Future<Uint8List> factureVente(Vente vente) async {
               crossAxisAlignment: pw.CrossAxisAlignment.end,
               children: [
                 _sectionTitle("Adressé à", robotoBold),
-                pw.Text(vente.client?.fullname ?? 'Commun', style: _textStyle(robotoRegular, size: 10)),
-                pw.Text(vente.client?.adresse ?? '', style: _textStyle(robotoRegular, size: 10)),
-                pw.Text(vente.client?.contact ?? '', style: _textStyle(robotoRegular, size: 10)),
+                pw.Text(vente.client?.fullname ?? 'Commun',
+                    style: _textStyle(robotoRegular, size: 10)),
+                pw.Text(vente.client?.adresse ?? '',
+                    style: _textStyle(robotoRegular, size: 10)),
+                pw.Text(vente.client?.contact ?? '',
+                    style: _textStyle(robotoRegular, size: 10)),
               ],
             ),
           ],
@@ -117,10 +127,14 @@ Future<Uint8List> factureVente(Vente vente) async {
               ],
             ),
             ...vente.lignes.map((ligne) => pw.TableRow(children: [
-                  _buildArticleCell(ligne.article?.libelle ?? "Inconnu", ligne.article?.description ?? "", robotoRegular),
+                  _buildArticleCell(ligne.article?.libelle ?? "Inconnu",
+                      ligne.article?.description ?? "", robotoRegular),
                   _buildTextCell(ligne.quantite.toString(), robotoRegular),
-                  _buildTextCell("${formatMontant(ligne.montant ?? 0)} F", robotoRegular),
-                  _buildTextCell("${formatMontant((ligne.montant ?? 0) * ligne.quantite)} F", robotoRegular),
+                  _buildTextCell(
+                      "${formatMontant(ligne.montant ?? 0)} F", robotoRegular),
+                  _buildTextCell(
+                      "${formatMontant((ligne.montant ?? 0) * ligne.quantite)} F",
+                      robotoRegular),
                 ])),
           ],
         ),
@@ -131,19 +145,26 @@ Future<Uint8List> factureVente(Vente vente) async {
             pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.end,
               children: [
-                _buildSummaryRow("TOTAL HT: ", " ${formatMontant(totalLignes)} F",
-                    isBold: true, color: PdfColor.fromHex("#056148"), font: robotoBold),
+                _buildSummaryRow(
+                    "TOTAL HT: ", " ${formatMontant(totalLignes)} F",
+                    isBold: true,
+                    color: PdfColor.fromHex("#056148"),
+                    font: robotoBold),
                 pw.SizedBox(height: 8),
                 _buildSummaryRow(
-                  formatRowLabel("TVA", vente.taxe, vente.taxeInPercent == true),
-                  formatRowValue(vente.taxe, vente.taxeInPercent == true, totalLignes),
+                  formatRowLabel(
+                      "TVA", vente.taxe, vente.taxeInPercent == true),
+                  formatRowValue(
+                      vente.taxe, vente.taxeInPercent == true, totalLignes),
                   isBold: true,
                   font: robotoRegular,
                 ),
                 pw.SizedBox(height: 8),
                 _buildSummaryRow(
-                  formatRowLabel("REMISE", vente.remise, vente.remiseInPercent == true),
-                  formatRowValue(vente.remise, vente.remiseInPercent == true, totalLignes),
+                  formatRowLabel(
+                      "REMISE", vente.remise, vente.remiseInPercent == true),
+                  formatRowValue(
+                      vente.remise, vente.remiseInPercent == true, totalLignes),
                   isBold: true,
                   font: robotoRegular,
                 ),
@@ -168,14 +189,16 @@ Future<Uint8List> factureVente(Vente vente) async {
         pw.Spacer(flex: 2),
         pw.Align(
           alignment: pw.Alignment.bottomRight,
-          child: pw.Text("Signature", style: _textStyle(robotoItalic, size: 10, bold: true)),
+          child: pw.Text("Signature",
+              style: _textStyle(robotoItalic, size: 10, bold: true)),
         ),
         pw.Spacer(),
         pw.Align(
           alignment: pw.Alignment.bottomLeft,
           child: pw.Text(
             "MERCI POUR VOS ACHATS !",
-            style: _textStyle(robotoItalic, size: 8, bold: true, color: PdfColor.fromHex("#056148")),
+            style: _textStyle(robotoItalic,
+                size: 8, bold: true, color: PdfColor.fromHex("#056148")),
           ),
         ),
       ],
@@ -185,7 +208,8 @@ Future<Uint8List> factureVente(Vente vente) async {
   return pdf.save();
 }
 
-pw.TextStyle _textStyle(pw.Font font, {double size = 11, bool bold = false, PdfColor color = PdfColors.black}) {
+pw.TextStyle _textStyle(pw.Font font,
+    {double size = 11, bool bold = false, PdfColor color = PdfColors.black}) {
   return pw.TextStyle(
     font: font,
     fontSize: size,
@@ -196,10 +220,13 @@ pw.TextStyle _textStyle(pw.Font font, {double size = 11, bool bold = false, PdfC
 
 pw.Widget _buildHeaderCell(String text, pw.Font font) => pw.Padding(
       padding: const pw.EdgeInsets.all(8),
-      child: pw.Text(text, style: _textStyle(font, size: 14, bold: true, color: PdfColors.white)),
+      child: pw.Text(text,
+          style:
+              _textStyle(font, size: 14, bold: true, color: PdfColors.white)),
     );
 
-pw.Widget _buildArticleCell(String libelle, String description, pw.Font font) => pw.Padding(
+pw.Widget _buildArticleCell(String libelle, String description, pw.Font font) =>
+    pw.Padding(
       padding: const pw.EdgeInsets.all(8),
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -216,16 +243,24 @@ pw.Widget _buildTextCell(String text, pw.Font font) => pw.Padding(
     );
 
 pw.Widget _buildSummaryRow(String label, String value,
-        {bool isBold = false, PdfColor color = PdfColors.black, double fontSize = 10, required pw.Font font}) =>
+        {bool isBold = false,
+        PdfColor color = PdfColors.black,
+        double fontSize = 10,
+        required pw.Font font}) =>
     pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.center,
       children: [
-        pw.Text(label, style: _textStyle(font, size: fontSize, bold: isBold, color: color)),
-        pw.Text(value, style: _textStyle(font, size: fontSize + 1, bold: isBold, color: color)),
+        pw.Text(label,
+            style:
+                _textStyle(font, size: fontSize, bold: isBold, color: color)),
+        pw.Text(value,
+            style: _textStyle(font,
+                size: fontSize + 1, bold: isBold, color: color)),
       ],
     );
 
 pw.Widget _sectionTitle(String title, pw.Font font) => pw.Text(
       title,
-      style: _textStyle(font, size: 16, bold: true, color: PdfColor.fromHex("#056148")),
+      style: _textStyle(font,
+          size: 16, bold: true, color: PdfColor.fromHex("#056148")),
     );

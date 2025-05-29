@@ -237,7 +237,6 @@ class _PasswordForgottenState extends State<PasswordForgotten> {
                     width: double.infinity,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        
                         backgroundColor: Color(0xFF262D4D),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(

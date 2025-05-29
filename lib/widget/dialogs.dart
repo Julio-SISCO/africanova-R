@@ -27,8 +27,7 @@ void showCancelConfirmationDialog(
                 backgroundColor: Provider.of<ThemeProvider>(context)
                     .themeData
                     .colorScheme
-                    .tertiary, 
-                
+                    .tertiary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4.0),
                 ),
@@ -53,7 +52,6 @@ void showCancelConfirmationDialog(
                   .colorScheme
                   .secondary,
               foregroundColor: Colors.white,
-              
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0),
               ),

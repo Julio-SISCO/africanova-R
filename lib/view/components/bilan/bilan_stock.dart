@@ -117,7 +117,6 @@ class _BilanStockState extends State<BilanStock> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
             ),
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               spacing: 0.0,

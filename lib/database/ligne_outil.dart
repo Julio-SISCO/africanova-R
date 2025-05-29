@@ -51,7 +51,7 @@ class LigneOutil extends HiveObject {
       montant: json['montant'] != null
           ? double.parse(json['montant'].toString())
           : 0.0,
-      outil:  Outil.fromJson(json['outil']),
+      outil: Outil.fromJson(json['outil']),
     );
   }
 }

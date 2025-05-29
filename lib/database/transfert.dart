@@ -64,8 +64,8 @@ class Transfert extends HiveObject {
     return Transfert(
       id: json['id'],
       contact: json['contact'],
-      montant:  double.parse(json['montant'].toString()),
-      commission:  double.parse(json['commission'].toString()),
+      montant: double.parse(json['montant'].toString()),
+      commission: double.parse(json['commission'].toString()),
       type: json['type'],
       reseau: json['reseau'],
       categorie: json['categorie'],
@@ -74,8 +74,12 @@ class Transfert extends HiveObject {
       date: DateTime.parse(json['date']),
       description: json['description'],
       reference: json['reference'],
-      createdAt: json['created_at'] != null ? DateTime.parse(json['created_at']) : null,
-      updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at']) : null,
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
     );
   }
 

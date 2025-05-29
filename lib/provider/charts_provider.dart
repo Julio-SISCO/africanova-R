@@ -18,7 +18,6 @@ class PieChartData {
   PieChartData(this.x, this.y, this.label);
 }
 
-
 double getMaxValue(List<ChartData> data) {
   if (data.isEmpty) return 0;
   return data.map((e) => e.y).reduce((a, b) => a > b ? a : b);
@@ -45,8 +44,7 @@ Future<Map<String, double>> generateSalesStatistics(int monthsBack) async {
     String monthYear =
         DateFormat('MMMM yyyy', 'fr_FR').format(vente.createdAt!);
     if (statistics.containsKey(monthYear)) {
-      statistics[monthYear] =
-          (statistics[monthYear] ?? 0) + vente.montantTotal;
+      statistics[monthYear] = (statistics[monthYear] ?? 0) + vente.montantTotal;
     }
   }
 
@@ -89,7 +87,8 @@ Future<List<ChartData>> buildSaleData(int recentMonths) async {
 }
 
 Future<List<ChartData>> buildServiceData(int recentMonths) async {
-  Map<String, double> statistics = await generateServicesStatistics(recentMonths);
+  Map<String, double> statistics =
+      await generateServicesStatistics(recentMonths);
 
   List<ChartData> data = statistics.entries.map((entry) {
     return ChartData(entry.key, entry.value);
@@ -97,6 +96,7 @@ Future<List<ChartData>> buildServiceData(int recentMonths) async {
 
   return data;
 }
+
 Future<List<ChartData>> buildPieSaleData(int recentMonths) async {
   Map<String, double> statistics = await generateSalesStatistics(recentMonths);
 
@@ -108,7 +108,8 @@ Future<List<ChartData>> buildPieSaleData(int recentMonths) async {
 }
 
 Future<List<ChartData>> buildPieServiceData(int recentMonths) async {
-  Map<String, double> statistics = await generateServicesStatistics(recentMonths);
+  Map<String, double> statistics =
+      await generateServicesStatistics(recentMonths);
 
   List<ChartData> data = statistics.entries.map((entry) {
     return ChartData(entry.key, entry.value);

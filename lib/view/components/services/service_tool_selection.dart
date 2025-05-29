@@ -54,7 +54,6 @@ class _ArticleSelectionState extends State<ArticleSelection> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(
@@ -268,7 +267,6 @@ class _OutilSelectionState extends State<OutilSelection> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(
@@ -415,7 +413,6 @@ class _TypeSelectionState extends State<TypeSelection> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
-          
           color:
               Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(

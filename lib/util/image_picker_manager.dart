@@ -92,8 +92,7 @@ class _ImageCropPageState extends State<ImageCropPage> {
         height: cropHeight,
       );
 
-      final tempDir =
-          await getTemporaryDirectory();
+      final tempDir = await getTemporaryDirectory();
       final croppedFile = File(
           '${tempDir.path}/cropped_image_${DateTime.now().millisecondsSinceEpoch}.png');
       croppedFile.writeAsBytesSync(img.encodePng(croppedImage));

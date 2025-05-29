@@ -47,7 +47,8 @@ class _ArticleSelectionState extends State<ArticleSelection> {
         return Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
           elevation: 0,
-          color: Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
+          color:
+              Provider.of<ThemeProvider>(context).themeData.colorScheme.primary,
           child: Column(
             children: [
               Padding(
@@ -57,15 +58,18 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                   decoration: InputDecoration(
                     hintText: 'Rechercher...',
                     prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
                   ),
                 ),
               ),
               if (articles.isEmpty)
                 const Padding(
                   padding: EdgeInsets.only(top: 16),
-                  child: Text('Aucun article disponible', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text('Aucun article disponible',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 )
               else
                 Expanded(
@@ -73,13 +77,15 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                     padding: const EdgeInsets.all(8),
                     child: GridView.builder(
                       itemCount: filteredArticles.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
                         childAspectRatio: 0.8,
                       ),
-                      itemBuilder: (_, index) => _buildArticleCard(filteredArticles[index]),
+                      itemBuilder: (_, index) =>
+                          _buildArticleCard(filteredArticles[index]),
                     ),
                   ),
                 ),
@@ -104,14 +110,16 @@ class _ArticleSelectionState extends State<ArticleSelection> {
             children: [
               Expanded(
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(10)),
                   child: imageUrl != null
                       ? CachedNetworkImage(
                           imageUrl: imageUrl,
                           height: MediaQuery.of(context).size.height * 0.3,
                           width: double.infinity,
                           fit: BoxFit.fill,
-                          placeholder: (_, __) => LinearProgressIndicator(color: Colors.grey.withOpacity(0.2)),
+                          placeholder: (_, __) => LinearProgressIndicator(
+                              color: Colors.grey.withOpacity(0.2)),
                           errorWidget: (_, __, ___) => const Icon(Icons.error),
                         )
                       : Image.asset(
@@ -128,8 +136,10 @@ class _ArticleSelectionState extends State<ArticleSelection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _textLine(article.libelle ?? '', bold: true),
-                    _textLine('${article.prixVente} F', color: Colors.green, size: 10),
-                    _textLine('${article.stock} disponible', color: Colors.red, size: 9),
+                    _textLine('${article.prixVente} F',
+                        color: Colors.green, size: 10),
+                    _textLine('${article.stock} disponible',
+                        color: Colors.red, size: 9),
                   ],
                 ),
               ),
@@ -156,7 +166,8 @@ class _ArticleSelectionState extends State<ArticleSelection> {
     );
   }
 
-  Widget _textLine(String text, {Color color = Colors.black, double size = 12, bool bold = false}) {
+  Widget _textLine(String text,
+      {Color color = Colors.black, double size = 12, bool bold = false}) {
     return Text(
       text,
       maxLines: 1,
