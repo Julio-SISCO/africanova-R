@@ -1,6 +1,6 @@
 class Endpoints {
   // Base URL
-  static const String base = "https://africanova.in";
+  static const String base = "https://africanova-in-640718.hostingersite.com";
   // static const String base = "http://127.0.0.1:8000";
   // static const String base = "https://3003-102-64-216-217.ngrok-free.app";
 
