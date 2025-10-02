@@ -8,7 +8,7 @@ class UpgradeVersion extends StatelessWidget {
   const UpgradeVersion({super.key, required this.version});
 
   Future<void> _launchURL(BuildContext context) async {
-    final String url = 'https://africanova.in';
+    final String url = 'https://africanova-in-640718.hostingersite.com';
     final Uri uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {
